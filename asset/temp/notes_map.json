@@ -1,0 +1,5894 @@
+[
+    {
+        "notes": [
+            49,
+            61
+        ],
+        "real_tick": 384
+    },
+    {
+        "notes": [
+            56
+        ],
+        "real_tick": 576
+    },
+    {
+        "notes": [
+            63
+        ],
+        "real_tick": 768
+    },
+    {
+        "notes": [
+            68
+        ],
+        "real_tick": 960
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 1152
+    },
+    {
+        "notes": [
+            80
+        ],
+        "real_tick": 1344
+    },
+    {
+        "notes": [
+            85
+        ],
+        "real_tick": 1536
+    },
+    {
+        "notes": [
+            92
+        ],
+        "real_tick": 1728
+    },
+    {
+        "notes": [
+            51,
+            63
+        ],
+        "real_tick": 1920
+    },
+    {
+        "notes": [
+            58
+        ],
+        "real_tick": 2112
+    },
+    {
+        "notes": [
+            63
+        ],
+        "real_tick": 2304
+    },
+    {
+        "notes": [
+            67
+        ],
+        "real_tick": 2496
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 2688
+    },
+    {
+        "notes": [
+            79
+        ],
+        "real_tick": 2880
+    },
+    {
+        "notes": [
+            85
+        ],
+        "real_tick": 3072
+    },
+    {
+        "notes": [
+            91
+        ],
+        "real_tick": 3264
+    },
+    {
+        "notes": [
+            53,
+            65
+        ],
+        "real_tick": 3456
+    },
+    {
+        "notes": [
+            60
+        ],
+        "real_tick": 3648
+    },
+    {
+        "notes": [
+            63
+        ],
+        "real_tick": 3840
+    },
+    {
+        "notes": [
+            67
+        ],
+        "real_tick": 4032
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 4224
+    },
+    {
+        "notes": [
+            80
+        ],
+        "real_tick": 4416
+    },
+    {
+        "notes": [
+            84
+        ],
+        "real_tick": 4608
+    },
+    {
+        "notes": [
+            92
+        ],
+        "real_tick": 4800
+    },
+    {
+        "notes": [
+            84,
+            92
+        ],
+        "real_tick": 4992
+    },
+    {
+        "notes": [
+            91,
+            94
+        ],
+        "real_tick": 5376
+    },
+    {
+        "notes": [
+            89,
+            92
+        ],
+        "real_tick": 5760
+    },
+    {
+        "notes": [
+            87,
+            91
+        ],
+        "real_tick": 6144
+    },
+    {
+        "notes": [
+            72,
+            80,
+            84
+        ],
+        "real_tick": 6528
+    },
+    {
+        "notes": [
+            67,
+            70,
+            77
+        ],
+        "real_tick": 7296
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 7680
+    },
+    {
+        "notes": [
+            65,
+            68,
+            72,
+            75
+        ],
+        "real_tick": 8064
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 8448
+    },
+    {
+        "notes": [
+            67,
+            72,
+            77
+        ],
+        "real_tick": 8832
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 9408
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 9600
+    },
+    {
+        "notes": [
+            80
+        ],
+        "real_tick": 10176
+    },
+    {
+        "notes": [
+            70,
+            75,
+            80
+        ],
+        "real_tick": 10368
+    },
+    {
+        "notes": [
+            75,
+            79,
+            84
+        ],
+        "real_tick": 11136
+    },
+    {
+        "notes": [
+            77,
+            84,
+            87
+        ],
+        "real_tick": 11904
+    },
+    {
+        "notes": [
+            63,
+            75
+        ],
+        "real_tick": 15360
+    },
+    {
+        "notes": [
+            65,
+            77
+        ],
+        "real_tick": 15552
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 15744
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 15936
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 16128
+    },
+    {
+        "notes": [
+            60,
+            63,
+            68
+        ],
+        "real_tick": 16512
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 17088
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 17472
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 17664
+    },
+    {
+        "notes": [
+            60,
+            63,
+            68
+        ],
+        "real_tick": 18048
+    },
+    {
+        "notes": [
+            62,
+            65,
+            70
+        ],
+        "real_tick": 18432
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 19008
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 19200
+    },
+    {
+        "notes": [
+            60,
+            63,
+            68
+        ],
+        "real_tick": 19584
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 20160
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 20544
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 20736
+    },
+    {
+        "notes": [
+            60,
+            63,
+            68
+        ],
+        "real_tick": 21120
+    },
+    {
+        "notes": [
+            62,
+            65,
+            70
+        ],
+        "real_tick": 21312
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 21888
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 22080
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 22272
+    },
+    {
+        "notes": [
+            60,
+            63,
+            68
+        ],
+        "real_tick": 22656
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 23232
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 23616
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 23808
+    },
+    {
+        "notes": [
+            60,
+            63,
+            68
+        ],
+        "real_tick": 24192
+    },
+    {
+        "notes": [
+            58,
+            62,
+            70
+        ],
+        "real_tick": 24576
+    },
+    {
+        "notes": [
+            65,
+            73
+        ],
+        "real_tick": 24960
+    },
+    {
+        "notes": [
+            68
+        ],
+        "real_tick": 25152
+    },
+    {
+        "notes": [
+            70
+        ],
+        "real_tick": 25344
+    },
+    {
+        "notes": [
+            71
+        ],
+        "real_tick": 25536
+    },
+    {
+        "notes": [
+            70
+        ],
+        "real_tick": 25728
+    },
+    {
+        "notes": [
+            68
+        ],
+        "real_tick": 25920
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 26112
+    },
+    {
+        "notes": [
+            74
+        ],
+        "real_tick": 26304
+    },
+    {
+        "notes": [
+            73
+        ],
+        "real_tick": 26496
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 26688
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 26880
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 27072
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 27264
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 27456
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 27648
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 27840
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 28032
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 28224
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 28608
+    },
+    {
+        "notes": [
+            68,
+            75
+        ],
+        "real_tick": 28800
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 29184
+    },
+    {
+        "notes": [
+            68,
+            75
+        ],
+        "real_tick": 29376
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 29760
+    },
+    {
+        "notes": [
+            65,
+            75
+        ],
+        "real_tick": 29952
+    },
+    {
+        "notes": [
+            65,
+            72
+        ],
+        "real_tick": 30336
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 30720
+    },
+    {
+        "notes": [
+            68,
+            77
+        ],
+        "real_tick": 31104
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 31296
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 31488
+    },
+    {
+        "notes": [
+            68,
+            77
+        ],
+        "real_tick": 31680
+    },
+    {
+        "notes": [
+            80
+        ],
+        "real_tick": 32256
+    },
+    {
+        "notes": [
+            77,
+            83
+        ],
+        "real_tick": 32640
+    },
+    {
+        "notes": [
+            77,
+            82
+        ],
+        "real_tick": 32832
+    },
+    {
+        "notes": [
+            77,
+            80
+        ],
+        "real_tick": 33024
+    },
+    {
+        "notes": [
+            75,
+            80
+        ],
+        "real_tick": 33216
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 33600
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 33984
+    },
+    {
+        "notes": [
+            65,
+            75
+        ],
+        "real_tick": 34176
+    },
+    {
+        "notes": [
+            65
+        ],
+        "real_tick": 34560
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 34752
+    },
+    {
+        "notes": [
+            65,
+            77
+        ],
+        "real_tick": 34944
+    },
+    {
+        "notes": [
+            79
+        ],
+        "real_tick": 35136
+    },
+    {
+        "notes": [
+            65
+        ],
+        "real_tick": 35328
+    },
+    {
+        "notes": [
+            65,
+            75
+        ],
+        "real_tick": 35712
+    },
+    {
+        "notes": [
+            65,
+            72
+        ],
+        "real_tick": 36096
+    },
+    {
+        "notes": [
+            65,
+            72,
+            75
+        ],
+        "real_tick": 36480
+    },
+    {
+        "notes": [
+            65,
+            72,
+            77
+        ],
+        "real_tick": 36864
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 37056
+    },
+    {
+        "notes": [
+            72,
+            80
+        ],
+        "real_tick": 37248
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 37440
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 37632
+    },
+    {
+        "notes": [
+            72,
+            77,
+            83
+        ],
+        "real_tick": 38016
+    },
+    {
+        "notes": [
+            72,
+            77,
+            82
+        ],
+        "real_tick": 38400
+    },
+    {
+        "notes": [
+            72,
+            77,
+            80
+        ],
+        "real_tick": 38784
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 38976
+    },
+    {
+        "notes": [
+            65,
+            72
+        ],
+        "real_tick": 39168
+    },
+    {
+        "notes": [
+            75,
+            83
+        ],
+        "real_tick": 39360
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 39552
+    },
+    {
+        "notes": [
+            75,
+            82
+        ],
+        "real_tick": 39744
+    },
+    {
+        "notes": [
+            80
+        ],
+        "real_tick": 40128
+    },
+    {
+        "notes": [
+            65,
+            72
+        ],
+        "real_tick": 40320
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 40512
+    },
+    {
+        "notes": [
+            74,
+            77
+        ],
+        "real_tick": 40704
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 41280
+    },
+    {
+        "notes": [
+            65,
+            75
+        ],
+        "real_tick": 41472
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 41664
+    },
+    {
+        "notes": [
+            68,
+            75
+        ],
+        "real_tick": 41856
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 42048
+    },
+    {
+        "notes": [
+            68,
+            75
+        ],
+        "real_tick": 42240
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 42432
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 42624
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 42816
+    },
+    {
+        "notes": [
+            65,
+            70
+        ],
+        "real_tick": 43008
+    },
+    {
+        "notes": [
+            70,
+            75
+        ],
+        "real_tick": 43584
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 43968
+    },
+    {
+        "notes": [
+            68,
+            75
+        ],
+        "real_tick": 44160
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 44352
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 44544
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 44736
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 44928
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 45312
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 45504
+    },
+    {
+        "notes": [
+            75,
+            83
+        ],
+        "real_tick": 45696
+    },
+    {
+        "notes": [
+            75,
+            82
+        ],
+        "real_tick": 45888
+    },
+    {
+        "notes": [
+            72,
+            80
+        ],
+        "real_tick": 46080
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 46272
+    },
+    {
+        "notes": [
+            68,
+            75
+        ],
+        "real_tick": 46464
+    },
+    {
+        "notes": [
+            68
+        ],
+        "real_tick": 46848
+    },
+    {
+        "notes": [
+            65,
+            72
+        ],
+        "real_tick": 47232
+    },
+    {
+        "notes": [
+            65,
+            72
+        ],
+        "real_tick": 47616
+    },
+    {
+        "notes": [
+            63,
+            70
+        ],
+        "real_tick": 48000
+    },
+    {
+        "notes": [
+            63,
+            75
+        ],
+        "real_tick": 48384
+    },
+    {
+        "notes": [
+            64,
+            72
+        ],
+        "real_tick": 48768
+    },
+    {
+        "notes": [
+            64
+        ],
+        "real_tick": 49152
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 49344
+    },
+    {
+        "notes": [
+            65,
+            72,
+            77
+        ],
+        "real_tick": 49536
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 49728
+    },
+    {
+        "notes": [
+            65,
+            72,
+            77
+        ],
+        "real_tick": 49920
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 50112
+    },
+    {
+        "notes": [
+            67,
+            70,
+            75
+        ],
+        "real_tick": 50304
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 50496
+    },
+    {
+        "notes": [
+            67,
+            70,
+            75
+        ],
+        "real_tick": 50688
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 50880
+    },
+    {
+        "notes": [
+            65,
+            72
+        ],
+        "real_tick": 51072
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 51456
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 51648
+    },
+    {
+        "notes": [
+            68,
+            75
+        ],
+        "real_tick": 51840
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 52032
+    },
+    {
+        "notes": [
+            72,
+            80
+        ],
+        "real_tick": 52224
+    },
+    {
+        "notes": [
+            65,
+            68,
+            73,
+            77
+        ],
+        "real_tick": 52608
+    },
+    {
+        "notes": [
+            65,
+            68,
+            73
+        ],
+        "real_tick": 52992
+    },
+    {
+        "notes": [
+            82,
+            89
+        ],
+        "real_tick": 53376
+    },
+    {
+        "notes": [
+            82,
+            89
+        ],
+        "real_tick": 53568
+    },
+    {
+        "notes": [
+            77,
+            82,
+            89
+        ],
+        "real_tick": 53952
+    },
+    {
+        "notes": [
+            67,
+            70,
+            75
+        ],
+        "real_tick": 54144
+    },
+    {
+        "notes": [
+            67,
+            70,
+            77
+        ],
+        "real_tick": 54528
+    },
+    {
+        "notes": [
+            82,
+            87
+        ],
+        "real_tick": 54912
+    },
+    {
+        "notes": [
+            89
+        ],
+        "real_tick": 55296
+    },
+    {
+        "notes": [
+            68,
+            75,
+            80
+        ],
+        "real_tick": 55680
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 55872
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 56064
+    },
+    {
+        "notes": [
+            72,
+            75
+        ],
+        "real_tick": 56256
+    },
+    {
+        "notes": [
+            70
+        ],
+        "real_tick": 56448
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 56640
+    },
+    {
+        "notes": [
+            71,
+            75
+        ],
+        "real_tick": 57024
+    },
+    {
+        "notes": [
+            70
+        ],
+        "real_tick": 57216
+    },
+    {
+        "notes": [
+            68,
+            77
+        ],
+        "real_tick": 57408
+    },
+    {
+        "notes": [
+            65,
+            72,
+            77
+        ],
+        "real_tick": 57600
+    },
+    {
+        "notes": [
+            63,
+            75
+        ],
+        "real_tick": 57792
+    },
+    {
+        "notes": [
+            65,
+            72,
+            77
+        ],
+        "real_tick": 57984
+    },
+    {
+        "notes": [
+            70,
+            75
+        ],
+        "real_tick": 58368
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 58560
+    },
+    {
+        "notes": [
+            61,
+            65,
+            70,
+            73
+        ],
+        "real_tick": 58752
+    },
+    {
+        "notes": [
+            61,
+            65,
+            73
+        ],
+        "real_tick": 59136
+    },
+    {
+        "notes": [
+            82,
+            89
+        ],
+        "real_tick": 59520
+    },
+    {
+        "notes": [
+            82,
+            89
+        ],
+        "real_tick": 59712
+    },
+    {
+        "notes": [
+            77,
+            82,
+            89
+        ],
+        "real_tick": 60096
+    },
+    {
+        "notes": [
+            67,
+            70,
+            75
+        ],
+        "real_tick": 60288
+    },
+    {
+        "notes": [
+            67,
+            70,
+            77
+        ],
+        "real_tick": 60672
+    },
+    {
+        "notes": [
+            82,
+            87
+        ],
+        "real_tick": 61056
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 61248
+    },
+    {
+        "notes": [
+            80,
+            84,
+            89
+        ],
+        "real_tick": 61440
+    },
+    {
+        "notes": [
+            68,
+            72,
+            80
+        ],
+        "real_tick": 61824
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 62208
+    },
+    {
+        "notes": [
+            72,
+            75,
+            83
+        ],
+        "real_tick": 62592
+    },
+    {
+        "notes": [
+            82
+        ],
+        "real_tick": 62976
+    },
+    {
+        "notes": [
+            68,
+            72,
+            80
+        ],
+        "real_tick": 63360
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 63744
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 64128
+    },
+    {
+        "notes": [
+            72,
+            72
+        ],
+        "real_tick": 64512
+    },
+    {
+        "notes": [
+            70,
+            72,
+            75
+        ],
+        "real_tick": 64896
+    },
+    {
+        "notes": [
+            70,
+            72,
+            75,
+            77
+        ],
+        "real_tick": 65088
+    },
+    {
+        "notes": [
+            70,
+            72,
+            75
+        ],
+        "real_tick": 65280
+    },
+    {
+        "notes": [
+            82
+        ],
+        "real_tick": 65472
+    },
+    {
+        "notes": [
+            70,
+            72,
+            75,
+            77
+        ],
+        "real_tick": 65664
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 65856
+    },
+    {
+        "notes": [
+            70,
+            72,
+            75
+        ],
+        "real_tick": 66048
+    },
+    {
+        "notes": [
+            70,
+            72,
+            75,
+            77
+        ],
+        "real_tick": 66240
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 66432
+    },
+    {
+        "notes": [
+            70,
+            72,
+            75,
+            82
+        ],
+        "real_tick": 66624
+    },
+    {
+        "notes": [
+            70,
+            72,
+            75,
+            77
+        ],
+        "real_tick": 66816
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 67008
+    },
+    {
+        "notes": [
+            70,
+            72,
+            77,
+            80
+        ],
+        "real_tick": 67200
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 67584
+    },
+    {
+        "notes": [
+            72,
+            75,
+            80,
+            84
+        ],
+        "real_tick": 67968
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 69120
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 69312
+    },
+    {
+        "notes": [
+            67,
+            70,
+            75
+        ],
+        "real_tick": 69504
+    },
+    {
+        "notes": [
+            70,
+            75
+        ],
+        "real_tick": 70080
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 70272
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 70656
+    },
+    {
+        "notes": [
+            72,
+            79
+        ],
+        "real_tick": 70848
+    },
+    {
+        "notes": [
+            72,
+            77,
+            80
+        ],
+        "real_tick": 71040
+    },
+    {
+        "notes": [
+            70,
+            75,
+            79
+        ],
+        "real_tick": 71424
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 71808
+    },
+    {
+        "notes": [
+            67,
+            72,
+            75
+        ],
+        "real_tick": 72192
+    },
+    {
+        "notes": [
+            77,
+            80,
+            84
+        ],
+        "real_tick": 72576
+    },
+    {
+        "notes": [
+            79,
+            82
+        ],
+        "real_tick": 72960
+    },
+    {
+        "notes": [
+            68,
+            75
+        ],
+        "real_tick": 73344
+    },
+    {
+        "notes": [
+            67,
+            72,
+            77
+        ],
+        "real_tick": 73728
+    },
+    {
+        "notes": [
+            72,
+            80,
+            84
+        ],
+        "real_tick": 74112
+    },
+    {
+        "notes": [
+            84
+        ],
+        "real_tick": 74688
+    },
+    {
+        "notes": [
+            67,
+            70,
+            77
+        ],
+        "real_tick": 74880
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 75264
+    },
+    {
+        "notes": [
+            65,
+            68,
+            72,
+            75
+        ],
+        "real_tick": 75648
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 76032
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 76416
+    },
+    {
+        "notes": [
+            67,
+            67,
+            70,
+            75
+        ],
+        "real_tick": 76992
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 77184
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 77376
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 77568
+    },
+    {
+        "notes": [
+            72,
+            75,
+            80
+        ],
+        "real_tick": 77760
+    },
+    {
+        "notes": [
+            75,
+            80
+        ],
+        "real_tick": 78144
+    },
+    {
+        "notes": [
+            72,
+            77,
+            84
+        ],
+        "real_tick": 78336
+    },
+    {
+        "notes": [
+            72,
+            77,
+            84
+        ],
+        "real_tick": 78720
+    },
+    {
+        "notes": [
+            70,
+            75
+        ],
+        "real_tick": 79488
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 79872
+    },
+    {
+        "notes": [
+            72,
+            77,
+            80,
+            84
+        ],
+        "real_tick": 80256
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 81408
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 81600
+    },
+    {
+        "notes": [
+            67,
+            70,
+            75
+        ],
+        "real_tick": 81792
+    },
+    {
+        "notes": [
+            70,
+            75
+        ],
+        "real_tick": 82368
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 82560
+    },
+    {
+        "notes": [
+            70,
+            75
+        ],
+        "real_tick": 82752
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 82944
+    },
+    {
+        "notes": [
+            72,
+            79
+        ],
+        "real_tick": 83136
+    },
+    {
+        "notes": [
+            72,
+            77,
+            80
+        ],
+        "real_tick": 83328
+    },
+    {
+        "notes": [
+            70,
+            75,
+            79
+        ],
+        "real_tick": 83712
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 84096
+    },
+    {
+        "notes": [
+            67,
+            72,
+            75
+        ],
+        "real_tick": 84480
+    },
+    {
+        "notes": [
+            77,
+            80,
+            84
+        ],
+        "real_tick": 84864
+    },
+    {
+        "notes": [
+            79,
+            82
+        ],
+        "real_tick": 85248
+    },
+    {
+        "notes": [
+            68,
+            75
+        ],
+        "real_tick": 85632
+    },
+    {
+        "notes": [
+            67,
+            72,
+            77
+        ],
+        "real_tick": 86016
+    },
+    {
+        "notes": [
+            72,
+            80,
+            84
+        ],
+        "real_tick": 86400
+    },
+    {
+        "notes": [
+            79,
+            82
+        ],
+        "real_tick": 87168
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 87552
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 87744
+    },
+    {
+        "notes": [
+            65,
+            68,
+            75
+        ],
+        "real_tick": 87936
+    },
+    {
+        "notes": [
+            63,
+            67,
+            70,
+            75
+        ],
+        "real_tick": 89280
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 89472
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 89664
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 89856
+    },
+    {
+        "notes": [
+            80
+        ],
+        "real_tick": 90048
+    },
+    {
+        "notes": [
+            75,
+            80
+        ],
+        "real_tick": 90240
+    },
+    {
+        "notes": [
+            79,
+            84
+        ],
+        "real_tick": 90816
+    },
+    {
+        "notes": [
+            75,
+            79,
+            84
+        ],
+        "real_tick": 91008
+    },
+    {
+        "notes": [
+            83
+        ],
+        "real_tick": 91584
+    },
+    {
+        "notes": [
+            77,
+            82,
+            87
+        ],
+        "real_tick": 91776
+    },
+    {
+        "notes": [
+            80
+        ],
+        "real_tick": 92544
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 93120
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 93312
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 93504
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 93696
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 93888
+    },
+    {
+        "notes": [
+            65,
+            68,
+            72,
+            77
+        ],
+        "real_tick": 94080
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 94272
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 94464
+    },
+    {
+        "notes": [
+            60,
+            63,
+            68
+        ],
+        "real_tick": 94848
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 95424
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 95808
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 96000
+    },
+    {
+        "notes": [
+            60,
+            63,
+            68
+        ],
+        "real_tick": 96384
+    },
+    {
+        "notes": [
+            65,
+            70,
+            77
+        ],
+        "real_tick": 96768
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 97344
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 97536
+    },
+    {
+        "notes": [
+            60,
+            63,
+            68
+        ],
+        "real_tick": 97920
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 98496
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 98880
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65,
+            68
+        ],
+        "real_tick": 99072
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 99456
+    },
+    {
+        "notes": [
+            58,
+            62
+        ],
+        "real_tick": 99648
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 99840
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 100224
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 100416
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 100608
+    },
+    {
+        "notes": [
+            60,
+            63,
+            68
+        ],
+        "real_tick": 100992
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 101568
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 101952
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 102144
+    },
+    {
+        "notes": [
+            60,
+            63,
+            68
+        ],
+        "real_tick": 102528
+    },
+    {
+        "notes": [
+            58,
+            62,
+            70
+        ],
+        "real_tick": 102912
+    },
+    {
+        "notes": [
+            65,
+            77
+        ],
+        "real_tick": 103296
+    },
+    {
+        "notes": [
+            68
+        ],
+        "real_tick": 103488
+    },
+    {
+        "notes": [
+            70
+        ],
+        "real_tick": 103680
+    },
+    {
+        "notes": [
+            71
+        ],
+        "real_tick": 103872
+    },
+    {
+        "notes": [
+            70
+        ],
+        "real_tick": 104064
+    },
+    {
+        "notes": [
+            68
+        ],
+        "real_tick": 104256
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 104448
+    },
+    {
+        "notes": [
+            74
+        ],
+        "real_tick": 104640
+    },
+    {
+        "notes": [
+            73
+        ],
+        "real_tick": 104832
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 105024
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 105216
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 105408
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 105600
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 105792
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 105984
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 106176
+    },
+    {
+        "notes": [
+            72,
+            79
+        ],
+        "real_tick": 106368
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 106560
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 106944
+    },
+    {
+        "notes": [
+            68,
+            75
+        ],
+        "real_tick": 107136
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 107520
+    },
+    {
+        "notes": [
+            68,
+            75
+        ],
+        "real_tick": 107712
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 108096
+    },
+    {
+        "notes": [
+            68,
+            75
+        ],
+        "real_tick": 108288
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 108672
+    },
+    {
+        "notes": [
+            65,
+            75
+        ],
+        "real_tick": 108864
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 109248
+    },
+    {
+        "notes": [
+            65,
+            72
+        ],
+        "real_tick": 109440
+    },
+    {
+        "notes": [
+            68,
+            75
+        ],
+        "real_tick": 110016
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 110400
+    },
+    {
+        "notes": [
+            68,
+            75
+        ],
+        "real_tick": 110592
+    },
+    {
+        "notes": [
+            77,
+            83
+        ],
+        "real_tick": 110976
+    },
+    {
+        "notes": [
+            77,
+            82
+        ],
+        "real_tick": 111168
+    },
+    {
+        "notes": [
+            77,
+            80
+        ],
+        "real_tick": 111360
+    },
+    {
+        "notes": [
+            75,
+            80
+        ],
+        "real_tick": 111552
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 111936
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 112320
+    },
+    {
+        "notes": [
+            65,
+            75
+        ],
+        "real_tick": 112512
+    },
+    {
+        "notes": [
+            65
+        ],
+        "real_tick": 112896
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 113088
+    },
+    {
+        "notes": [
+            65,
+            77
+        ],
+        "real_tick": 113280
+    },
+    {
+        "notes": [
+            79
+        ],
+        "real_tick": 113472
+    },
+    {
+        "notes": [
+            65
+        ],
+        "real_tick": 113664
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 113856
+    },
+    {
+        "notes": [
+            65,
+            75
+        ],
+        "real_tick": 114048
+    },
+    {
+        "notes": [
+            65,
+            72
+        ],
+        "real_tick": 114432
+    },
+    {
+        "notes": [
+            65,
+            72,
+            75
+        ],
+        "real_tick": 114816
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 115008
+    },
+    {
+        "notes": [
+            65,
+            72,
+            77
+        ],
+        "real_tick": 115200
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 115392
+    },
+    {
+        "notes": [
+            72,
+            80
+        ],
+        "real_tick": 115584
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 115776
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 115968
+    },
+    {
+        "notes": [
+            72,
+            77,
+            83
+        ],
+        "real_tick": 116352
+    },
+    {
+        "notes": [
+            72,
+            77,
+            82
+        ],
+        "real_tick": 116736
+    },
+    {
+        "notes": [
+            72,
+            77,
+            80
+        ],
+        "real_tick": 117120
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 117312
+    },
+    {
+        "notes": [
+            65,
+            72
+        ],
+        "real_tick": 117504
+    },
+    {
+        "notes": [
+            66,
+            71,
+            78
+        ],
+        "real_tick": 117696
+    },
+    {
+        "notes": [
+            65,
+            70,
+            77
+        ],
+        "real_tick": 118080
+    },
+    {
+        "notes": [
+            64,
+            68,
+            76
+        ],
+        "real_tick": 118464
+    },
+    {
+        "notes": [
+            63,
+            75
+        ],
+        "real_tick": 118656
+    },
+    {
+        "notes": [
+            79
+        ],
+        "real_tick": 119040
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 119424
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 119616
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 119808
+    },
+    {
+        "notes": [
+            70,
+            75,
+            82
+        ],
+        "real_tick": 120000
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 120384
+    },
+    {
+        "notes": [
+            68,
+            75
+        ],
+        "real_tick": 120576
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 120768
+    },
+    {
+        "notes": [
+            68,
+            75
+        ],
+        "real_tick": 120960
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 121152
+    },
+    {
+        "notes": [
+            65,
+            72
+        ],
+        "real_tick": 121344
+    },
+    {
+        "notes": [
+            70
+        ],
+        "real_tick": 121536
+    },
+    {
+        "notes": [
+            65,
+            72
+        ],
+        "real_tick": 121728
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 122112
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 122304
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 122496
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 122688
+    },
+    {
+        "notes": [
+            68,
+            75
+        ],
+        "real_tick": 122880
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 123072
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 123264
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 123840
+    },
+    {
+        "notes": [
+            77,
+            83
+        ],
+        "real_tick": 124032
+    },
+    {
+        "notes": [
+            77,
+            82
+        ],
+        "real_tick": 124224
+    },
+    {
+        "notes": [
+            72,
+            80
+        ],
+        "real_tick": 124416
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 124608
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 124800
+    },
+    {
+        "notes": [
+            68
+        ],
+        "real_tick": 125184
+    },
+    {
+        "notes": [
+            65,
+            72
+        ],
+        "real_tick": 125568
+    },
+    {
+        "notes": [
+            65,
+            72
+        ],
+        "real_tick": 125952
+    },
+    {
+        "notes": [
+            63,
+            70
+        ],
+        "real_tick": 126336
+    },
+    {
+        "notes": [
+            63,
+            68,
+            75
+        ],
+        "real_tick": 126720
+    },
+    {
+        "notes": [
+            64,
+            68,
+            72
+        ],
+        "real_tick": 127104
+    },
+    {
+        "notes": [
+            64
+        ],
+        "real_tick": 127488
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 127680
+    },
+    {
+        "notes": [
+            65,
+            72,
+            77
+        ],
+        "real_tick": 127872
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 128064
+    },
+    {
+        "notes": [
+            65,
+            72,
+            77
+        ],
+        "real_tick": 128256
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 128448
+    },
+    {
+        "notes": [
+            67,
+            70,
+            75
+        ],
+        "real_tick": 128640
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 128832
+    },
+    {
+        "notes": [
+            67,
+            70,
+            75
+        ],
+        "real_tick": 129024
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 129216
+    },
+    {
+        "notes": [
+            65,
+            72
+        ],
+        "real_tick": 129408
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 129792
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 129984
+    },
+    {
+        "notes": [
+            68,
+            75
+        ],
+        "real_tick": 130176
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 130368
+    },
+    {
+        "notes": [
+            75,
+            80
+        ],
+        "real_tick": 130560
+    },
+    {
+        "notes": [
+            65,
+            68,
+            73,
+            77
+        ],
+        "real_tick": 130944
+    },
+    {
+        "notes": [
+            65,
+            68,
+            73
+        ],
+        "real_tick": 131328
+    },
+    {
+        "notes": [
+            82,
+            89
+        ],
+        "real_tick": 131712
+    },
+    {
+        "notes": [
+            82,
+            89
+        ],
+        "real_tick": 131904
+    },
+    {
+        "notes": [
+            77,
+            82,
+            89
+        ],
+        "real_tick": 132288
+    },
+    {
+        "notes": [
+            67,
+            70,
+            75
+        ],
+        "real_tick": 132480
+    },
+    {
+        "notes": [
+            67,
+            70,
+            77
+        ],
+        "real_tick": 132864
+    },
+    {
+        "notes": [
+            82,
+            87
+        ],
+        "real_tick": 133248
+    },
+    {
+        "notes": [
+            89
+        ],
+        "real_tick": 133632
+    },
+    {
+        "notes": [
+            68,
+            75,
+            80
+        ],
+        "real_tick": 134016
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 134208
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 134400
+    },
+    {
+        "notes": [
+            72,
+            75
+        ],
+        "real_tick": 134592
+    },
+    {
+        "notes": [
+            70
+        ],
+        "real_tick": 134784
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 134976
+    },
+    {
+        "notes": [
+            71,
+            75
+        ],
+        "real_tick": 135360
+    },
+    {
+        "notes": [
+            70
+        ],
+        "real_tick": 135552
+    },
+    {
+        "notes": [
+            68,
+            77
+        ],
+        "real_tick": 135744
+    },
+    {
+        "notes": [
+            65,
+            72,
+            77
+        ],
+        "real_tick": 135936
+    },
+    {
+        "notes": [
+            63,
+            75
+        ],
+        "real_tick": 136128
+    },
+    {
+        "notes": [
+            65,
+            72,
+            77
+        ],
+        "real_tick": 136320
+    },
+    {
+        "notes": [
+            70,
+            75
+        ],
+        "real_tick": 136704
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 136896
+    },
+    {
+        "notes": [
+            61,
+            65,
+            70,
+            73
+        ],
+        "real_tick": 137088
+    },
+    {
+        "notes": [
+            61,
+            65,
+            73
+        ],
+        "real_tick": 137472
+    },
+    {
+        "notes": [
+            82,
+            89
+        ],
+        "real_tick": 137856
+    },
+    {
+        "notes": [
+            82,
+            89
+        ],
+        "real_tick": 138048
+    },
+    {
+        "notes": [
+            77,
+            82,
+            89
+        ],
+        "real_tick": 138432
+    },
+    {
+        "notes": [
+            67,
+            70,
+            75
+        ],
+        "real_tick": 138624
+    },
+    {
+        "notes": [
+            67,
+            70,
+            77
+        ],
+        "real_tick": 139008
+    },
+    {
+        "notes": [
+            82,
+            87
+        ],
+        "real_tick": 139392
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 139584
+    },
+    {
+        "notes": [
+            80,
+            84,
+            89
+        ],
+        "real_tick": 139776
+    },
+    {
+        "notes": [
+            68,
+            72,
+            80
+        ],
+        "real_tick": 140160
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 140544
+    },
+    {
+        "notes": [
+            72,
+            75,
+            83
+        ],
+        "real_tick": 140928
+    },
+    {
+        "notes": [
+            82
+        ],
+        "real_tick": 141312
+    },
+    {
+        "notes": [
+            68,
+            72,
+            80
+        ],
+        "real_tick": 141696
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 142080
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 142464
+    },
+    {
+        "notes": [
+            72,
+            72
+        ],
+        "real_tick": 142848
+    },
+    {
+        "notes": [
+            70,
+            72,
+            75
+        ],
+        "real_tick": 143232
+    },
+    {
+        "notes": [
+            70,
+            72,
+            75,
+            77
+        ],
+        "real_tick": 143424
+    },
+    {
+        "notes": [
+            70,
+            72,
+            75
+        ],
+        "real_tick": 143616
+    },
+    {
+        "notes": [
+            82
+        ],
+        "real_tick": 143808
+    },
+    {
+        "notes": [
+            70,
+            72,
+            75,
+            77
+        ],
+        "real_tick": 144000
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 144192
+    },
+    {
+        "notes": [
+            70,
+            72,
+            75
+        ],
+        "real_tick": 144384
+    },
+    {
+        "notes": [
+            70,
+            72,
+            75,
+            77
+        ],
+        "real_tick": 144576
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 144768
+    },
+    {
+        "notes": [
+            70,
+            72,
+            75,
+            82
+        ],
+        "real_tick": 144960
+    },
+    {
+        "notes": [
+            70,
+            72,
+            75,
+            77
+        ],
+        "real_tick": 145152
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 145344
+    },
+    {
+        "notes": [
+            70,
+            72,
+            77,
+            80
+        ],
+        "real_tick": 145536
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 145920
+    },
+    {
+        "notes": [
+            72,
+            75,
+            80,
+            84
+        ],
+        "real_tick": 146304
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 147456
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 147648
+    },
+    {
+        "notes": [
+            67,
+            70,
+            75
+        ],
+        "real_tick": 147840
+    },
+    {
+        "notes": [
+            67,
+            70,
+            75
+        ],
+        "real_tick": 148224
+    },
+    {
+        "notes": [
+            70,
+            75
+        ],
+        "real_tick": 148416
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 148608
+    },
+    {
+        "notes": [
+            70,
+            75
+        ],
+        "real_tick": 148800
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 148992
+    },
+    {
+        "notes": [
+            72,
+            79
+        ],
+        "real_tick": 149184
+    },
+    {
+        "notes": [
+            72,
+            77,
+            80
+        ],
+        "real_tick": 149376
+    },
+    {
+        "notes": [
+            70,
+            75,
+            79
+        ],
+        "real_tick": 149760
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 150144
+    },
+    {
+        "notes": [
+            67,
+            72,
+            75
+        ],
+        "real_tick": 150528
+    },
+    {
+        "notes": [
+            77,
+            80,
+            84
+        ],
+        "real_tick": 150912
+    },
+    {
+        "notes": [
+            79,
+            82
+        ],
+        "real_tick": 151296
+    },
+    {
+        "notes": [
+            68,
+            75
+        ],
+        "real_tick": 151680
+    },
+    {
+        "notes": [
+            67,
+            72,
+            77
+        ],
+        "real_tick": 152064
+    },
+    {
+        "notes": [
+            72,
+            80,
+            84
+        ],
+        "real_tick": 152448
+    },
+    {
+        "notes": [
+            84
+        ],
+        "real_tick": 153024
+    },
+    {
+        "notes": [
+            67,
+            70,
+            77
+        ],
+        "real_tick": 153216
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 153600
+    },
+    {
+        "notes": [
+            65,
+            68,
+            72,
+            75
+        ],
+        "real_tick": 153984
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 154368
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 154752
+    },
+    {
+        "notes": [
+            67,
+            67,
+            70,
+            75
+        ],
+        "real_tick": 155328
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 155520
+    },
+    {
+        "notes": [
+            72,
+            75,
+            80
+        ],
+        "real_tick": 156096
+    },
+    {
+        "notes": [
+            72,
+            75,
+            80
+        ],
+        "real_tick": 156288
+    },
+    {
+        "notes": [
+            72,
+            77,
+            84
+        ],
+        "real_tick": 156672
+    },
+    {
+        "notes": [
+            70,
+            82
+        ],
+        "real_tick": 156864
+    },
+    {
+        "notes": [
+            72,
+            77,
+            84
+        ],
+        "real_tick": 157056
+    },
+    {
+        "notes": [
+            70,
+            75
+        ],
+        "real_tick": 157824
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 158208
+    },
+    {
+        "notes": [
+            72,
+            77,
+            80,
+            84
+        ],
+        "real_tick": 158592
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 159744
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 159936
+    },
+    {
+        "notes": [
+            67,
+            70,
+            75
+        ],
+        "real_tick": 160128
+    },
+    {
+        "notes": [
+            70,
+            75
+        ],
+        "real_tick": 160704
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 160896
+    },
+    {
+        "notes": [
+            70,
+            75
+        ],
+        "real_tick": 161088
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 161280
+    },
+    {
+        "notes": [
+            72,
+            79
+        ],
+        "real_tick": 161472
+    },
+    {
+        "notes": [
+            72,
+            77,
+            80
+        ],
+        "real_tick": 161664
+    },
+    {
+        "notes": [
+            70,
+            75,
+            79
+        ],
+        "real_tick": 162048
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 162432
+    },
+    {
+        "notes": [
+            67,
+            72,
+            75
+        ],
+        "real_tick": 162816
+    },
+    {
+        "notes": [
+            77,
+            80,
+            84
+        ],
+        "real_tick": 163200
+    },
+    {
+        "notes": [
+            79,
+            82
+        ],
+        "real_tick": 163584
+    },
+    {
+        "notes": [
+            68,
+            75
+        ],
+        "real_tick": 163968
+    },
+    {
+        "notes": [
+            67,
+            72,
+            77
+        ],
+        "real_tick": 164352
+    },
+    {
+        "notes": [
+            72,
+            80,
+            84
+        ],
+        "real_tick": 164736
+    },
+    {
+        "notes": [
+            79,
+            82
+        ],
+        "real_tick": 165504
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 165888
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 166080
+    },
+    {
+        "notes": [
+            65,
+            68,
+            75
+        ],
+        "real_tick": 166272
+    },
+    {
+        "notes": [
+            63,
+            66,
+            70,
+            73,
+            77
+        ],
+        "real_tick": 167616
+    },
+    {
+        "notes": [
+            66,
+            70,
+            73,
+            78
+        ],
+        "real_tick": 167808
+    },
+    {
+        "notes": [
+            66,
+            70,
+            73,
+            78
+        ],
+        "real_tick": 168000
+    },
+    {
+        "notes": [
+            66,
+            70,
+            73,
+            78
+        ],
+        "real_tick": 168384
+    },
+    {
+        "notes": [
+            66,
+            70,
+            73,
+            78
+        ],
+        "real_tick": 168768
+    },
+    {
+        "notes": [
+            66,
+            70,
+            73,
+            78
+        ],
+        "real_tick": 169152
+    },
+    {
+        "notes": [
+            66,
+            70,
+            73,
+            78
+        ],
+        "real_tick": 169536
+    },
+    {
+        "notes": [
+            66,
+            70,
+            73,
+            78
+        ],
+        "real_tick": 169920
+    },
+    {
+        "notes": [
+            66,
+            70,
+            73,
+            78
+        ],
+        "real_tick": 170112
+    },
+    {
+        "notes": [
+            68,
+            72,
+            75,
+            80
+        ],
+        "real_tick": 170880
+    },
+    {
+        "notes": [
+            65,
+            72,
+            77
+        ],
+        "real_tick": 171840
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 172224
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 172800
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 173184
+    },
+    {
+        "notes": [
+            68,
+            72
+        ],
+        "real_tick": 173376
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 173568
+    },
+    {
+        "notes": [
+            65,
+            72,
+            77
+        ],
+        "real_tick": 173952
+    },
+    {
+        "notes": [
+            65,
+            72
+        ],
+        "real_tick": 174144
+    },
+    {
+        "notes": [
+            65,
+            72
+        ],
+        "real_tick": 174336
+    },
+    {
+        "notes": [
+            65,
+            72,
+            77
+        ],
+        "real_tick": 174912
+    },
+    {
+        "notes": [
+            67,
+            70,
+            77
+        ],
+        "real_tick": 175296
+    },
+    {
+        "notes": [
+            67,
+            70
+        ],
+        "real_tick": 175872
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 176256
+    },
+    {
+        "notes": [
+            67,
+            70
+        ],
+        "real_tick": 176448
+    },
+    {
+        "notes": [
+            65,
+            70,
+            77
+        ],
+        "real_tick": 177024
+    },
+    {
+        "notes": [
+            65,
+            70
+        ],
+        "real_tick": 177216
+    },
+    {
+        "notes": [
+            65,
+            70,
+            75
+        ],
+        "real_tick": 177408
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 177792
+    },
+    {
+        "notes": [
+            65,
+            72
+        ],
+        "real_tick": 178176
+    },
+    {
+        "notes": [
+            65,
+            72,
+            75
+        ],
+        "real_tick": 178560
+    },
+    {
+        "notes": [
+            65,
+            72,
+            77
+        ],
+        "real_tick": 178944
+    },
+    {
+        "notes": [
+            65,
+            72,
+            83
+        ],
+        "real_tick": 179712
+    },
+    {
+        "notes": [
+            70,
+            73
+        ],
+        "real_tick": 180096
+    },
+    {
+        "notes": [
+            70,
+            73,
+            82
+        ],
+        "real_tick": 180480
+    },
+    {
+        "notes": [
+            70,
+            73,
+            80
+        ],
+        "real_tick": 180864
+    },
+    {
+        "notes": [
+            70,
+            73,
+            77
+        ],
+        "real_tick": 181248
+    },
+    {
+        "notes": [
+            63,
+            70,
+            75
+        ],
+        "real_tick": 181632
+    },
+    {
+        "notes": [
+            63,
+            70
+        ],
+        "real_tick": 182016
+    },
+    {
+        "notes": [
+            67,
+            70,
+            77
+        ],
+        "real_tick": 182400
+    },
+    {
+        "notes": [
+            67,
+            70
+        ],
+        "real_tick": 182784
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 183168
+    },
+    {
+        "notes": [
+            60,
+            69,
+            72
+        ],
+        "real_tick": 189120
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 189504
+    },
+    {
+        "notes": [
+            62,
+            70,
+            74
+        ],
+        "real_tick": 189696
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 189888
+    },
+    {
+        "notes": [
+            60,
+            69,
+            72
+        ],
+        "real_tick": 190080
+    },
+    {
+        "notes": [
+            62,
+            70,
+            74
+        ],
+        "real_tick": 190464
+    },
+    {
+        "notes": [
+            60,
+            69,
+            72
+        ],
+        "real_tick": 190848
+    },
+    {
+        "notes": [
+            62,
+            70,
+            74
+        ],
+        "real_tick": 191232
+    },
+    {
+        "notes": [
+            63,
+            72,
+            75
+        ],
+        "real_tick": 191424
+    },
+    {
+        "notes": [
+            62,
+            70,
+            74
+        ],
+        "real_tick": 191808
+    },
+    {
+        "notes": [
+            60,
+            69,
+            72
+        ],
+        "real_tick": 192192
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 192576
+    },
+    {
+        "notes": [
+            62,
+            70,
+            74
+        ],
+        "real_tick": 192768
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 192960
+    },
+    {
+        "notes": [
+            60,
+            69,
+            72
+        ],
+        "real_tick": 193152
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 193344
+    },
+    {
+        "notes": [
+            62,
+            70,
+            74
+        ],
+        "real_tick": 193536
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 193728
+    },
+    {
+        "notes": [
+            68,
+            74
+        ],
+        "real_tick": 193920
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 194112
+    },
+    {
+        "notes": [
+            68,
+            74
+        ],
+        "real_tick": 194304
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 194496
+    },
+    {
+        "notes": [
+            70,
+            75,
+            83
+        ],
+        "real_tick": 194688
+    },
+    {
+        "notes": [
+            82
+        ],
+        "real_tick": 194880
+    },
+    {
+        "notes": [
+            70,
+            75,
+            80
+        ],
+        "real_tick": 195072
+    },
+    {
+        "notes": [
+            60,
+            69,
+            72
+        ],
+        "real_tick": 195456
+    },
+    {
+        "notes": [
+            62,
+            70,
+            74
+        ],
+        "real_tick": 195840
+    },
+    {
+        "notes": [
+            60,
+            69,
+            72
+        ],
+        "real_tick": 196224
+    },
+    {
+        "notes": [
+            62,
+            70,
+            74
+        ],
+        "real_tick": 196608
+    },
+    {
+        "notes": [
+            60,
+            69,
+            72
+        ],
+        "real_tick": 196992
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 197184
+    },
+    {
+        "notes": [
+            62,
+            70,
+            74
+        ],
+        "real_tick": 197376
+    },
+    {
+        "notes": [
+            63,
+            72,
+            75
+        ],
+        "real_tick": 197568
+    },
+    {
+        "notes": [
+            62,
+            70,
+            74
+        ],
+        "real_tick": 197952
+    },
+    {
+        "notes": [
+            60,
+            68,
+            72
+        ],
+        "real_tick": 198528
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 198720
+    },
+    {
+        "notes": [
+            62,
+            70,
+            74
+        ],
+        "real_tick": 198912
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 199104
+    },
+    {
+        "notes": [
+            60,
+            68,
+            72
+        ],
+        "real_tick": 199296
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 199488
+    },
+    {
+        "notes": [
+            62,
+            70,
+            74
+        ],
+        "real_tick": 199680
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 199872
+    },
+    {
+        "notes": [
+            60,
+            68,
+            72
+        ],
+        "real_tick": 200064
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 200256
+    },
+    {
+        "notes": [
+            62,
+            70,
+            74
+        ],
+        "real_tick": 200448
+    },
+    {
+        "notes": [
+            63,
+            72,
+            75
+        ],
+        "real_tick": 200640
+    },
+    {
+        "notes": [
+            62,
+            70,
+            74
+        ],
+        "real_tick": 201024
+    },
+    {
+        "notes": [
+            65,
+            73,
+            77
+        ],
+        "real_tick": 201600
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 201792
+    },
+    {
+        "notes": [
+            67,
+            75,
+            79
+        ],
+        "real_tick": 201984
+    },
+    {
+        "notes": [
+            65,
+            73,
+            77
+        ],
+        "real_tick": 202368
+    },
+    {
+        "notes": [
+            67,
+            75,
+            79
+        ],
+        "real_tick": 202752
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 202944
+    },
+    {
+        "notes": [
+            65,
+            73,
+            77
+        ],
+        "real_tick": 203136
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 203328
+    },
+    {
+        "notes": [
+            67,
+            75,
+            79
+        ],
+        "real_tick": 203520
+    },
+    {
+        "notes": [
+            68,
+            75,
+            80
+        ],
+        "real_tick": 203712
+    },
+    {
+        "notes": [
+            67,
+            75,
+            79
+        ],
+        "real_tick": 204096
+    },
+    {
+        "notes": [
+            65,
+            77
+        ],
+        "real_tick": 204480
+    },
+    {
+        "notes": [
+            70,
+            75,
+            82
+        ],
+        "real_tick": 204672
+    },
+    {
+        "notes": [
+            70,
+            75,
+            82
+        ],
+        "real_tick": 204864
+    },
+    {
+        "notes": [
+            70,
+            77
+        ],
+        "real_tick": 205440
+    },
+    {
+        "notes": [
+            70,
+            75
+        ],
+        "real_tick": 205824
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 206208
+    },
+    {
+        "notes": [
+            75,
+            80
+        ],
+        "real_tick": 206592
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 206784
+    },
+    {
+        "notes": [
+            75,
+            80
+        ],
+        "real_tick": 207168
+    },
+    {
+        "notes": [
+            84
+        ],
+        "real_tick": 207744
+    },
+    {
+        "notes": [
+            83
+        ],
+        "real_tick": 208320
+    },
+    {
+        "notes": [
+            84
+        ],
+        "real_tick": 208416
+    },
+    {
+        "notes": [
+            86
+        ],
+        "real_tick": 208512
+    },
+    {
+        "notes": [
+            84
+        ],
+        "real_tick": 209088
+    },
+    {
+        "notes": [
+            86
+        ],
+        "real_tick": 209184
+    },
+    {
+        "notes": [
+            87
+        ],
+        "real_tick": 209280
+    },
+    {
+        "notes": [
+            86
+        ],
+        "real_tick": 209856
+    },
+    {
+        "notes": [
+            87
+        ],
+        "real_tick": 209952
+    },
+    {
+        "notes": [
+            88
+        ],
+        "real_tick": 210048
+    },
+    {
+        "notes": [
+            65,
+            72,
+            75
+        ],
+        "real_tick": 210816
+    },
+    {
+        "notes": [
+            65,
+            72,
+            77
+        ],
+        "real_tick": 211008
+    },
+    {
+        "notes": [
+            65,
+            72,
+            77
+        ],
+        "real_tick": 211200
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 211392
+    },
+    {
+        "notes": [
+            65,
+            72,
+            77
+        ],
+        "real_tick": 211584
+    },
+    {
+        "notes": [
+            65,
+            72,
+            75
+        ],
+        "real_tick": 211968
+    },
+    {
+        "notes": [
+            65,
+            72,
+            75
+        ],
+        "real_tick": 212160
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 212352
+    },
+    {
+        "notes": [
+            65,
+            72,
+            77
+        ],
+        "real_tick": 212544
+    },
+    {
+        "notes": [
+            65,
+            72,
+            77
+        ],
+        "real_tick": 212736
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 213120
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 213504
+    },
+    {
+        "notes": [
+            72,
+            75,
+            80,
+            84
+        ],
+        "real_tick": 213888
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 215040
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 215232
+    },
+    {
+        "notes": [
+            67,
+            70,
+            75
+        ],
+        "real_tick": 215424
+    },
+    {
+        "notes": [
+            70,
+            75
+        ],
+        "real_tick": 216000
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 216192
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 216576
+    },
+    {
+        "notes": [
+            72,
+            79
+        ],
+        "real_tick": 216768
+    },
+    {
+        "notes": [
+            72,
+            77,
+            80
+        ],
+        "real_tick": 216960
+    },
+    {
+        "notes": [
+            70,
+            75,
+            79
+        ],
+        "real_tick": 217344
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 217728
+    },
+    {
+        "notes": [
+            67,
+            72,
+            75
+        ],
+        "real_tick": 218112
+    },
+    {
+        "notes": [
+            77,
+            80,
+            84
+        ],
+        "real_tick": 218496
+    },
+    {
+        "notes": [
+            79,
+            82
+        ],
+        "real_tick": 218880
+    },
+    {
+        "notes": [
+            68,
+            75
+        ],
+        "real_tick": 219264
+    },
+    {
+        "notes": [
+            67,
+            72,
+            77
+        ],
+        "real_tick": 219648
+    },
+    {
+        "notes": [
+            72,
+            80,
+            84
+        ],
+        "real_tick": 220032
+    },
+    {
+        "notes": [
+            79,
+            82
+        ],
+        "real_tick": 220800
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 221184
+    },
+    {
+        "notes": [
+            65,
+            68,
+            72,
+            75
+        ],
+        "real_tick": 221568
+    },
+    {
+        "notes": [
+            72,
+            75
+        ],
+        "real_tick": 221952
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 222144
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 222336
+    },
+    {
+        "notes": [
+            67,
+            67,
+            70,
+            75
+        ],
+        "real_tick": 222912
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 223104
+    },
+    {
+        "notes": [
+            75,
+            80
+        ],
+        "real_tick": 223680
+    },
+    {
+        "notes": [
+            72,
+            75,
+            80
+        ],
+        "real_tick": 223872
+    },
+    {
+        "notes": [
+            72,
+            77,
+            84
+        ],
+        "real_tick": 224256
+    },
+    {
+        "notes": [
+            72,
+            77,
+            84
+        ],
+        "real_tick": 224640
+    },
+    {
+        "notes": [
+            70,
+            75
+        ],
+        "real_tick": 225408
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 225792
+    },
+    {
+        "notes": [
+            72,
+            77,
+            80,
+            84
+        ],
+        "real_tick": 226176
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 226944
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 227328
+    },
+    {
+        "notes": [
+            72,
+            75
+        ],
+        "real_tick": 227520
+    },
+    {
+        "notes": [
+            67,
+            70,
+            75
+        ],
+        "real_tick": 227712
+    },
+    {
+        "notes": [
+            70,
+            75
+        ],
+        "real_tick": 227904
+    },
+    {
+        "notes": [
+            67,
+            70,
+            75
+        ],
+        "real_tick": 228096
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 228288
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 228480
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 228864
+    },
+    {
+        "notes": [
+            72,
+            79
+        ],
+        "real_tick": 229056
+    },
+    {
+        "notes": [
+            72,
+            77,
+            80
+        ],
+        "real_tick": 229248
+    },
+    {
+        "notes": [
+            70,
+            75,
+            79
+        ],
+        "real_tick": 229632
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 230016
+    },
+    {
+        "notes": [
+            67,
+            72,
+            75
+        ],
+        "real_tick": 230400
+    },
+    {
+        "notes": [
+            77,
+            80,
+            84
+        ],
+        "real_tick": 230784
+    },
+    {
+        "notes": [
+            79,
+            82
+        ],
+        "real_tick": 231168
+    },
+    {
+        "notes": [
+            68,
+            75
+        ],
+        "real_tick": 231552
+    },
+    {
+        "notes": [
+            67,
+            72,
+            77
+        ],
+        "real_tick": 231936
+    },
+    {
+        "notes": [
+            72,
+            80,
+            84
+        ],
+        "real_tick": 232320
+    },
+    {
+        "notes": [
+            67,
+            70,
+            77
+        ],
+        "real_tick": 233088
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 233472
+    },
+    {
+        "notes": [
+            72,
+            75
+        ],
+        "real_tick": 233664
+    },
+    {
+        "notes": [
+            65,
+            68,
+            72,
+            75
+        ],
+        "real_tick": 233856
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 234240
+    },
+    {
+        "notes": [
+            67,
+            72,
+            77
+        ],
+        "real_tick": 234624
+    },
+    {
+        "notes": [
+            70,
+            75
+        ],
+        "real_tick": 235200
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 235392
+    },
+    {
+        "notes": [
+            72,
+            77
+        ],
+        "real_tick": 235584
+    },
+    {
+        "notes": [
+            80
+        ],
+        "real_tick": 235968
+    },
+    {
+        "notes": [
+            75,
+            80
+        ],
+        "real_tick": 236160
+    },
+    {
+        "notes": [
+            80
+        ],
+        "real_tick": 236544
+    },
+    {
+        "notes": [
+            79,
+            84
+        ],
+        "real_tick": 236736
+    },
+    {
+        "notes": [
+            75,
+            79,
+            84
+        ],
+        "real_tick": 236928
+    },
+    {
+        "notes": [
+            83
+        ],
+        "real_tick": 237504
+    },
+    {
+        "notes": [
+            77,
+            82,
+            87
+        ],
+        "real_tick": 237696
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 238848
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 239232
+    },
+    {
+        "notes": [
+            80
+        ],
+        "real_tick": 239616
+    },
+    {
+        "notes": [
+            82
+        ],
+        "real_tick": 240000
+    },
+    {
+        "notes": [
+            80
+        ],
+        "real_tick": 240192
+    },
+    {
+        "notes": [
+            82
+        ],
+        "real_tick": 240384
+    },
+    {
+        "notes": [
+            83
+        ],
+        "real_tick": 240576
+    },
+    {
+        "notes": [
+            82
+        ],
+        "real_tick": 240768
+    },
+    {
+        "notes": [
+            80
+        ],
+        "real_tick": 240960
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 241152
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 241344
+    },
+    {
+        "notes": [
+            65,
+            68,
+            72,
+            77
+        ],
+        "real_tick": 241536
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 241728
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 241920
+    },
+    {
+        "notes": [
+            60,
+            63,
+            68
+        ],
+        "real_tick": 242304
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 242880
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 243264
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 243456
+    },
+    {
+        "notes": [
+            60,
+            63,
+            68
+        ],
+        "real_tick": 243840
+    },
+    {
+        "notes": [
+            77,
+            82,
+            89
+        ],
+        "real_tick": 244224
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 244800
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 244992
+    },
+    {
+        "notes": [
+            60,
+            63,
+            68
+        ],
+        "real_tick": 245376
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 245952
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 246336
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65,
+            68
+        ],
+        "real_tick": 246528
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 246912
+    },
+    {
+        "notes": [
+            58,
+            62
+        ],
+        "real_tick": 247104
+    },
+    {
+        "notes": [
+            72
+        ],
+        "real_tick": 247296
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 247680
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 247872
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 248064
+    },
+    {
+        "notes": [
+            60,
+            63,
+            68
+        ],
+        "real_tick": 248448
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 249024
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 249408
+    },
+    {
+        "notes": [
+            56,
+            60,
+            65
+        ],
+        "real_tick": 249600
+    },
+    {
+        "notes": [
+            60,
+            63,
+            68
+        ],
+        "real_tick": 249984
+    },
+    {
+        "notes": [
+            58,
+            62,
+            70,
+            77,
+            82,
+            89
+        ],
+        "real_tick": 250752
+    },
+    {
+        "notes": [
+            76
+        ],
+        "real_tick": 250848
+    },
+    {
+        "notes": [
+            77,
+            82
+        ],
+        "real_tick": 250944
+    },
+    {
+        "notes": [
+            76
+        ],
+        "real_tick": 251040
+    },
+    {
+        "notes": [
+            77,
+            82
+        ],
+        "real_tick": 251136
+    },
+    {
+        "notes": [
+            76
+        ],
+        "real_tick": 251232
+    },
+    {
+        "notes": [
+            77,
+            82
+        ],
+        "real_tick": 251328
+    },
+    {
+        "notes": [
+            76
+        ],
+        "real_tick": 251424
+    },
+    {
+        "notes": [
+            77,
+            82
+        ],
+        "real_tick": 251520
+    },
+    {
+        "notes": [
+            76
+        ],
+        "real_tick": 251616
+    },
+    {
+        "notes": [
+            77,
+            82
+        ],
+        "real_tick": 251712
+    },
+    {
+        "notes": [
+            76
+        ],
+        "real_tick": 251808
+    },
+    {
+        "notes": [
+            77,
+            82
+        ],
+        "real_tick": 251904
+    },
+    {
+        "notes": [
+            60,
+            65,
+            69,
+            72,
+            75
+        ],
+        "real_tick": 252992
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 253056
+    },
+    {
+        "notes": [
+            80
+        ],
+        "real_tick": 253313
+    },
+    {
+        "notes": [
+            83
+        ],
+        "real_tick": 253825
+    },
+    {
+        "notes": [
+            82
+        ],
+        "real_tick": 254017
+    },
+    {
+        "notes": [
+            80
+        ],
+        "real_tick": 254145
+    },
+    {
+        "notes": [
+            79
+        ],
+        "real_tick": 254274
+    },
+    {
+        "notes": [
+            77
+        ],
+        "real_tick": 254402
+    },
+    {
+        "notes": [
+            65,
+            80
+        ],
+        "real_tick": 255362
+    },
+    {
+        "notes": [
+            63
+        ],
+        "real_tick": 255554
+    },
+    {
+        "notes": [
+            60
+        ],
+        "real_tick": 255682
+    },
+    {
+        "notes": [
+            58
+        ],
+        "real_tick": 255811
+    },
+    {
+        "notes": [
+            56
+        ],
+        "real_tick": 255939
+    },
+    {
+        "notes": [
+            58,
+            63
+        ],
+        "real_tick": 256323
+    },
+    {
+        "notes": [
+            60
+        ],
+        "real_tick": 256451
+    },
+    {
+        "notes": [
+            58
+        ],
+        "real_tick": 256580
+    },
+    {
+        "notes": [
+            53
+        ],
+        "real_tick": 256708
+    },
+    {
+        "notes": [
+            58
+        ],
+        "real_tick": 256804
+    },
+    {
+        "notes": [
+            53
+        ],
+        "real_tick": 256900
+    },
+    {
+        "notes": [
+            56
+        ],
+        "real_tick": 257092
+    },
+    {
+        "notes": [
+            53
+        ],
+        "real_tick": 257476
+    },
+    {
+        "notes": [
+            60,
+            64,
+            68
+        ],
+        "real_tick": 258436
+    },
+    {
+        "notes": [
+            82,
+            83,
+            92
+        ],
+        "real_tick": 259012
+    }
+]

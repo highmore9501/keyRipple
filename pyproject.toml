@@ -1,0 +1,10 @@
+[project]
+name = "keyripple"
+version = "0.1.0"
+description = "用midi文件生成钢琴演奏动画"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "mido>=1.3.3",
+    "tqdm>=4.67.1",
+]
