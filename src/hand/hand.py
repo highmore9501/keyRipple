@@ -1,5 +1,5 @@
-from piano.piano import Piano
-from hand.finger import Finger
+from src.piano.piano import Piano
+from src.hand.finger import Finger
 
 
 class Hand:

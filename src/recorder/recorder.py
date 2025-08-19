@@ -1,7 +1,7 @@
-from hand.hand import Hand
-from hand.finger import Finger
-from midi.midiToNotes import NotesMap
-from piano.piano import Piano
+from src.hand.hand import Hand
+from src.hand.finger import Finger
+from src.midi.midiToNotes import NotesMap
+from src.piano.piano import Piano
 from typing import Iterator, Optional
 import itertools
 import json

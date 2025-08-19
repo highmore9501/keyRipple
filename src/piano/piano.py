@@ -1,4 +1,4 @@
-from piano.keyNote import KeyNote
+from src.piano.keyNote import KeyNote
 
 
 class Piano():

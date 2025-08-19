@@ -1,5 +1,5 @@
 from typing import List
-from piano.keyNote import KeyNote
+from src.piano.keyNote import KeyNote
 
 
 class Finger:

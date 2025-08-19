@@ -1,6 +1,6 @@
 import heapq
-from recorder.recorder import Recorder
-from midi.midiToNotes import NotesMap
+from src.recorder.recorder import Recorder
+from src.midi.midiToNotes import NotesMap
 
 # 定义堆中元素的类型
 HeapElement = tuple[float, int, Recorder]
