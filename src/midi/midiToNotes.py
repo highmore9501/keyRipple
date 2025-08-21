@@ -30,6 +30,7 @@ class MessageItem(TypedDict):
 class NotesMap(TypedDict):
     notes: list[int]
     real_tick: float
+    frame: float
 
 
 class PitchWheelItem(TypedDict):
@@ -141,7 +142,7 @@ class MidiProcessor:
                         # 将note里的元素按大小排序
                         notes = sorted(note)
                         notes_maps.append(
-                            {"notes": notes, "real_tick": pre_tick})
+                            {"notes": notes, "real_tick": pre_tick, "frame": 0})
                         note = []
 
                     if message.type == 'pitchwheel':
@@ -238,9 +239,6 @@ class MidiProcessor:
         notes_maps, pitch_wheel_map, messages = self.midiToPianoNotes()
 
         # 保存notes_map,pitch_wheel_map,messages到文件
-        with open(notes_map_file, "w") as f:
-            json.dump(notes_maps, f, indent=4)
-            print("notes_map 保存到了", notes_map_file)
 
         with open(pitch_wheel_map_file, "w") as f:
             json.dump(pitch_wheel_map, f, indent=4)
@@ -263,6 +261,15 @@ class MidiProcessor:
         total_time = total_frame/self.FPS
         print(
             f'如果以{self.FPS}的fps做成动画，一共是{total_tick} ticks, 合计{total_frame}帧, 约{total_time}秒')
+
+        # 将notes_map里的real_tick转换为frame
+        for notes_map in notes_maps:
+            notes_map['frame'] = self.calculate_frame(
+                tempo_changes, ticks_per_beat, notes_map['real_tick'])
+
+        with open(notes_map_file, "w") as f:
+            json.dump(notes_maps, f, indent=4)
+            print("notes_map 保存到了", notes_map_file)
 
         return notes_maps
 

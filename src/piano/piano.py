@@ -10,6 +10,8 @@ class Piano():
         self.min_key = min_key
         self.max_key = max_key
         self.black_keys = {1, 3, 6, 8, 10}
+        self.white_keys = []
+        self.numberOfWhiteKeys = self.caculate_number_of_white_keys()
 
     def note_to_key(self, note: int) -> KeyNote:
         """
@@ -38,3 +40,15 @@ class Piano():
         note = self.min_key + position
         is_black = (note % 12) in self.black_keys
         return KeyNote(note, position, is_black)
+
+    def caculate_number_of_white_keys(self) -> int:
+        """
+        通过键位计算位置
+        """
+        amount = 0
+        for note in range(self.min_key, self.max_key + 1):
+            is_black = (note % 12) in self.black_keys
+            if not is_black:
+                amount += 1
+                self.white_keys.append(note)
+        return amount

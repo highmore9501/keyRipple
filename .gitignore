@@ -11,3 +11,6 @@ wheels/
 
 # history
 .history
+
+# output
+output/

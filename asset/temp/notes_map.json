@@ -4,175 +4,203 @@
             49,
             61
         ],
-        "real_tick": 384
+        "real_tick": 384,
+        "frame": 22.5
     },
     {
         "notes": [
             56
         ],
-        "real_tick": 576
+        "real_tick": 576,
+        "frame": 33.75
     },
     {
         "notes": [
             63
         ],
-        "real_tick": 768
+        "real_tick": 768,
+        "frame": 45.0
     },
     {
         "notes": [
             68
         ],
-        "real_tick": 960
+        "real_tick": 960,
+        "frame": 56.25
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 1152
+        "real_tick": 1152,
+        "frame": 67.5
     },
     {
         "notes": [
             80
         ],
-        "real_tick": 1344
+        "real_tick": 1344,
+        "frame": 78.75
     },
     {
         "notes": [
             85
         ],
-        "real_tick": 1536
+        "real_tick": 1536,
+        "frame": 90.0
     },
     {
         "notes": [
             92
         ],
-        "real_tick": 1728
+        "real_tick": 1728,
+        "frame": 101.25
     },
     {
         "notes": [
             51,
             63
         ],
-        "real_tick": 1920
+        "real_tick": 1920,
+        "frame": 112.5
     },
     {
         "notes": [
             58
         ],
-        "real_tick": 2112
+        "real_tick": 2112,
+        "frame": 123.75
     },
     {
         "notes": [
             63
         ],
-        "real_tick": 2304
+        "real_tick": 2304,
+        "frame": 135.0
     },
     {
         "notes": [
             67
         ],
-        "real_tick": 2496
+        "real_tick": 2496,
+        "frame": 146.25
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 2688
+        "real_tick": 2688,
+        "frame": 157.5
     },
     {
         "notes": [
             79
         ],
-        "real_tick": 2880
+        "real_tick": 2880,
+        "frame": 168.75
     },
     {
         "notes": [
             85
         ],
-        "real_tick": 3072
+        "real_tick": 3072,
+        "frame": 180.0
     },
     {
         "notes": [
             91
         ],
-        "real_tick": 3264
+        "real_tick": 3264,
+        "frame": 191.25
     },
     {
         "notes": [
             53,
             65
         ],
-        "real_tick": 3456
+        "real_tick": 3456,
+        "frame": 202.5
     },
     {
         "notes": [
             60
         ],
-        "real_tick": 3648
+        "real_tick": 3648,
+        "frame": 213.75
     },
     {
         "notes": [
             63
         ],
-        "real_tick": 3840
+        "real_tick": 3840,
+        "frame": 225.0
     },
     {
         "notes": [
             67
         ],
-        "real_tick": 4032
+        "real_tick": 4032,
+        "frame": 236.25
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 4224
+        "real_tick": 4224,
+        "frame": 247.5
     },
     {
         "notes": [
             80
         ],
-        "real_tick": 4416
+        "real_tick": 4416,
+        "frame": 258.75
     },
     {
         "notes": [
             84
         ],
-        "real_tick": 4608
+        "real_tick": 4608,
+        "frame": 270.0
     },
     {
         "notes": [
             92
         ],
-        "real_tick": 4800
+        "real_tick": 4800,
+        "frame": 281.25
     },
     {
         "notes": [
             84,
             92
         ],
-        "real_tick": 4992
+        "real_tick": 4992,
+        "frame": 292.5
     },
     {
         "notes": [
             91,
             94
         ],
-        "real_tick": 5376
+        "real_tick": 5376,
+        "frame": 315.0
     },
     {
         "notes": [
             89,
             92
         ],
-        "real_tick": 5760
+        "real_tick": 5760,
+        "frame": 337.5
     },
     {
         "notes": [
             87,
             91
         ],
-        "real_tick": 6144
+        "real_tick": 6144,
+        "frame": 360.0
     },
     {
         "notes": [
@@ -180,7 +208,8 @@
             80,
             84
         ],
-        "real_tick": 6528
+        "real_tick": 6528,
+        "frame": 382.5
     },
     {
         "notes": [
@@ -188,13 +217,15 @@
             70,
             77
         ],
-        "real_tick": 7296
+        "real_tick": 7296,
+        "frame": 427.5
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 7680
+        "real_tick": 7680,
+        "frame": 450.0
     },
     {
         "notes": [
@@ -203,13 +234,15 @@
             72,
             75
         ],
-        "real_tick": 8064
+        "real_tick": 8064,
+        "frame": 472.5
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 8448
+        "real_tick": 8448,
+        "frame": 495.0
     },
     {
         "notes": [
@@ -217,26 +250,30 @@
             72,
             77
         ],
-        "real_tick": 8832
+        "real_tick": 8832,
+        "frame": 517.5
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 9408
+        "real_tick": 9408,
+        "frame": 551.25
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 9600
+        "real_tick": 9600,
+        "frame": 562.5
     },
     {
         "notes": [
             80
         ],
-        "real_tick": 10176
+        "real_tick": 10176,
+        "frame": 596.25
     },
     {
         "notes": [
@@ -244,7 +281,8 @@
             75,
             80
         ],
-        "real_tick": 10368
+        "real_tick": 10368,
+        "frame": 607.5
     },
     {
         "notes": [
@@ -252,7 +290,8 @@
             79,
             84
         ],
-        "real_tick": 11136
+        "real_tick": 11136,
+        "frame": 652.5
     },
     {
         "notes": [
@@ -260,21 +299,24 @@
             84,
             87
         ],
-        "real_tick": 11904
+        "real_tick": 11904,
+        "frame": 697.5
     },
     {
         "notes": [
             63,
             75
         ],
-        "real_tick": 15360
+        "real_tick": 15360,
+        "frame": 900.0
     },
     {
         "notes": [
             65,
             77
         ],
-        "real_tick": 15552
+        "real_tick": 15552,
+        "frame": 911.25
     },
     {
         "notes": [
@@ -282,7 +324,8 @@
             60,
             65
         ],
-        "real_tick": 15744
+        "real_tick": 15744,
+        "frame": 922.5
     },
     {
         "notes": [
@@ -290,7 +333,8 @@
             60,
             65
         ],
-        "real_tick": 15936
+        "real_tick": 15936,
+        "frame": 933.75
     },
     {
         "notes": [
@@ -298,7 +342,8 @@
             60,
             65
         ],
-        "real_tick": 16128
+        "real_tick": 16128,
+        "frame": 945.0
     },
     {
         "notes": [
@@ -306,7 +351,8 @@
             63,
             68
         ],
-        "real_tick": 16512
+        "real_tick": 16512,
+        "frame": 967.5
     },
     {
         "notes": [
@@ -314,7 +360,8 @@
             60,
             65
         ],
-        "real_tick": 17088
+        "real_tick": 17088,
+        "frame": 1001.25
     },
     {
         "notes": [
@@ -322,7 +369,8 @@
             60,
             65
         ],
-        "real_tick": 17472
+        "real_tick": 17472,
+        "frame": 1023.75
     },
     {
         "notes": [
@@ -330,7 +378,8 @@
             60,
             65
         ],
-        "real_tick": 17664
+        "real_tick": 17664,
+        "frame": 1035.0
     },
     {
         "notes": [
@@ -338,7 +387,8 @@
             63,
             68
         ],
-        "real_tick": 18048
+        "real_tick": 18048,
+        "frame": 1057.5
     },
     {
         "notes": [
@@ -346,7 +396,8 @@
             65,
             70
         ],
-        "real_tick": 18432
+        "real_tick": 18432,
+        "frame": 1080.0
     },
     {
         "notes": [
@@ -354,7 +405,8 @@
             60,
             65
         ],
-        "real_tick": 19008
+        "real_tick": 19008,
+        "frame": 1113.75
     },
     {
         "notes": [
@@ -362,7 +414,8 @@
             60,
             65
         ],
-        "real_tick": 19200
+        "real_tick": 19200,
+        "frame": 1125.0
     },
     {
         "notes": [
@@ -370,7 +423,8 @@
             63,
             68
         ],
-        "real_tick": 19584
+        "real_tick": 19584,
+        "frame": 1147.5
     },
     {
         "notes": [
@@ -378,7 +432,8 @@
             60,
             65
         ],
-        "real_tick": 20160
+        "real_tick": 20160,
+        "frame": 1181.25
     },
     {
         "notes": [
@@ -386,7 +441,8 @@
             60,
             65
         ],
-        "real_tick": 20544
+        "real_tick": 20544,
+        "frame": 1203.75
     },
     {
         "notes": [
@@ -394,7 +450,8 @@
             60,
             65
         ],
-        "real_tick": 20736
+        "real_tick": 20736,
+        "frame": 1215.0
     },
     {
         "notes": [
@@ -402,7 +459,8 @@
             63,
             68
         ],
-        "real_tick": 21120
+        "real_tick": 21120,
+        "frame": 1237.5
     },
     {
         "notes": [
@@ -410,7 +468,8 @@
             65,
             70
         ],
-        "real_tick": 21312
+        "real_tick": 21312,
+        "frame": 1248.75
     },
     {
         "notes": [
@@ -418,7 +477,8 @@
             60,
             65
         ],
-        "real_tick": 21888
+        "real_tick": 21888,
+        "frame": 1282.5
     },
     {
         "notes": [
@@ -426,7 +486,8 @@
             60,
             65
         ],
-        "real_tick": 22080
+        "real_tick": 22080,
+        "frame": 1293.75
     },
     {
         "notes": [
@@ -434,7 +495,8 @@
             60,
             65
         ],
-        "real_tick": 22272
+        "real_tick": 22272,
+        "frame": 1305.0
     },
     {
         "notes": [
@@ -442,7 +504,8 @@
             63,
             68
         ],
-        "real_tick": 22656
+        "real_tick": 22656,
+        "frame": 1327.5
     },
     {
         "notes": [
@@ -450,7 +513,8 @@
             60,
             65
         ],
-        "real_tick": 23232
+        "real_tick": 23232,
+        "frame": 1361.25
     },
     {
         "notes": [
@@ -458,7 +522,8 @@
             60,
             65
         ],
-        "real_tick": 23616
+        "real_tick": 23616,
+        "frame": 1383.75
     },
     {
         "notes": [
@@ -466,7 +531,8 @@
             60,
             65
         ],
-        "real_tick": 23808
+        "real_tick": 23808,
+        "frame": 1395.0
     },
     {
         "notes": [
@@ -474,7 +540,8 @@
             63,
             68
         ],
-        "real_tick": 24192
+        "real_tick": 24192,
+        "frame": 1417.5
     },
     {
         "notes": [
@@ -482,297 +549,343 @@
             62,
             70
         ],
-        "real_tick": 24576
+        "real_tick": 24576,
+        "frame": 1440.0
     },
     {
         "notes": [
             65,
             73
         ],
-        "real_tick": 24960
+        "real_tick": 24960,
+        "frame": 1462.5
     },
     {
         "notes": [
             68
         ],
-        "real_tick": 25152
+        "real_tick": 25152,
+        "frame": 1473.75
     },
     {
         "notes": [
             70
         ],
-        "real_tick": 25344
+        "real_tick": 25344,
+        "frame": 1485.0
     },
     {
         "notes": [
             71
         ],
-        "real_tick": 25536
+        "real_tick": 25536,
+        "frame": 1496.25
     },
     {
         "notes": [
             70
         ],
-        "real_tick": 25728
+        "real_tick": 25728,
+        "frame": 1507.5
     },
     {
         "notes": [
             68
         ],
-        "real_tick": 25920
+        "real_tick": 25920,
+        "frame": 1518.75
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 26112
+        "real_tick": 26112,
+        "frame": 1530.0
     },
     {
         "notes": [
             74
         ],
-        "real_tick": 26304
+        "real_tick": 26304,
+        "frame": 1541.25
     },
     {
         "notes": [
             73
         ],
-        "real_tick": 26496
+        "real_tick": 26496,
+        "frame": 1552.5
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 26688
+        "real_tick": 26688,
+        "frame": 1563.75
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 26880
+        "real_tick": 26880,
+        "frame": 1575.0
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 27072
+        "real_tick": 27072,
+        "frame": 1586.25
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 27264
+        "real_tick": 27264,
+        "frame": 1597.5
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 27456
+        "real_tick": 27456,
+        "frame": 1608.75
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 27648
+        "real_tick": 27648,
+        "frame": 1620.0
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 27840
+        "real_tick": 27840,
+        "frame": 1631.25
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 28032
+        "real_tick": 28032,
+        "frame": 1642.5
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 28224
+        "real_tick": 28224,
+        "frame": 1653.75
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 28608
+        "real_tick": 28608,
+        "frame": 1676.25
     },
     {
         "notes": [
             68,
             75
         ],
-        "real_tick": 28800
+        "real_tick": 28800,
+        "frame": 1687.5
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 29184
+        "real_tick": 29184,
+        "frame": 1710.0
     },
     {
         "notes": [
             68,
             75
         ],
-        "real_tick": 29376
+        "real_tick": 29376,
+        "frame": 1721.25
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 29760
+        "real_tick": 29760,
+        "frame": 1743.75
     },
     {
         "notes": [
             65,
             75
         ],
-        "real_tick": 29952
+        "real_tick": 29952,
+        "frame": 1755.0
     },
     {
         "notes": [
             65,
             72
         ],
-        "real_tick": 30336
+        "real_tick": 30336,
+        "frame": 1777.5
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 30720
+        "real_tick": 30720,
+        "frame": 1800.0
     },
     {
         "notes": [
             68,
             77
         ],
-        "real_tick": 31104
+        "real_tick": 31104,
+        "frame": 1822.5
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 31296
+        "real_tick": 31296,
+        "frame": 1833.75
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 31488
+        "real_tick": 31488,
+        "frame": 1845.0
     },
     {
         "notes": [
             68,
             77
         ],
-        "real_tick": 31680
+        "real_tick": 31680,
+        "frame": 1856.25
     },
     {
         "notes": [
             80
         ],
-        "real_tick": 32256
+        "real_tick": 32256,
+        "frame": 1890.0
     },
     {
         "notes": [
             77,
             83
         ],
-        "real_tick": 32640
+        "real_tick": 32640,
+        "frame": 1912.5
     },
     {
         "notes": [
             77,
             82
         ],
-        "real_tick": 32832
+        "real_tick": 32832,
+        "frame": 1923.75
     },
     {
         "notes": [
             77,
             80
         ],
-        "real_tick": 33024
+        "real_tick": 33024,
+        "frame": 1935.0
     },
     {
         "notes": [
             75,
             80
         ],
-        "real_tick": 33216
+        "real_tick": 33216,
+        "frame": 1946.25
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 33600
+        "real_tick": 33600,
+        "frame": 1968.75
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 33984
+        "real_tick": 33984,
+        "frame": 1991.25
     },
     {
         "notes": [
             65,
             75
         ],
-        "real_tick": 34176
+        "real_tick": 34176,
+        "frame": 2002.5
     },
     {
         "notes": [
             65
         ],
-        "real_tick": 34560
+        "real_tick": 34560,
+        "frame": 2025.0
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 34752
+        "real_tick": 34752,
+        "frame": 2036.25
     },
     {
         "notes": [
             65,
             77
         ],
-        "real_tick": 34944
+        "real_tick": 34944,
+        "frame": 2047.5
     },
     {
         "notes": [
             79
         ],
-        "real_tick": 35136
+        "real_tick": 35136,
+        "frame": 2058.75
     },
     {
         "notes": [
             65
         ],
-        "real_tick": 35328
+        "real_tick": 35328,
+        "frame": 2070.0
     },
     {
         "notes": [
             65,
             75
         ],
-        "real_tick": 35712
+        "real_tick": 35712,
+        "frame": 2092.5
     },
     {
         "notes": [
             65,
             72
         ],
-        "real_tick": 36096
+        "real_tick": 36096,
+        "frame": 2115.0
     },
     {
         "notes": [
@@ -780,7 +893,8 @@
             72,
             75
         ],
-        "real_tick": 36480
+        "real_tick": 36480,
+        "frame": 2137.5
     },
     {
         "notes": [
@@ -788,33 +902,38 @@
             72,
             77
         ],
-        "real_tick": 36864
+        "real_tick": 36864,
+        "frame": 2160.0
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 37056
+        "real_tick": 37056,
+        "frame": 2171.25
     },
     {
         "notes": [
             72,
             80
         ],
-        "real_tick": 37248
+        "real_tick": 37248,
+        "frame": 2182.5
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 37440
+        "real_tick": 37440,
+        "frame": 2193.75
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 37632
+        "real_tick": 37632,
+        "frame": 2205.0
     },
     {
         "notes": [
@@ -822,7 +941,8 @@
             77,
             83
         ],
-        "real_tick": 38016
+        "real_tick": 38016,
+        "frame": 2227.5
     },
     {
         "notes": [
@@ -830,7 +950,8 @@
             77,
             82
         ],
-        "real_tick": 38400
+        "real_tick": 38400,
+        "frame": 2250.0
     },
     {
         "notes": [
@@ -838,277 +959,319 @@
             77,
             80
         ],
-        "real_tick": 38784
+        "real_tick": 38784,
+        "frame": 2272.5
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 38976
+        "real_tick": 38976,
+        "frame": 2283.75
     },
     {
         "notes": [
             65,
             72
         ],
-        "real_tick": 39168
+        "real_tick": 39168,
+        "frame": 2295.0
     },
     {
         "notes": [
             75,
             83
         ],
-        "real_tick": 39360
+        "real_tick": 39360,
+        "frame": 2306.25
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 39552
+        "real_tick": 39552,
+        "frame": 2317.5
     },
     {
         "notes": [
             75,
             82
         ],
-        "real_tick": 39744
+        "real_tick": 39744,
+        "frame": 2328.75
     },
     {
         "notes": [
             80
         ],
-        "real_tick": 40128
+        "real_tick": 40128,
+        "frame": 2351.25
     },
     {
         "notes": [
             65,
             72
         ],
-        "real_tick": 40320
+        "real_tick": 40320,
+        "frame": 2362.5
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 40512
+        "real_tick": 40512,
+        "frame": 2373.75
     },
     {
         "notes": [
             74,
             77
         ],
-        "real_tick": 40704
+        "real_tick": 40704,
+        "frame": 2385.0
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 41280
+        "real_tick": 41280,
+        "frame": 2418.75
     },
     {
         "notes": [
             65,
             75
         ],
-        "real_tick": 41472
+        "real_tick": 41472,
+        "frame": 2430.0
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 41664
+        "real_tick": 41664,
+        "frame": 2441.25
     },
     {
         "notes": [
             68,
             75
         ],
-        "real_tick": 41856
+        "real_tick": 41856,
+        "frame": 2452.5
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 42048
+        "real_tick": 42048,
+        "frame": 2463.75
     },
     {
         "notes": [
             68,
             75
         ],
-        "real_tick": 42240
+        "real_tick": 42240,
+        "frame": 2475.0
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 42432
+        "real_tick": 42432,
+        "frame": 2486.25
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 42624
+        "real_tick": 42624,
+        "frame": 2497.5
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 42816
+        "real_tick": 42816,
+        "frame": 2508.75
     },
     {
         "notes": [
             65,
             70
         ],
-        "real_tick": 43008
+        "real_tick": 43008,
+        "frame": 2520.0
     },
     {
         "notes": [
             70,
             75
         ],
-        "real_tick": 43584
+        "real_tick": 43584,
+        "frame": 2553.75
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 43968
+        "real_tick": 43968,
+        "frame": 2576.25
     },
     {
         "notes": [
             68,
             75
         ],
-        "real_tick": 44160
+        "real_tick": 44160,
+        "frame": 2587.5
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 44352
+        "real_tick": 44352,
+        "frame": 2598.75
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 44544
+        "real_tick": 44544,
+        "frame": 2610.0
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 44736
+        "real_tick": 44736,
+        "frame": 2621.25
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 44928
+        "real_tick": 44928,
+        "frame": 2632.5
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 45312
+        "real_tick": 45312,
+        "frame": 2655.0
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 45504
+        "real_tick": 45504,
+        "frame": 2666.25
     },
     {
         "notes": [
             75,
             83
         ],
-        "real_tick": 45696
+        "real_tick": 45696,
+        "frame": 2677.5
     },
     {
         "notes": [
             75,
             82
         ],
-        "real_tick": 45888
+        "real_tick": 45888,
+        "frame": 2688.75
     },
     {
         "notes": [
             72,
             80
         ],
-        "real_tick": 46080
+        "real_tick": 46080,
+        "frame": 2700.0
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 46272
+        "real_tick": 46272,
+        "frame": 2711.25
     },
     {
         "notes": [
             68,
             75
         ],
-        "real_tick": 46464
+        "real_tick": 46464,
+        "frame": 2722.5
     },
     {
         "notes": [
             68
         ],
-        "real_tick": 46848
+        "real_tick": 46848,
+        "frame": 2745.0
     },
     {
         "notes": [
             65,
             72
         ],
-        "real_tick": 47232
+        "real_tick": 47232,
+        "frame": 2767.5
     },
     {
         "notes": [
             65,
             72
         ],
-        "real_tick": 47616
+        "real_tick": 47616,
+        "frame": 2790.0
     },
     {
         "notes": [
             63,
             70
         ],
-        "real_tick": 48000
+        "real_tick": 48000,
+        "frame": 2812.5
     },
     {
         "notes": [
             63,
             75
         ],
-        "real_tick": 48384
+        "real_tick": 48384,
+        "frame": 2835.0
     },
     {
         "notes": [
             64,
             72
         ],
-        "real_tick": 48768
+        "real_tick": 48768,
+        "frame": 2857.5
     },
     {
         "notes": [
             64
         ],
-        "real_tick": 49152
+        "real_tick": 49152,
+        "frame": 2880.0
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 49344
+        "real_tick": 49344,
+        "frame": 2891.25
     },
     {
         "notes": [
@@ -1116,13 +1279,15 @@
             72,
             77
         ],
-        "real_tick": 49536
+        "real_tick": 49536,
+        "frame": 2902.5
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 49728
+        "real_tick": 49728,
+        "frame": 2913.75
     },
     {
         "notes": [
@@ -1130,27 +1295,15 @@
             72,
             77
         ],
-        "real_tick": 49920
+        "real_tick": 49920,
+        "frame": 2925.0
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 50112
-    },
-    {
-        "notes": [
-            67,
-            70,
-            75
-        ],
-        "real_tick": 50304
-    },
-    {
-        "notes": [
-            75
-        ],
-        "real_tick": 50496
+        "real_tick": 50112,
+        "frame": 2936.25
     },
     {
         "notes": [
@@ -1158,52 +1311,76 @@
             70,
             75
         ],
-        "real_tick": 50688
+        "real_tick": 50304,
+        "frame": 2947.5
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 50496,
+        "frame": 2958.75
+    },
+    {
+        "notes": [
+            67,
+            70,
+            75
+        ],
+        "real_tick": 50688,
+        "frame": 2970.0
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 50880
+        "real_tick": 50880,
+        "frame": 2981.25
     },
     {
         "notes": [
             65,
             72
         ],
-        "real_tick": 51072
+        "real_tick": 51072,
+        "frame": 2992.5
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 51456
+        "real_tick": 51456,
+        "frame": 3015.0
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 51648
+        "real_tick": 51648,
+        "frame": 3026.25
     },
     {
         "notes": [
             68,
             75
         ],
-        "real_tick": 51840
+        "real_tick": 51840,
+        "frame": 3037.5
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 52032
+        "real_tick": 52032,
+        "frame": 3048.75
     },
     {
         "notes": [
             72,
             80
         ],
-        "real_tick": 52224
+        "real_tick": 52224,
+        "frame": 3060.0
     },
     {
         "notes": [
@@ -1212,7 +1389,8 @@
             73,
             77
         ],
-        "real_tick": 52608
+        "real_tick": 52608,
+        "frame": 3082.5
     },
     {
         "notes": [
@@ -1220,21 +1398,24 @@
             68,
             73
         ],
-        "real_tick": 52992
+        "real_tick": 52992,
+        "frame": 3105.0
     },
     {
         "notes": [
             82,
             89
         ],
-        "real_tick": 53376
+        "real_tick": 53376,
+        "frame": 3127.5
     },
     {
         "notes": [
             82,
             89
         ],
-        "real_tick": 53568
+        "real_tick": 53568,
+        "frame": 3138.75
     },
     {
         "notes": [
@@ -1242,7 +1423,8 @@
             82,
             89
         ],
-        "real_tick": 53952
+        "real_tick": 53952,
+        "frame": 3161.25
     },
     {
         "notes": [
@@ -1250,7 +1432,8 @@
             70,
             75
         ],
-        "real_tick": 54144
+        "real_tick": 54144,
+        "frame": 3172.5
     },
     {
         "notes": [
@@ -1258,20 +1441,23 @@
             70,
             77
         ],
-        "real_tick": 54528
+        "real_tick": 54528,
+        "frame": 3195.0
     },
     {
         "notes": [
             82,
             87
         ],
-        "real_tick": 54912
+        "real_tick": 54912,
+        "frame": 3217.5
     },
     {
         "notes": [
             89
         ],
-        "real_tick": 55296
+        "real_tick": 55296,
+        "frame": 3240.0
     },
     {
         "notes": [
@@ -1279,58 +1465,67 @@
             75,
             80
         ],
-        "real_tick": 55680
+        "real_tick": 55680,
+        "frame": 3262.5
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 55872
+        "real_tick": 55872,
+        "frame": 3273.75
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 56064
+        "real_tick": 56064,
+        "frame": 3285.0
     },
     {
         "notes": [
             72,
             75
         ],
-        "real_tick": 56256
+        "real_tick": 56256,
+        "frame": 3296.25
     },
     {
         "notes": [
             70
         ],
-        "real_tick": 56448
+        "real_tick": 56448,
+        "frame": 3307.5
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 56640
+        "real_tick": 56640,
+        "frame": 3318.75
     },
     {
         "notes": [
             71,
             75
         ],
-        "real_tick": 57024
+        "real_tick": 57024,
+        "frame": 3341.25
     },
     {
         "notes": [
             70
         ],
-        "real_tick": 57216
+        "real_tick": 57216,
+        "frame": 3352.5
     },
     {
         "notes": [
             68,
             77
         ],
-        "real_tick": 57408
+        "real_tick": 57408,
+        "frame": 3363.75
     },
     {
         "notes": [
@@ -1338,14 +1533,16 @@
             72,
             77
         ],
-        "real_tick": 57600
+        "real_tick": 57600,
+        "frame": 3375.0
     },
     {
         "notes": [
             63,
             75
         ],
-        "real_tick": 57792
+        "real_tick": 57792,
+        "frame": 3386.25
     },
     {
         "notes": [
@@ -1353,20 +1550,23 @@
             72,
             77
         ],
-        "real_tick": 57984
+        "real_tick": 57984,
+        "frame": 3397.5
     },
     {
         "notes": [
             70,
             75
         ],
-        "real_tick": 58368
+        "real_tick": 58368,
+        "frame": 3420.0
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 58560
+        "real_tick": 58560,
+        "frame": 3431.25
     },
     {
         "notes": [
@@ -1375,7 +1575,8 @@
             70,
             73
         ],
-        "real_tick": 58752
+        "real_tick": 58752,
+        "frame": 3442.5
     },
     {
         "notes": [
@@ -1383,21 +1584,24 @@
             65,
             73
         ],
-        "real_tick": 59136
+        "real_tick": 59136,
+        "frame": 3465.0
     },
     {
         "notes": [
             82,
             89
         ],
-        "real_tick": 59520
+        "real_tick": 59520,
+        "frame": 3487.5
     },
     {
         "notes": [
             82,
             89
         ],
-        "real_tick": 59712
+        "real_tick": 59712,
+        "frame": 3498.75
     },
     {
         "notes": [
@@ -1405,7 +1609,8 @@
             82,
             89
         ],
-        "real_tick": 60096
+        "real_tick": 60096,
+        "frame": 3521.25
     },
     {
         "notes": [
@@ -1413,7 +1618,8 @@
             70,
             75
         ],
-        "real_tick": 60288
+        "real_tick": 60288,
+        "frame": 3532.5
     },
     {
         "notes": [
@@ -1421,20 +1627,23 @@
             70,
             77
         ],
-        "real_tick": 60672
+        "real_tick": 60672,
+        "frame": 3555.0
     },
     {
         "notes": [
             82,
             87
         ],
-        "real_tick": 61056
+        "real_tick": 61056,
+        "frame": 3577.5
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 61248
+        "real_tick": 61248,
+        "frame": 3588.75
     },
     {
         "notes": [
@@ -1442,7 +1651,8 @@
             84,
             89
         ],
-        "real_tick": 61440
+        "real_tick": 61440,
+        "frame": 3600.0
     },
     {
         "notes": [
@@ -1450,13 +1660,15 @@
             72,
             80
         ],
-        "real_tick": 61824
+        "real_tick": 61824,
+        "frame": 3622.5
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 62208
+        "real_tick": 62208,
+        "frame": 3645.0
     },
     {
         "notes": [
@@ -1464,13 +1676,15 @@
             75,
             83
         ],
-        "real_tick": 62592
+        "real_tick": 62592,
+        "frame": 3667.5
     },
     {
         "notes": [
             82
         ],
-        "real_tick": 62976
+        "real_tick": 62976,
+        "frame": 3690.0
     },
     {
         "notes": [
@@ -1478,26 +1692,30 @@
             72,
             80
         ],
-        "real_tick": 63360
+        "real_tick": 63360,
+        "frame": 3712.5
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 63744
+        "real_tick": 63744,
+        "frame": 3735.0
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 64128
+        "real_tick": 64128,
+        "frame": 3757.5
     },
     {
         "notes": [
             72,
             72
         ],
-        "real_tick": 64512
+        "real_tick": 64512,
+        "frame": 3780.0
     },
     {
         "notes": [
@@ -1505,7 +1723,8 @@
             72,
             75
         ],
-        "real_tick": 64896
+        "real_tick": 64896,
+        "frame": 3802.5
     },
     {
         "notes": [
@@ -1514,7 +1733,8 @@
             75,
             77
         ],
-        "real_tick": 65088
+        "real_tick": 65088,
+        "frame": 3813.75
     },
     {
         "notes": [
@@ -1522,13 +1742,15 @@
             72,
             75
         ],
-        "real_tick": 65280
+        "real_tick": 65280,
+        "frame": 3825.0
     },
     {
         "notes": [
             82
         ],
-        "real_tick": 65472
+        "real_tick": 65472,
+        "frame": 3836.25
     },
     {
         "notes": [
@@ -1537,13 +1759,15 @@
             75,
             77
         ],
-        "real_tick": 65664
+        "real_tick": 65664,
+        "frame": 3847.5
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 65856
+        "real_tick": 65856,
+        "frame": 3858.75
     },
     {
         "notes": [
@@ -1551,7 +1775,8 @@
             72,
             75
         ],
-        "real_tick": 66048
+        "real_tick": 66048,
+        "frame": 3870.0
     },
     {
         "notes": [
@@ -1560,13 +1785,15 @@
             75,
             77
         ],
-        "real_tick": 66240
+        "real_tick": 66240,
+        "frame": 3881.25
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 66432
+        "real_tick": 66432,
+        "frame": 3892.5
     },
     {
         "notes": [
@@ -1575,7 +1802,8 @@
             75,
             82
         ],
-        "real_tick": 66624
+        "real_tick": 66624,
+        "frame": 3903.75
     },
     {
         "notes": [
@@ -1584,13 +1812,15 @@
             75,
             77
         ],
-        "real_tick": 66816
+        "real_tick": 66816,
+        "frame": 3915.0
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 67008
+        "real_tick": 67008,
+        "frame": 3926.25
     },
     {
         "notes": [
@@ -1599,14 +1829,16 @@
             77,
             80
         ],
-        "real_tick": 67200
+        "real_tick": 67200,
+        "frame": 3937.5
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 67584
+        "real_tick": 67584,
+        "frame": 3960.0
     },
     {
         "notes": [
@@ -1615,7 +1847,8 @@
             80,
             84
         ],
-        "real_tick": 67968
+        "real_tick": 67968,
+        "frame": 3982.5
     },
     {
         "notes": [
@@ -1623,14 +1856,16 @@
             72,
             77
         ],
-        "real_tick": 69120
+        "real_tick": 69120,
+        "frame": 4050.0
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 69312
+        "real_tick": 69312,
+        "frame": 4061.25
     },
     {
         "notes": [
@@ -1638,14 +1873,16 @@
             70,
             75
         ],
-        "real_tick": 69504
+        "real_tick": 69504,
+        "frame": 4072.5
     },
     {
         "notes": [
             70,
             75
         ],
-        "real_tick": 70080
+        "real_tick": 70080,
+        "frame": 4106.25
     },
     {
         "notes": [
@@ -1653,7 +1890,8 @@
             72,
             77
         ],
-        "real_tick": 70272
+        "real_tick": 70272,
+        "frame": 4117.5
     },
     {
         "notes": [
@@ -1661,14 +1899,16 @@
             72,
             77
         ],
-        "real_tick": 70656
+        "real_tick": 70656,
+        "frame": 4140.0
     },
     {
         "notes": [
             72,
             79
         ],
-        "real_tick": 70848
+        "real_tick": 70848,
+        "frame": 4151.25
     },
     {
         "notes": [
@@ -1676,7 +1916,8 @@
             77,
             80
         ],
-        "real_tick": 71040
+        "real_tick": 71040,
+        "frame": 4162.5
     },
     {
         "notes": [
@@ -1684,7 +1925,8 @@
             75,
             79
         ],
-        "real_tick": 71424
+        "real_tick": 71424,
+        "frame": 4185.0
     },
     {
         "notes": [
@@ -1692,7 +1934,8 @@
             72,
             77
         ],
-        "real_tick": 71808
+        "real_tick": 71808,
+        "frame": 4207.5
     },
     {
         "notes": [
@@ -1700,7 +1943,8 @@
             72,
             75
         ],
-        "real_tick": 72192
+        "real_tick": 72192,
+        "frame": 4230.0
     },
     {
         "notes": [
@@ -1708,21 +1952,24 @@
             80,
             84
         ],
-        "real_tick": 72576
+        "real_tick": 72576,
+        "frame": 4252.5
     },
     {
         "notes": [
             79,
             82
         ],
-        "real_tick": 72960
+        "real_tick": 72960,
+        "frame": 4275.0
     },
     {
         "notes": [
             68,
             75
         ],
-        "real_tick": 73344
+        "real_tick": 73344,
+        "frame": 4297.5
     },
     {
         "notes": [
@@ -1730,7 +1977,8 @@
             72,
             77
         ],
-        "real_tick": 73728
+        "real_tick": 73728,
+        "frame": 4320.0
     },
     {
         "notes": [
@@ -1738,13 +1986,15 @@
             80,
             84
         ],
-        "real_tick": 74112
+        "real_tick": 74112,
+        "frame": 4342.5
     },
     {
         "notes": [
             84
         ],
-        "real_tick": 74688
+        "real_tick": 74688,
+        "frame": 4376.25
     },
     {
         "notes": [
@@ -1752,14 +2002,16 @@
             70,
             77
         ],
-        "real_tick": 74880
+        "real_tick": 74880,
+        "frame": 4387.5
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 75264
+        "real_tick": 75264,
+        "frame": 4410.0
     },
     {
         "notes": [
@@ -1768,21 +2020,24 @@
             72,
             75
         ],
-        "real_tick": 75648
+        "real_tick": 75648,
+        "frame": 4432.5
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 76032
+        "real_tick": 76032,
+        "frame": 4455.0
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 76416
+        "real_tick": 76416,
+        "frame": 4477.5
     },
     {
         "notes": [
@@ -1791,7 +2046,8 @@
             70,
             75
         ],
-        "real_tick": 76992
+        "real_tick": 76992,
+        "frame": 4511.25
     },
     {
         "notes": [
@@ -1799,21 +2055,24 @@
             72,
             77
         ],
-        "real_tick": 77184
+        "real_tick": 77184,
+        "frame": 4522.5
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 77376
+        "real_tick": 77376,
+        "frame": 4533.75
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 77568
+        "real_tick": 77568,
+        "frame": 4545.0
     },
     {
         "notes": [
@@ -1821,14 +2080,16 @@
             75,
             80
         ],
-        "real_tick": 77760
+        "real_tick": 77760,
+        "frame": 4556.25
     },
     {
         "notes": [
             75,
             80
         ],
-        "real_tick": 78144
+        "real_tick": 78144,
+        "frame": 4578.75
     },
     {
         "notes": [
@@ -1836,7 +2097,8 @@
             77,
             84
         ],
-        "real_tick": 78336
+        "real_tick": 78336,
+        "frame": 4590.0
     },
     {
         "notes": [
@@ -1844,21 +2106,24 @@
             77,
             84
         ],
-        "real_tick": 78720
+        "real_tick": 78720,
+        "frame": 4612.5
     },
     {
         "notes": [
             70,
             75
         ],
-        "real_tick": 79488
+        "real_tick": 79488,
+        "frame": 4657.5
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 79872
+        "real_tick": 79872,
+        "frame": 4680.0
     },
     {
         "notes": [
@@ -1867,7 +2132,8 @@
             80,
             84
         ],
-        "real_tick": 80256
+        "real_tick": 80256,
+        "frame": 4702.5
     },
     {
         "notes": [
@@ -1875,14 +2141,16 @@
             72,
             77
         ],
-        "real_tick": 81408
+        "real_tick": 81408,
+        "frame": 4770.0
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 81600
+        "real_tick": 81600,
+        "frame": 4781.25
     },
     {
         "notes": [
@@ -1890,14 +2158,16 @@
             70,
             75
         ],
-        "real_tick": 81792
+        "real_tick": 81792,
+        "frame": 4792.5
     },
     {
         "notes": [
             70,
             75
         ],
-        "real_tick": 82368
+        "real_tick": 82368,
+        "frame": 4826.25
     },
     {
         "notes": [
@@ -1905,14 +2175,16 @@
             72,
             77
         ],
-        "real_tick": 82560
+        "real_tick": 82560,
+        "frame": 4837.5
     },
     {
         "notes": [
             70,
             75
         ],
-        "real_tick": 82752
+        "real_tick": 82752,
+        "frame": 4848.75
     },
     {
         "notes": [
@@ -1920,14 +2192,16 @@
             72,
             77
         ],
-        "real_tick": 82944
+        "real_tick": 82944,
+        "frame": 4860.0
     },
     {
         "notes": [
             72,
             79
         ],
-        "real_tick": 83136
+        "real_tick": 83136,
+        "frame": 4871.25
     },
     {
         "notes": [
@@ -1935,7 +2209,8 @@
             77,
             80
         ],
-        "real_tick": 83328
+        "real_tick": 83328,
+        "frame": 4882.5
     },
     {
         "notes": [
@@ -1943,7 +2218,8 @@
             75,
             79
         ],
-        "real_tick": 83712
+        "real_tick": 83712,
+        "frame": 4905.0
     },
     {
         "notes": [
@@ -1951,7 +2227,8 @@
             72,
             77
         ],
-        "real_tick": 84096
+        "real_tick": 84096,
+        "frame": 4927.5
     },
     {
         "notes": [
@@ -1959,7 +2236,8 @@
             72,
             75
         ],
-        "real_tick": 84480
+        "real_tick": 84480,
+        "frame": 4950.0
     },
     {
         "notes": [
@@ -1967,21 +2245,24 @@
             80,
             84
         ],
-        "real_tick": 84864
+        "real_tick": 84864,
+        "frame": 4972.5
     },
     {
         "notes": [
             79,
             82
         ],
-        "real_tick": 85248
+        "real_tick": 85248,
+        "frame": 4995.0
     },
     {
         "notes": [
             68,
             75
         ],
-        "real_tick": 85632
+        "real_tick": 85632,
+        "frame": 5017.5
     },
     {
         "notes": [
@@ -1989,7 +2270,8 @@
             72,
             77
         ],
-        "real_tick": 86016
+        "real_tick": 86016,
+        "frame": 5040.0
     },
     {
         "notes": [
@@ -1997,28 +2279,32 @@
             80,
             84
         ],
-        "real_tick": 86400
+        "real_tick": 86400,
+        "frame": 5062.5
     },
     {
         "notes": [
             79,
             82
         ],
-        "real_tick": 87168
+        "real_tick": 87168,
+        "frame": 5107.5
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 87552
+        "real_tick": 87552,
+        "frame": 5130.0
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 87744
+        "real_tick": 87744,
+        "frame": 5141.25
     },
     {
         "notes": [
@@ -2026,7 +2312,8 @@
             68,
             75
         ],
-        "real_tick": 87936
+        "real_tick": 87936,
+        "frame": 5152.5
     },
     {
         "notes": [
@@ -2035,48 +2322,55 @@
             70,
             75
         ],
-        "real_tick": 89280
+        "real_tick": 89280,
+        "frame": 5231.25
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 89472
+        "real_tick": 89472,
+        "frame": 5242.5
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 89664
+        "real_tick": 89664,
+        "frame": 5253.75
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 89856
+        "real_tick": 89856,
+        "frame": 5265.0
     },
     {
         "notes": [
             80
         ],
-        "real_tick": 90048
+        "real_tick": 90048,
+        "frame": 5276.25
     },
     {
         "notes": [
             75,
             80
         ],
-        "real_tick": 90240
+        "real_tick": 90240,
+        "frame": 5287.5
     },
     {
         "notes": [
             79,
             84
         ],
-        "real_tick": 90816
+        "real_tick": 90816,
+        "frame": 5321.25
     },
     {
         "notes": [
@@ -2084,13 +2378,15 @@
             79,
             84
         ],
-        "real_tick": 91008
+        "real_tick": 91008,
+        "frame": 5332.5
     },
     {
         "notes": [
             83
         ],
-        "real_tick": 91584
+        "real_tick": 91584,
+        "frame": 5366.25
     },
     {
         "notes": [
@@ -2098,43 +2394,50 @@
             82,
             87
         ],
-        "real_tick": 91776
+        "real_tick": 91776,
+        "frame": 5377.5
     },
     {
         "notes": [
             80
         ],
-        "real_tick": 92544
+        "real_tick": 92544,
+        "frame": 5422.5
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 93120
+        "real_tick": 93120,
+        "frame": 5456.25
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 93312
+        "real_tick": 93312,
+        "frame": 5467.5
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 93504
+        "real_tick": 93504,
+        "frame": 5478.75
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 93696
+        "real_tick": 93696,
+        "frame": 5490.0
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 93888
+        "real_tick": 93888,
+        "frame": 5501.25
     },
     {
         "notes": [
@@ -2143,7 +2446,8 @@
             72,
             77
         ],
-        "real_tick": 94080
+        "real_tick": 94080,
+        "frame": 5512.5
     },
     {
         "notes": [
@@ -2151,7 +2455,8 @@
             60,
             65
         ],
-        "real_tick": 94272
+        "real_tick": 94272,
+        "frame": 5523.75
     },
     {
         "notes": [
@@ -2159,7 +2464,8 @@
             60,
             65
         ],
-        "real_tick": 94464
+        "real_tick": 94464,
+        "frame": 5535.0
     },
     {
         "notes": [
@@ -2167,7 +2473,8 @@
             63,
             68
         ],
-        "real_tick": 94848
+        "real_tick": 94848,
+        "frame": 5557.5
     },
     {
         "notes": [
@@ -2175,7 +2482,8 @@
             60,
             65
         ],
-        "real_tick": 95424
+        "real_tick": 95424,
+        "frame": 5591.25
     },
     {
         "notes": [
@@ -2183,7 +2491,8 @@
             60,
             65
         ],
-        "real_tick": 95808
+        "real_tick": 95808,
+        "frame": 5613.75
     },
     {
         "notes": [
@@ -2191,7 +2500,8 @@
             60,
             65
         ],
-        "real_tick": 96000
+        "real_tick": 96000,
+        "frame": 5625.0
     },
     {
         "notes": [
@@ -2199,7 +2509,8 @@
             63,
             68
         ],
-        "real_tick": 96384
+        "real_tick": 96384,
+        "frame": 5647.5
     },
     {
         "notes": [
@@ -2207,7 +2518,8 @@
             70,
             77
         ],
-        "real_tick": 96768
+        "real_tick": 96768,
+        "frame": 5670.0
     },
     {
         "notes": [
@@ -2215,7 +2527,8 @@
             60,
             65
         ],
-        "real_tick": 97344
+        "real_tick": 97344,
+        "frame": 5703.75
     },
     {
         "notes": [
@@ -2223,7 +2536,8 @@
             60,
             65
         ],
-        "real_tick": 97536
+        "real_tick": 97536,
+        "frame": 5715.0
     },
     {
         "notes": [
@@ -2231,7 +2545,8 @@
             63,
             68
         ],
-        "real_tick": 97920
+        "real_tick": 97920,
+        "frame": 5737.5
     },
     {
         "notes": [
@@ -2239,7 +2554,8 @@
             60,
             65
         ],
-        "real_tick": 98496
+        "real_tick": 98496,
+        "frame": 5771.25
     },
     {
         "notes": [
@@ -2247,7 +2563,8 @@
             60,
             65
         ],
-        "real_tick": 98880
+        "real_tick": 98880,
+        "frame": 5793.75
     },
     {
         "notes": [
@@ -2256,7 +2573,8 @@
             65,
             68
         ],
-        "real_tick": 99072
+        "real_tick": 99072,
+        "frame": 5805.0
     },
     {
         "notes": [
@@ -2264,20 +2582,23 @@
             60,
             65
         ],
-        "real_tick": 99456
+        "real_tick": 99456,
+        "frame": 5827.5
     },
     {
         "notes": [
             58,
             62
         ],
-        "real_tick": 99648
+        "real_tick": 99648,
+        "frame": 5838.75
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 99840
+        "real_tick": 99840,
+        "frame": 5850.0
     },
     {
         "notes": [
@@ -2285,7 +2606,8 @@
             60,
             65
         ],
-        "real_tick": 100224
+        "real_tick": 100224,
+        "frame": 5872.5
     },
     {
         "notes": [
@@ -2293,7 +2615,8 @@
             60,
             65
         ],
-        "real_tick": 100416
+        "real_tick": 100416,
+        "frame": 5883.75
     },
     {
         "notes": [
@@ -2301,7 +2624,8 @@
             60,
             65
         ],
-        "real_tick": 100608
+        "real_tick": 100608,
+        "frame": 5895.0
     },
     {
         "notes": [
@@ -2309,7 +2633,8 @@
             63,
             68
         ],
-        "real_tick": 100992
+        "real_tick": 100992,
+        "frame": 5917.5
     },
     {
         "notes": [
@@ -2317,7 +2642,8 @@
             60,
             65
         ],
-        "real_tick": 101568
+        "real_tick": 101568,
+        "frame": 5951.25
     },
     {
         "notes": [
@@ -2325,7 +2651,8 @@
             60,
             65
         ],
-        "real_tick": 101952
+        "real_tick": 101952,
+        "frame": 5973.75
     },
     {
         "notes": [
@@ -2333,7 +2660,8 @@
             60,
             65
         ],
-        "real_tick": 102144
+        "real_tick": 102144,
+        "frame": 5985.0
     },
     {
         "notes": [
@@ -2341,7 +2669,8 @@
             63,
             68
         ],
-        "real_tick": 102528
+        "real_tick": 102528,
+        "frame": 6007.5
     },
     {
         "notes": [
@@ -2349,304 +2678,351 @@
             62,
             70
         ],
-        "real_tick": 102912
+        "real_tick": 102912,
+        "frame": 6030.0
     },
     {
         "notes": [
             65,
             77
         ],
-        "real_tick": 103296
+        "real_tick": 103296,
+        "frame": 6052.5
     },
     {
         "notes": [
             68
         ],
-        "real_tick": 103488
+        "real_tick": 103488,
+        "frame": 6063.75
     },
     {
         "notes": [
             70
         ],
-        "real_tick": 103680
+        "real_tick": 103680,
+        "frame": 6075.0
     },
     {
         "notes": [
             71
         ],
-        "real_tick": 103872
+        "real_tick": 103872,
+        "frame": 6086.25
     },
     {
         "notes": [
             70
         ],
-        "real_tick": 104064
+        "real_tick": 104064,
+        "frame": 6097.5
     },
     {
         "notes": [
             68
         ],
-        "real_tick": 104256
+        "real_tick": 104256,
+        "frame": 6108.75
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 104448
+        "real_tick": 104448,
+        "frame": 6120.0
     },
     {
         "notes": [
             74
         ],
-        "real_tick": 104640
+        "real_tick": 104640,
+        "frame": 6131.25
     },
     {
         "notes": [
             73
         ],
-        "real_tick": 104832
+        "real_tick": 104832,
+        "frame": 6142.5
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 105024
+        "real_tick": 105024,
+        "frame": 6153.75
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 105216
+        "real_tick": 105216,
+        "frame": 6165.0
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 105408
+        "real_tick": 105408,
+        "frame": 6176.25
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 105600
+        "real_tick": 105600,
+        "frame": 6187.5
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 105792
+        "real_tick": 105792,
+        "frame": 6198.75
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 105984
+        "real_tick": 105984,
+        "frame": 6210.0
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 106176
+        "real_tick": 106176,
+        "frame": 6221.25
     },
     {
         "notes": [
             72,
             79
         ],
-        "real_tick": 106368
+        "real_tick": 106368,
+        "frame": 6232.5
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 106560
+        "real_tick": 106560,
+        "frame": 6243.75
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 106944
+        "real_tick": 106944,
+        "frame": 6266.25
     },
     {
         "notes": [
             68,
             75
         ],
-        "real_tick": 107136
+        "real_tick": 107136,
+        "frame": 6277.5
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 107520
+        "real_tick": 107520,
+        "frame": 6300.0
     },
     {
         "notes": [
             68,
             75
         ],
-        "real_tick": 107712
+        "real_tick": 107712,
+        "frame": 6311.25
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 108096
+        "real_tick": 108096,
+        "frame": 6333.75
     },
     {
         "notes": [
             68,
             75
         ],
-        "real_tick": 108288
+        "real_tick": 108288,
+        "frame": 6345.0
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 108672
+        "real_tick": 108672,
+        "frame": 6367.5
     },
     {
         "notes": [
             65,
             75
         ],
-        "real_tick": 108864
+        "real_tick": 108864,
+        "frame": 6378.75
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 109248
+        "real_tick": 109248,
+        "frame": 6401.25
     },
     {
         "notes": [
             65,
             72
         ],
-        "real_tick": 109440
+        "real_tick": 109440,
+        "frame": 6412.5
     },
     {
         "notes": [
             68,
             75
         ],
-        "real_tick": 110016
+        "real_tick": 110016,
+        "frame": 6446.25
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 110400
+        "real_tick": 110400,
+        "frame": 6468.75
     },
     {
         "notes": [
             68,
             75
         ],
-        "real_tick": 110592
+        "real_tick": 110592,
+        "frame": 6480.0
     },
     {
         "notes": [
             77,
             83
         ],
-        "real_tick": 110976
+        "real_tick": 110976,
+        "frame": 6502.5
     },
     {
         "notes": [
             77,
             82
         ],
-        "real_tick": 111168
+        "real_tick": 111168,
+        "frame": 6513.75
     },
     {
         "notes": [
             77,
             80
         ],
-        "real_tick": 111360
+        "real_tick": 111360,
+        "frame": 6525.0
     },
     {
         "notes": [
             75,
             80
         ],
-        "real_tick": 111552
+        "real_tick": 111552,
+        "frame": 6536.25
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 111936
+        "real_tick": 111936,
+        "frame": 6558.75
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 112320
+        "real_tick": 112320,
+        "frame": 6581.25
     },
     {
         "notes": [
             65,
             75
         ],
-        "real_tick": 112512
+        "real_tick": 112512,
+        "frame": 6592.5
     },
     {
         "notes": [
             65
         ],
-        "real_tick": 112896
+        "real_tick": 112896,
+        "frame": 6615.0
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 113088
+        "real_tick": 113088,
+        "frame": 6626.25
     },
     {
         "notes": [
             65,
             77
         ],
-        "real_tick": 113280
+        "real_tick": 113280,
+        "frame": 6637.5
     },
     {
         "notes": [
             79
         ],
-        "real_tick": 113472
+        "real_tick": 113472,
+        "frame": 6648.75
     },
     {
         "notes": [
             65
         ],
-        "real_tick": 113664
+        "real_tick": 113664,
+        "frame": 6660.0
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 113856
+        "real_tick": 113856,
+        "frame": 6671.25
     },
     {
         "notes": [
             65,
             75
         ],
-        "real_tick": 114048
+        "real_tick": 114048,
+        "frame": 6682.5
     },
     {
         "notes": [
             65,
             72
         ],
-        "real_tick": 114432
+        "real_tick": 114432,
+        "frame": 6705.0
     },
     {
         "notes": [
@@ -2654,13 +3030,15 @@
             72,
             75
         ],
-        "real_tick": 114816
+        "real_tick": 114816,
+        "frame": 6727.5
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 115008
+        "real_tick": 115008,
+        "frame": 6738.75
     },
     {
         "notes": [
@@ -2668,33 +3046,38 @@
             72,
             77
         ],
-        "real_tick": 115200
+        "real_tick": 115200,
+        "frame": 6750.0
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 115392
+        "real_tick": 115392,
+        "frame": 6761.25
     },
     {
         "notes": [
             72,
             80
         ],
-        "real_tick": 115584
+        "real_tick": 115584,
+        "frame": 6772.5
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 115776
+        "real_tick": 115776,
+        "frame": 6783.75
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 115968
+        "real_tick": 115968,
+        "frame": 6795.0
     },
     {
         "notes": [
@@ -2702,7 +3085,8 @@
             77,
             83
         ],
-        "real_tick": 116352
+        "real_tick": 116352,
+        "frame": 6817.5
     },
     {
         "notes": [
@@ -2710,7 +3094,8 @@
             77,
             82
         ],
-        "real_tick": 116736
+        "real_tick": 116736,
+        "frame": 6840.0
     },
     {
         "notes": [
@@ -2718,20 +3103,23 @@
             77,
             80
         ],
-        "real_tick": 117120
+        "real_tick": 117120,
+        "frame": 6862.5
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 117312
+        "real_tick": 117312,
+        "frame": 6873.75
     },
     {
         "notes": [
             65,
             72
         ],
-        "real_tick": 117504
+        "real_tick": 117504,
+        "frame": 6885.0
     },
     {
         "notes": [
@@ -2739,7 +3127,8 @@
             71,
             78
         ],
-        "real_tick": 117696
+        "real_tick": 117696,
+        "frame": 6896.25
     },
     {
         "notes": [
@@ -2747,7 +3136,8 @@
             70,
             77
         ],
-        "real_tick": 118080
+        "real_tick": 118080,
+        "frame": 6918.75
     },
     {
         "notes": [
@@ -2755,38 +3145,44 @@
             68,
             76
         ],
-        "real_tick": 118464
+        "real_tick": 118464,
+        "frame": 6941.25
     },
     {
         "notes": [
             63,
             75
         ],
-        "real_tick": 118656
+        "real_tick": 118656,
+        "frame": 6952.5
     },
     {
         "notes": [
             79
         ],
-        "real_tick": 119040
+        "real_tick": 119040,
+        "frame": 6975.0
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 119424
+        "real_tick": 119424,
+        "frame": 6997.5
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 119616
+        "real_tick": 119616,
+        "frame": 7008.75
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 119808
+        "real_tick": 119808,
+        "frame": 7020.0
     },
     {
         "notes": [
@@ -2794,137 +3190,158 @@
             75,
             82
         ],
-        "real_tick": 120000
+        "real_tick": 120000,
+        "frame": 7031.25
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 120384
-    },
-    {
-        "notes": [
-            68,
-            75
-        ],
-        "real_tick": 120576
-    },
-    {
-        "notes": [
-            75
-        ],
-        "real_tick": 120768
+        "real_tick": 120384,
+        "frame": 7053.75
     },
     {
         "notes": [
             68,
             75
         ],
-        "real_tick": 120960
+        "real_tick": 120576,
+        "frame": 7065.0
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 120768,
+        "frame": 7076.25
+    },
+    {
+        "notes": [
+            68,
+            75
+        ],
+        "real_tick": 120960,
+        "frame": 7087.5
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 121152
+        "real_tick": 121152,
+        "frame": 7098.75
     },
     {
         "notes": [
             65,
             72
         ],
-        "real_tick": 121344
+        "real_tick": 121344,
+        "frame": 7110.0
     },
     {
         "notes": [
             70
         ],
-        "real_tick": 121536
+        "real_tick": 121536,
+        "frame": 7121.25
     },
     {
         "notes": [
             65,
             72
         ],
-        "real_tick": 121728
+        "real_tick": 121728,
+        "frame": 7132.5
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 122112
+        "real_tick": 122112,
+        "frame": 7155.0
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 122304
+        "real_tick": 122304,
+        "frame": 7166.25
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 122496
+        "real_tick": 122496,
+        "frame": 7177.5
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 122688
+        "real_tick": 122688,
+        "frame": 7188.75
     },
     {
         "notes": [
             68,
             75
         ],
-        "real_tick": 122880
+        "real_tick": 122880,
+        "frame": 7200.0
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 123072
+        "real_tick": 123072,
+        "frame": 7211.25
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 123264
+        "real_tick": 123264,
+        "frame": 7222.5
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 123840
+        "real_tick": 123840,
+        "frame": 7256.25
     },
     {
         "notes": [
             77,
             83
         ],
-        "real_tick": 124032
+        "real_tick": 124032,
+        "frame": 7267.5
     },
     {
         "notes": [
             77,
             82
         ],
-        "real_tick": 124224
+        "real_tick": 124224,
+        "frame": 7278.75
     },
     {
         "notes": [
             72,
             80
         ],
-        "real_tick": 124416
+        "real_tick": 124416,
+        "frame": 7290.0
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 124608
+        "real_tick": 124608,
+        "frame": 7301.25
     },
     {
         "notes": [
@@ -2932,34 +3349,39 @@
             72,
             77
         ],
-        "real_tick": 124800
+        "real_tick": 124800,
+        "frame": 7312.5
     },
     {
         "notes": [
             68
         ],
-        "real_tick": 125184
+        "real_tick": 125184,
+        "frame": 7335.0
     },
     {
         "notes": [
             65,
             72
         ],
-        "real_tick": 125568
+        "real_tick": 125568,
+        "frame": 7357.5
     },
     {
         "notes": [
             65,
             72
         ],
-        "real_tick": 125952
+        "real_tick": 125952,
+        "frame": 7380.0
     },
     {
         "notes": [
             63,
             70
         ],
-        "real_tick": 126336
+        "real_tick": 126336,
+        "frame": 7402.5
     },
     {
         "notes": [
@@ -2967,7 +3389,8 @@
             68,
             75
         ],
-        "real_tick": 126720
+        "real_tick": 126720,
+        "frame": 7425.0
     },
     {
         "notes": [
@@ -2975,19 +3398,22 @@
             68,
             72
         ],
-        "real_tick": 127104
+        "real_tick": 127104,
+        "frame": 7447.5
     },
     {
         "notes": [
             64
         ],
-        "real_tick": 127488
+        "real_tick": 127488,
+        "frame": 7470.0
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 127680
+        "real_tick": 127680,
+        "frame": 7481.25
     },
     {
         "notes": [
@@ -2995,13 +3421,15 @@
             72,
             77
         ],
-        "real_tick": 127872
+        "real_tick": 127872,
+        "frame": 7492.5
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 128064
+        "real_tick": 128064,
+        "frame": 7503.75
     },
     {
         "notes": [
@@ -3009,27 +3437,15 @@
             72,
             77
         ],
-        "real_tick": 128256
+        "real_tick": 128256,
+        "frame": 7515.0
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 128448
-    },
-    {
-        "notes": [
-            67,
-            70,
-            75
-        ],
-        "real_tick": 128640
-    },
-    {
-        "notes": [
-            75
-        ],
-        "real_tick": 128832
+        "real_tick": 128448,
+        "frame": 7526.25
     },
     {
         "notes": [
@@ -3037,52 +3453,76 @@
             70,
             75
         ],
-        "real_tick": 129024
+        "real_tick": 128640,
+        "frame": 7537.5
+    },
+    {
+        "notes": [
+            75
+        ],
+        "real_tick": 128832,
+        "frame": 7548.75
+    },
+    {
+        "notes": [
+            67,
+            70,
+            75
+        ],
+        "real_tick": 129024,
+        "frame": 7560.0
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 129216
+        "real_tick": 129216,
+        "frame": 7571.25
     },
     {
         "notes": [
             65,
             72
         ],
-        "real_tick": 129408
+        "real_tick": 129408,
+        "frame": 7582.5
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 129792
+        "real_tick": 129792,
+        "frame": 7605.0
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 129984
+        "real_tick": 129984,
+        "frame": 7616.25
     },
     {
         "notes": [
             68,
             75
         ],
-        "real_tick": 130176
+        "real_tick": 130176,
+        "frame": 7627.5
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 130368
+        "real_tick": 130368,
+        "frame": 7638.75
     },
     {
         "notes": [
             75,
             80
         ],
-        "real_tick": 130560
+        "real_tick": 130560,
+        "frame": 7650.0
     },
     {
         "notes": [
@@ -3091,7 +3531,8 @@
             73,
             77
         ],
-        "real_tick": 130944
+        "real_tick": 130944,
+        "frame": 7672.5
     },
     {
         "notes": [
@@ -3099,21 +3540,24 @@
             68,
             73
         ],
-        "real_tick": 131328
+        "real_tick": 131328,
+        "frame": 7695.0
     },
     {
         "notes": [
             82,
             89
         ],
-        "real_tick": 131712
+        "real_tick": 131712,
+        "frame": 7717.5
     },
     {
         "notes": [
             82,
             89
         ],
-        "real_tick": 131904
+        "real_tick": 131904,
+        "frame": 7728.75
     },
     {
         "notes": [
@@ -3121,7 +3565,8 @@
             82,
             89
         ],
-        "real_tick": 132288
+        "real_tick": 132288,
+        "frame": 7751.25
     },
     {
         "notes": [
@@ -3129,7 +3574,8 @@
             70,
             75
         ],
-        "real_tick": 132480
+        "real_tick": 132480,
+        "frame": 7762.5
     },
     {
         "notes": [
@@ -3137,20 +3583,23 @@
             70,
             77
         ],
-        "real_tick": 132864
+        "real_tick": 132864,
+        "frame": 7785.0
     },
     {
         "notes": [
             82,
             87
         ],
-        "real_tick": 133248
+        "real_tick": 133248,
+        "frame": 7807.5
     },
     {
         "notes": [
             89
         ],
-        "real_tick": 133632
+        "real_tick": 133632,
+        "frame": 7830.0
     },
     {
         "notes": [
@@ -3158,58 +3607,67 @@
             75,
             80
         ],
-        "real_tick": 134016
+        "real_tick": 134016,
+        "frame": 7852.5
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 134208
+        "real_tick": 134208,
+        "frame": 7863.75
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 134400
+        "real_tick": 134400,
+        "frame": 7875.0
     },
     {
         "notes": [
             72,
             75
         ],
-        "real_tick": 134592
+        "real_tick": 134592,
+        "frame": 7886.25
     },
     {
         "notes": [
             70
         ],
-        "real_tick": 134784
+        "real_tick": 134784,
+        "frame": 7897.5
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 134976
+        "real_tick": 134976,
+        "frame": 7908.75
     },
     {
         "notes": [
             71,
             75
         ],
-        "real_tick": 135360
+        "real_tick": 135360,
+        "frame": 7931.25
     },
     {
         "notes": [
             70
         ],
-        "real_tick": 135552
+        "real_tick": 135552,
+        "frame": 7942.5
     },
     {
         "notes": [
             68,
             77
         ],
-        "real_tick": 135744
+        "real_tick": 135744,
+        "frame": 7953.75
     },
     {
         "notes": [
@@ -3217,14 +3675,16 @@
             72,
             77
         ],
-        "real_tick": 135936
+        "real_tick": 135936,
+        "frame": 7965.0
     },
     {
         "notes": [
             63,
             75
         ],
-        "real_tick": 136128
+        "real_tick": 136128,
+        "frame": 7976.25
     },
     {
         "notes": [
@@ -3232,20 +3692,23 @@
             72,
             77
         ],
-        "real_tick": 136320
+        "real_tick": 136320,
+        "frame": 7987.5
     },
     {
         "notes": [
             70,
             75
         ],
-        "real_tick": 136704
+        "real_tick": 136704,
+        "frame": 8010.0
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 136896
+        "real_tick": 136896,
+        "frame": 8021.25
     },
     {
         "notes": [
@@ -3254,7 +3717,8 @@
             70,
             73
         ],
-        "real_tick": 137088
+        "real_tick": 137088,
+        "frame": 8032.5
     },
     {
         "notes": [
@@ -3262,21 +3726,24 @@
             65,
             73
         ],
-        "real_tick": 137472
+        "real_tick": 137472,
+        "frame": 8055.0
     },
     {
         "notes": [
             82,
             89
         ],
-        "real_tick": 137856
+        "real_tick": 137856,
+        "frame": 8077.5
     },
     {
         "notes": [
             82,
             89
         ],
-        "real_tick": 138048
+        "real_tick": 138048,
+        "frame": 8088.75
     },
     {
         "notes": [
@@ -3284,7 +3751,8 @@
             82,
             89
         ],
-        "real_tick": 138432
+        "real_tick": 138432,
+        "frame": 8111.25
     },
     {
         "notes": [
@@ -3292,7 +3760,8 @@
             70,
             75
         ],
-        "real_tick": 138624
+        "real_tick": 138624,
+        "frame": 8122.5
     },
     {
         "notes": [
@@ -3300,20 +3769,23 @@
             70,
             77
         ],
-        "real_tick": 139008
+        "real_tick": 139008,
+        "frame": 8145.0
     },
     {
         "notes": [
             82,
             87
         ],
-        "real_tick": 139392
+        "real_tick": 139392,
+        "frame": 8167.5
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 139584
+        "real_tick": 139584,
+        "frame": 8178.75
     },
     {
         "notes": [
@@ -3321,7 +3793,8 @@
             84,
             89
         ],
-        "real_tick": 139776
+        "real_tick": 139776,
+        "frame": 8190.0
     },
     {
         "notes": [
@@ -3329,13 +3802,15 @@
             72,
             80
         ],
-        "real_tick": 140160
+        "real_tick": 140160,
+        "frame": 8212.5
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 140544
+        "real_tick": 140544,
+        "frame": 8235.0
     },
     {
         "notes": [
@@ -3343,13 +3818,15 @@
             75,
             83
         ],
-        "real_tick": 140928
+        "real_tick": 140928,
+        "frame": 8257.5
     },
     {
         "notes": [
             82
         ],
-        "real_tick": 141312
+        "real_tick": 141312,
+        "frame": 8280.0
     },
     {
         "notes": [
@@ -3357,26 +3834,30 @@
             72,
             80
         ],
-        "real_tick": 141696
+        "real_tick": 141696,
+        "frame": 8302.5
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 142080
+        "real_tick": 142080,
+        "frame": 8325.0
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 142464
+        "real_tick": 142464,
+        "frame": 8347.5
     },
     {
         "notes": [
             72,
             72
         ],
-        "real_tick": 142848
+        "real_tick": 142848,
+        "frame": 8370.0
     },
     {
         "notes": [
@@ -3384,7 +3865,8 @@
             72,
             75
         ],
-        "real_tick": 143232
+        "real_tick": 143232,
+        "frame": 8392.5
     },
     {
         "notes": [
@@ -3393,7 +3875,8 @@
             75,
             77
         ],
-        "real_tick": 143424
+        "real_tick": 143424,
+        "frame": 8403.75
     },
     {
         "notes": [
@@ -3401,13 +3884,15 @@
             72,
             75
         ],
-        "real_tick": 143616
+        "real_tick": 143616,
+        "frame": 8415.0
     },
     {
         "notes": [
             82
         ],
-        "real_tick": 143808
+        "real_tick": 143808,
+        "frame": 8426.25
     },
     {
         "notes": [
@@ -3416,13 +3901,15 @@
             75,
             77
         ],
-        "real_tick": 144000
+        "real_tick": 144000,
+        "frame": 8437.5
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 144192
+        "real_tick": 144192,
+        "frame": 8448.75
     },
     {
         "notes": [
@@ -3430,7 +3917,8 @@
             72,
             75
         ],
-        "real_tick": 144384
+        "real_tick": 144384,
+        "frame": 8460.0
     },
     {
         "notes": [
@@ -3439,13 +3927,15 @@
             75,
             77
         ],
-        "real_tick": 144576
+        "real_tick": 144576,
+        "frame": 8471.25
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 144768
+        "real_tick": 144768,
+        "frame": 8482.5
     },
     {
         "notes": [
@@ -3454,7 +3944,8 @@
             75,
             82
         ],
-        "real_tick": 144960
+        "real_tick": 144960,
+        "frame": 8493.75
     },
     {
         "notes": [
@@ -3463,13 +3954,15 @@
             75,
             77
         ],
-        "real_tick": 145152
+        "real_tick": 145152,
+        "frame": 8505.0
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 145344
+        "real_tick": 145344,
+        "frame": 8516.25
     },
     {
         "notes": [
@@ -3478,14 +3971,16 @@
             77,
             80
         ],
-        "real_tick": 145536
+        "real_tick": 145536,
+        "frame": 8527.5
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 145920
+        "real_tick": 145920,
+        "frame": 8550.0
     },
     {
         "notes": [
@@ -3494,7 +3989,8 @@
             80,
             84
         ],
-        "real_tick": 146304
+        "real_tick": 146304,
+        "frame": 8572.5
     },
     {
         "notes": [
@@ -3502,14 +3998,16 @@
             72,
             77
         ],
-        "real_tick": 147456
+        "real_tick": 147456,
+        "frame": 8640.0
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 147648
+        "real_tick": 147648,
+        "frame": 8651.25
     },
     {
         "notes": [
@@ -3517,7 +4015,8 @@
             70,
             75
         ],
-        "real_tick": 147840
+        "real_tick": 147840,
+        "frame": 8662.5
     },
     {
         "notes": [
@@ -3525,14 +4024,16 @@
             70,
             75
         ],
-        "real_tick": 148224
+        "real_tick": 148224,
+        "frame": 8685.0
     },
     {
         "notes": [
             70,
             75
         ],
-        "real_tick": 148416
+        "real_tick": 148416,
+        "frame": 8696.25
     },
     {
         "notes": [
@@ -3540,14 +4041,16 @@
             72,
             77
         ],
-        "real_tick": 148608
+        "real_tick": 148608,
+        "frame": 8707.5
     },
     {
         "notes": [
             70,
             75
         ],
-        "real_tick": 148800
+        "real_tick": 148800,
+        "frame": 8718.75
     },
     {
         "notes": [
@@ -3555,14 +4058,16 @@
             72,
             77
         ],
-        "real_tick": 148992
+        "real_tick": 148992,
+        "frame": 8730.0
     },
     {
         "notes": [
             72,
             79
         ],
-        "real_tick": 149184
+        "real_tick": 149184,
+        "frame": 8741.25
     },
     {
         "notes": [
@@ -3570,7 +4075,8 @@
             77,
             80
         ],
-        "real_tick": 149376
+        "real_tick": 149376,
+        "frame": 8752.5
     },
     {
         "notes": [
@@ -3578,7 +4084,8 @@
             75,
             79
         ],
-        "real_tick": 149760
+        "real_tick": 149760,
+        "frame": 8775.0
     },
     {
         "notes": [
@@ -3586,7 +4093,8 @@
             72,
             77
         ],
-        "real_tick": 150144
+        "real_tick": 150144,
+        "frame": 8797.5
     },
     {
         "notes": [
@@ -3594,7 +4102,8 @@
             72,
             75
         ],
-        "real_tick": 150528
+        "real_tick": 150528,
+        "frame": 8820.0
     },
     {
         "notes": [
@@ -3602,21 +4111,24 @@
             80,
             84
         ],
-        "real_tick": 150912
+        "real_tick": 150912,
+        "frame": 8842.5
     },
     {
         "notes": [
             79,
             82
         ],
-        "real_tick": 151296
+        "real_tick": 151296,
+        "frame": 8865.0
     },
     {
         "notes": [
             68,
             75
         ],
-        "real_tick": 151680
+        "real_tick": 151680,
+        "frame": 8887.5
     },
     {
         "notes": [
@@ -3624,7 +4136,8 @@
             72,
             77
         ],
-        "real_tick": 152064
+        "real_tick": 152064,
+        "frame": 8910.0
     },
     {
         "notes": [
@@ -3632,13 +4145,15 @@
             80,
             84
         ],
-        "real_tick": 152448
+        "real_tick": 152448,
+        "frame": 8932.5
     },
     {
         "notes": [
             84
         ],
-        "real_tick": 153024
+        "real_tick": 153024,
+        "frame": 8966.25
     },
     {
         "notes": [
@@ -3646,14 +4161,16 @@
             70,
             77
         ],
-        "real_tick": 153216
+        "real_tick": 153216,
+        "frame": 8977.5
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 153600
+        "real_tick": 153600,
+        "frame": 9000.0
     },
     {
         "notes": [
@@ -3662,21 +4179,24 @@
             72,
             75
         ],
-        "real_tick": 153984
+        "real_tick": 153984,
+        "frame": 9022.5
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 154368
+        "real_tick": 154368,
+        "frame": 9045.0
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 154752
+        "real_tick": 154752,
+        "frame": 9067.5
     },
     {
         "notes": [
@@ -3685,7 +4205,8 @@
             70,
             75
         ],
-        "real_tick": 155328
+        "real_tick": 155328,
+        "frame": 9101.25
     },
     {
         "notes": [
@@ -3693,7 +4214,8 @@
             72,
             77
         ],
-        "real_tick": 155520
+        "real_tick": 155520,
+        "frame": 9112.5
     },
     {
         "notes": [
@@ -3701,7 +4223,8 @@
             75,
             80
         ],
-        "real_tick": 156096
+        "real_tick": 156096,
+        "frame": 9146.25
     },
     {
         "notes": [
@@ -3709,7 +4232,8 @@
             75,
             80
         ],
-        "real_tick": 156288
+        "real_tick": 156288,
+        "frame": 9157.5
     },
     {
         "notes": [
@@ -3717,14 +4241,16 @@
             77,
             84
         ],
-        "real_tick": 156672
+        "real_tick": 156672,
+        "frame": 9180.0
     },
     {
         "notes": [
             70,
             82
         ],
-        "real_tick": 156864
+        "real_tick": 156864,
+        "frame": 9191.25
     },
     {
         "notes": [
@@ -3732,21 +4258,24 @@
             77,
             84
         ],
-        "real_tick": 157056
+        "real_tick": 157056,
+        "frame": 9202.5
     },
     {
         "notes": [
             70,
             75
         ],
-        "real_tick": 157824
+        "real_tick": 157824,
+        "frame": 9247.5
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 158208
+        "real_tick": 158208,
+        "frame": 9270.0
     },
     {
         "notes": [
@@ -3755,7 +4284,8 @@
             80,
             84
         ],
-        "real_tick": 158592
+        "real_tick": 158592,
+        "frame": 9292.5
     },
     {
         "notes": [
@@ -3763,14 +4293,16 @@
             72,
             77
         ],
-        "real_tick": 159744
+        "real_tick": 159744,
+        "frame": 9360.0
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 159936
+        "real_tick": 159936,
+        "frame": 9371.25
     },
     {
         "notes": [
@@ -3778,14 +4310,16 @@
             70,
             75
         ],
-        "real_tick": 160128
+        "real_tick": 160128,
+        "frame": 9382.5
     },
     {
         "notes": [
             70,
             75
         ],
-        "real_tick": 160704
+        "real_tick": 160704,
+        "frame": 9416.25
     },
     {
         "notes": [
@@ -3793,14 +4327,16 @@
             72,
             77
         ],
-        "real_tick": 160896
+        "real_tick": 160896,
+        "frame": 9427.5
     },
     {
         "notes": [
             70,
             75
         ],
-        "real_tick": 161088
+        "real_tick": 161088,
+        "frame": 9438.75
     },
     {
         "notes": [
@@ -3808,14 +4344,16 @@
             72,
             77
         ],
-        "real_tick": 161280
+        "real_tick": 161280,
+        "frame": 9450.0
     },
     {
         "notes": [
             72,
             79
         ],
-        "real_tick": 161472
+        "real_tick": 161472,
+        "frame": 9461.25
     },
     {
         "notes": [
@@ -3823,7 +4361,8 @@
             77,
             80
         ],
-        "real_tick": 161664
+        "real_tick": 161664,
+        "frame": 9472.5
     },
     {
         "notes": [
@@ -3831,7 +4370,8 @@
             75,
             79
         ],
-        "real_tick": 162048
+        "real_tick": 162048,
+        "frame": 9495.0
     },
     {
         "notes": [
@@ -3839,7 +4379,8 @@
             72,
             77
         ],
-        "real_tick": 162432
+        "real_tick": 162432,
+        "frame": 9517.5
     },
     {
         "notes": [
@@ -3847,7 +4388,8 @@
             72,
             75
         ],
-        "real_tick": 162816
+        "real_tick": 162816,
+        "frame": 9540.0
     },
     {
         "notes": [
@@ -3855,21 +4397,24 @@
             80,
             84
         ],
-        "real_tick": 163200
+        "real_tick": 163200,
+        "frame": 9562.5
     },
     {
         "notes": [
             79,
             82
         ],
-        "real_tick": 163584
+        "real_tick": 163584,
+        "frame": 9585.0
     },
     {
         "notes": [
             68,
             75
         ],
-        "real_tick": 163968
+        "real_tick": 163968,
+        "frame": 9607.5
     },
     {
         "notes": [
@@ -3877,7 +4422,8 @@
             72,
             77
         ],
-        "real_tick": 164352
+        "real_tick": 164352,
+        "frame": 9630.0
     },
     {
         "notes": [
@@ -3885,28 +4431,32 @@
             80,
             84
         ],
-        "real_tick": 164736
+        "real_tick": 164736,
+        "frame": 9652.5
     },
     {
         "notes": [
             79,
             82
         ],
-        "real_tick": 165504
+        "real_tick": 165504,
+        "frame": 9697.5
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 165888
+        "real_tick": 165888,
+        "frame": 9720.0
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 166080
+        "real_tick": 166080,
+        "frame": 9731.25
     },
     {
         "notes": [
@@ -3914,7 +4464,8 @@
             68,
             75
         ],
-        "real_tick": 166272
+        "real_tick": 166272,
+        "frame": 9742.5
     },
     {
         "notes": [
@@ -3924,7 +4475,8 @@
             73,
             77
         ],
-        "real_tick": 167616
+        "real_tick": 167616,
+        "frame": 9821.25
     },
     {
         "notes": [
@@ -3933,7 +4485,8 @@
             73,
             78
         ],
-        "real_tick": 167808
+        "real_tick": 167808,
+        "frame": 9832.5
     },
     {
         "notes": [
@@ -3942,7 +4495,8 @@
             73,
             78
         ],
-        "real_tick": 168000
+        "real_tick": 168000,
+        "frame": 9843.75
     },
     {
         "notes": [
@@ -3951,7 +4505,8 @@
             73,
             78
         ],
-        "real_tick": 168384
+        "real_tick": 168384,
+        "frame": 9866.25
     },
     {
         "notes": [
@@ -3960,7 +4515,8 @@
             73,
             78
         ],
-        "real_tick": 168768
+        "real_tick": 168768,
+        "frame": 9888.75
     },
     {
         "notes": [
@@ -3969,7 +4525,8 @@
             73,
             78
         ],
-        "real_tick": 169152
+        "real_tick": 169152,
+        "frame": 9911.25
     },
     {
         "notes": [
@@ -3978,7 +4535,8 @@
             73,
             78
         ],
-        "real_tick": 169536
+        "real_tick": 169536,
+        "frame": 9933.75
     },
     {
         "notes": [
@@ -3987,7 +4545,8 @@
             73,
             78
         ],
-        "real_tick": 169920
+        "real_tick": 169920,
+        "frame": 9956.25
     },
     {
         "notes": [
@@ -3996,7 +4555,8 @@
             73,
             78
         ],
-        "real_tick": 170112
+        "real_tick": 170112,
+        "frame": 9967.5
     },
     {
         "notes": [
@@ -4005,7 +4565,8 @@
             75,
             80
         ],
-        "real_tick": 170880
+        "real_tick": 170880,
+        "frame": 10012.5
     },
     {
         "notes": [
@@ -4013,7 +4574,8 @@
             72,
             77
         ],
-        "real_tick": 171840
+        "real_tick": 171840,
+        "frame": 10068.75
     },
     {
         "notes": [
@@ -4021,7 +4583,8 @@
             72,
             77
         ],
-        "real_tick": 172224
+        "real_tick": 172224,
+        "frame": 10091.25
     },
     {
         "notes": [
@@ -4029,26 +4592,30 @@
             72,
             77
         ],
-        "real_tick": 172800
+        "real_tick": 172800,
+        "frame": 10125.0
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 173184
+        "real_tick": 173184,
+        "frame": 10147.5
     },
     {
         "notes": [
             68,
             72
         ],
-        "real_tick": 173376
+        "real_tick": 173376,
+        "frame": 10158.75
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 173568
+        "real_tick": 173568,
+        "frame": 10170.0
     },
     {
         "notes": [
@@ -4056,21 +4623,24 @@
             72,
             77
         ],
-        "real_tick": 173952
+        "real_tick": 173952,
+        "frame": 10192.5
     },
     {
         "notes": [
             65,
             72
         ],
-        "real_tick": 174144
+        "real_tick": 174144,
+        "frame": 10203.75
     },
     {
         "notes": [
             65,
             72
         ],
-        "real_tick": 174336
+        "real_tick": 174336,
+        "frame": 10215.0
     },
     {
         "notes": [
@@ -4078,7 +4648,8 @@
             72,
             77
         ],
-        "real_tick": 174912
+        "real_tick": 174912,
+        "frame": 10248.75
     },
     {
         "notes": [
@@ -4086,27 +4657,31 @@
             70,
             77
         ],
-        "real_tick": 175296
+        "real_tick": 175296,
+        "frame": 10271.25
     },
     {
         "notes": [
             67,
             70
         ],
-        "real_tick": 175872
+        "real_tick": 175872,
+        "frame": 10305.0
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 176256
+        "real_tick": 176256,
+        "frame": 10327.5
     },
     {
         "notes": [
             67,
             70
         ],
-        "real_tick": 176448
+        "real_tick": 176448,
+        "frame": 10338.75
     },
     {
         "notes": [
@@ -4114,14 +4689,16 @@
             70,
             77
         ],
-        "real_tick": 177024
+        "real_tick": 177024,
+        "frame": 10372.5
     },
     {
         "notes": [
             65,
             70
         ],
-        "real_tick": 177216
+        "real_tick": 177216,
+        "frame": 10383.75
     },
     {
         "notes": [
@@ -4129,20 +4706,23 @@
             70,
             75
         ],
-        "real_tick": 177408
+        "real_tick": 177408,
+        "frame": 10395.0
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 177792
+        "real_tick": 177792,
+        "frame": 10417.5
     },
     {
         "notes": [
             65,
             72
         ],
-        "real_tick": 178176
+        "real_tick": 178176,
+        "frame": 10440.0
     },
     {
         "notes": [
@@ -4150,7 +4730,8 @@
             72,
             75
         ],
-        "real_tick": 178560
+        "real_tick": 178560,
+        "frame": 10462.5
     },
     {
         "notes": [
@@ -4158,7 +4739,8 @@
             72,
             77
         ],
-        "real_tick": 178944
+        "real_tick": 178944,
+        "frame": 10485.0
     },
     {
         "notes": [
@@ -4166,14 +4748,16 @@
             72,
             83
         ],
-        "real_tick": 179712
+        "real_tick": 179712,
+        "frame": 10530.0
     },
     {
         "notes": [
             70,
             73
         ],
-        "real_tick": 180096
+        "real_tick": 180096,
+        "frame": 10552.5
     },
     {
         "notes": [
@@ -4181,7 +4765,8 @@
             73,
             82
         ],
-        "real_tick": 180480
+        "real_tick": 180480,
+        "frame": 10575.0
     },
     {
         "notes": [
@@ -4189,7 +4774,8 @@
             73,
             80
         ],
-        "real_tick": 180864
+        "real_tick": 180864,
+        "frame": 10597.5
     },
     {
         "notes": [
@@ -4197,7 +4783,8 @@
             73,
             77
         ],
-        "real_tick": 181248
+        "real_tick": 181248,
+        "frame": 10620.0
     },
     {
         "notes": [
@@ -4205,14 +4792,16 @@
             70,
             75
         ],
-        "real_tick": 181632
+        "real_tick": 181632,
+        "frame": 10642.5
     },
     {
         "notes": [
             63,
             70
         ],
-        "real_tick": 182016
+        "real_tick": 182016,
+        "frame": 10665.0
     },
     {
         "notes": [
@@ -4220,20 +4809,23 @@
             70,
             77
         ],
-        "real_tick": 182400
+        "real_tick": 182400,
+        "frame": 10687.5
     },
     {
         "notes": [
             67,
             70
         ],
-        "real_tick": 182784
+        "real_tick": 182784,
+        "frame": 10710.0
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 183168
+        "real_tick": 183168,
+        "frame": 10732.5
     },
     {
         "notes": [
@@ -4241,13 +4833,15 @@
             69,
             72
         ],
-        "real_tick": 189120
+        "real_tick": 189120,
+        "frame": 11081.25
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 189504
+        "real_tick": 189504,
+        "frame": 11103.75
     },
     {
         "notes": [
@@ -4255,13 +4849,15 @@
             70,
             74
         ],
-        "real_tick": 189696
+        "real_tick": 189696,
+        "frame": 11115.0
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 189888
+        "real_tick": 189888,
+        "frame": 11126.25
     },
     {
         "notes": [
@@ -4269,7 +4865,8 @@
             69,
             72
         ],
-        "real_tick": 190080
+        "real_tick": 190080,
+        "frame": 11137.5
     },
     {
         "notes": [
@@ -4277,7 +4874,8 @@
             70,
             74
         ],
-        "real_tick": 190464
+        "real_tick": 190464,
+        "frame": 11160.0
     },
     {
         "notes": [
@@ -4285,7 +4883,8 @@
             69,
             72
         ],
-        "real_tick": 190848
+        "real_tick": 190848,
+        "frame": 11182.5
     },
     {
         "notes": [
@@ -4293,7 +4892,8 @@
             70,
             74
         ],
-        "real_tick": 191232
+        "real_tick": 191232,
+        "frame": 11205.0
     },
     {
         "notes": [
@@ -4301,7 +4901,8 @@
             72,
             75
         ],
-        "real_tick": 191424
+        "real_tick": 191424,
+        "frame": 11216.25
     },
     {
         "notes": [
@@ -4309,7 +4910,8 @@
             70,
             74
         ],
-        "real_tick": 191808
+        "real_tick": 191808,
+        "frame": 11238.75
     },
     {
         "notes": [
@@ -4317,13 +4919,15 @@
             69,
             72
         ],
-        "real_tick": 192192
+        "real_tick": 192192,
+        "frame": 11261.25
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 192576
+        "real_tick": 192576,
+        "frame": 11283.75
     },
     {
         "notes": [
@@ -4331,13 +4935,15 @@
             70,
             74
         ],
-        "real_tick": 192768
+        "real_tick": 192768,
+        "frame": 11295.0
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 192960
+        "real_tick": 192960,
+        "frame": 11306.25
     },
     {
         "notes": [
@@ -4345,13 +4951,15 @@
             69,
             72
         ],
-        "real_tick": 193152
+        "real_tick": 193152,
+        "frame": 11317.5
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 193344
+        "real_tick": 193344,
+        "frame": 11328.75
     },
     {
         "notes": [
@@ -4359,39 +4967,45 @@
             70,
             74
         ],
-        "real_tick": 193536
+        "real_tick": 193536,
+        "frame": 11340.0
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 193728
+        "real_tick": 193728,
+        "frame": 11351.25
     },
     {
         "notes": [
             68,
             74
         ],
-        "real_tick": 193920
+        "real_tick": 193920,
+        "frame": 11362.5
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 194112
+        "real_tick": 194112,
+        "frame": 11373.75
     },
     {
         "notes": [
             68,
             74
         ],
-        "real_tick": 194304
+        "real_tick": 194304,
+        "frame": 11385.0
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 194496
+        "real_tick": 194496,
+        "frame": 11396.25
     },
     {
         "notes": [
@@ -4399,13 +5013,15 @@
             75,
             83
         ],
-        "real_tick": 194688
+        "real_tick": 194688,
+        "frame": 11407.5
     },
     {
         "notes": [
             82
         ],
-        "real_tick": 194880
+        "real_tick": 194880,
+        "frame": 11418.75
     },
     {
         "notes": [
@@ -4413,7 +5029,8 @@
             75,
             80
         ],
-        "real_tick": 195072
+        "real_tick": 195072,
+        "frame": 11430.0
     },
     {
         "notes": [
@@ -4421,7 +5038,8 @@
             69,
             72
         ],
-        "real_tick": 195456
+        "real_tick": 195456,
+        "frame": 11452.5
     },
     {
         "notes": [
@@ -4429,7 +5047,8 @@
             70,
             74
         ],
-        "real_tick": 195840
+        "real_tick": 195840,
+        "frame": 11475.0
     },
     {
         "notes": [
@@ -4437,7 +5056,8 @@
             69,
             72
         ],
-        "real_tick": 196224
+        "real_tick": 196224,
+        "frame": 11497.5
     },
     {
         "notes": [
@@ -4445,7 +5065,8 @@
             70,
             74
         ],
-        "real_tick": 196608
+        "real_tick": 196608,
+        "frame": 11520.0
     },
     {
         "notes": [
@@ -4453,13 +5074,15 @@
             69,
             72
         ],
-        "real_tick": 196992
+        "real_tick": 196992,
+        "frame": 11542.5
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 197184
+        "real_tick": 197184,
+        "frame": 11553.75
     },
     {
         "notes": [
@@ -4467,7 +5090,8 @@
             70,
             74
         ],
-        "real_tick": 197376
+        "real_tick": 197376,
+        "frame": 11565.0
     },
     {
         "notes": [
@@ -4475,7 +5099,8 @@
             72,
             75
         ],
-        "real_tick": 197568
+        "real_tick": 197568,
+        "frame": 11576.25
     },
     {
         "notes": [
@@ -4483,7 +5108,8 @@
             70,
             74
         ],
-        "real_tick": 197952
+        "real_tick": 197952,
+        "frame": 11598.75
     },
     {
         "notes": [
@@ -4491,13 +5117,15 @@
             68,
             72
         ],
-        "real_tick": 198528
+        "real_tick": 198528,
+        "frame": 11632.5
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 198720
+        "real_tick": 198720,
+        "frame": 11643.75
     },
     {
         "notes": [
@@ -4505,13 +5133,15 @@
             70,
             74
         ],
-        "real_tick": 198912
+        "real_tick": 198912,
+        "frame": 11655.0
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 199104
+        "real_tick": 199104,
+        "frame": 11666.25
     },
     {
         "notes": [
@@ -4519,13 +5149,15 @@
             68,
             72
         ],
-        "real_tick": 199296
+        "real_tick": 199296,
+        "frame": 11677.5
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 199488
+        "real_tick": 199488,
+        "frame": 11688.75
     },
     {
         "notes": [
@@ -4533,13 +5165,15 @@
             70,
             74
         ],
-        "real_tick": 199680
+        "real_tick": 199680,
+        "frame": 11700.0
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 199872
+        "real_tick": 199872,
+        "frame": 11711.25
     },
     {
         "notes": [
@@ -4547,13 +5181,15 @@
             68,
             72
         ],
-        "real_tick": 200064
+        "real_tick": 200064,
+        "frame": 11722.5
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 200256
+        "real_tick": 200256,
+        "frame": 11733.75
     },
     {
         "notes": [
@@ -4561,7 +5197,8 @@
             70,
             74
         ],
-        "real_tick": 200448
+        "real_tick": 200448,
+        "frame": 11745.0
     },
     {
         "notes": [
@@ -4569,7 +5206,8 @@
             72,
             75
         ],
-        "real_tick": 200640
+        "real_tick": 200640,
+        "frame": 11756.25
     },
     {
         "notes": [
@@ -4577,7 +5215,8 @@
             70,
             74
         ],
-        "real_tick": 201024
+        "real_tick": 201024,
+        "frame": 11778.75
     },
     {
         "notes": [
@@ -4585,13 +5224,15 @@
             73,
             77
         ],
-        "real_tick": 201600
+        "real_tick": 201600,
+        "frame": 11812.5
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 201792
+        "real_tick": 201792,
+        "frame": 11823.75
     },
     {
         "notes": [
@@ -4599,7 +5240,8 @@
             75,
             79
         ],
-        "real_tick": 201984
+        "real_tick": 201984,
+        "frame": 11835.0
     },
     {
         "notes": [
@@ -4607,7 +5249,8 @@
             73,
             77
         ],
-        "real_tick": 202368
+        "real_tick": 202368,
+        "frame": 11857.5
     },
     {
         "notes": [
@@ -4615,13 +5258,15 @@
             75,
             79
         ],
-        "real_tick": 202752
+        "real_tick": 202752,
+        "frame": 11880.0
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 202944
+        "real_tick": 202944,
+        "frame": 11891.25
     },
     {
         "notes": [
@@ -4629,13 +5274,15 @@
             73,
             77
         ],
-        "real_tick": 203136
+        "real_tick": 203136,
+        "frame": 11902.5
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 203328
+        "real_tick": 203328,
+        "frame": 11913.75
     },
     {
         "notes": [
@@ -4643,7 +5290,8 @@
             75,
             79
         ],
-        "real_tick": 203520
+        "real_tick": 203520,
+        "frame": 11925.0
     },
     {
         "notes": [
@@ -4651,7 +5299,8 @@
             75,
             80
         ],
-        "real_tick": 203712
+        "real_tick": 203712,
+        "frame": 11936.25
     },
     {
         "notes": [
@@ -4659,14 +5308,16 @@
             75,
             79
         ],
-        "real_tick": 204096
+        "real_tick": 204096,
+        "frame": 11958.75
     },
     {
         "notes": [
             65,
             77
         ],
-        "real_tick": 204480
+        "real_tick": 204480,
+        "frame": 11981.25
     },
     {
         "notes": [
@@ -4674,7 +5325,8 @@
             75,
             82
         ],
-        "real_tick": 204672
+        "real_tick": 204672,
+        "frame": 11992.5
     },
     {
         "notes": [
@@ -4682,109 +5334,126 @@
             75,
             82
         ],
-        "real_tick": 204864
+        "real_tick": 204864,
+        "frame": 12003.75
     },
     {
         "notes": [
             70,
             77
         ],
-        "real_tick": 205440
+        "real_tick": 205440,
+        "frame": 12037.5
     },
     {
         "notes": [
             70,
             75
         ],
-        "real_tick": 205824
+        "real_tick": 205824,
+        "frame": 12060.0
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 206208
+        "real_tick": 206208,
+        "frame": 12082.5
     },
     {
         "notes": [
             75,
             80
         ],
-        "real_tick": 206592
+        "real_tick": 206592,
+        "frame": 12105.0
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 206784
+        "real_tick": 206784,
+        "frame": 12116.25
     },
     {
         "notes": [
             75,
             80
         ],
-        "real_tick": 207168
+        "real_tick": 207168,
+        "frame": 12138.75
     },
     {
         "notes": [
             84
         ],
-        "real_tick": 207744
+        "real_tick": 207744,
+        "frame": 12172.5
     },
     {
         "notes": [
             83
         ],
-        "real_tick": 208320
+        "real_tick": 208320,
+        "frame": 12206.25
     },
     {
         "notes": [
             84
         ],
-        "real_tick": 208416
+        "real_tick": 208416,
+        "frame": 12211.875
     },
     {
         "notes": [
             86
         ],
-        "real_tick": 208512
+        "real_tick": 208512,
+        "frame": 12217.5
     },
     {
         "notes": [
             84
         ],
-        "real_tick": 209088
+        "real_tick": 209088,
+        "frame": 12251.25
     },
     {
         "notes": [
             86
         ],
-        "real_tick": 209184
+        "real_tick": 209184,
+        "frame": 12256.875
     },
     {
         "notes": [
             87
         ],
-        "real_tick": 209280
+        "real_tick": 209280,
+        "frame": 12262.5
     },
     {
         "notes": [
             86
         ],
-        "real_tick": 209856
+        "real_tick": 209856,
+        "frame": 12296.25
     },
     {
         "notes": [
             87
         ],
-        "real_tick": 209952
+        "real_tick": 209952,
+        "frame": 12301.875
     },
     {
         "notes": [
             88
         ],
-        "real_tick": 210048
+        "real_tick": 210048,
+        "frame": 12307.5
     },
     {
         "notes": [
@@ -4792,7 +5461,8 @@
             72,
             75
         ],
-        "real_tick": 210816
+        "real_tick": 210816,
+        "frame": 12352.5
     },
     {
         "notes": [
@@ -4800,7 +5470,8 @@
             72,
             77
         ],
-        "real_tick": 211008
+        "real_tick": 211008,
+        "frame": 12363.75
     },
     {
         "notes": [
@@ -4808,13 +5479,15 @@
             72,
             77
         ],
-        "real_tick": 211200
+        "real_tick": 211200,
+        "frame": 12375.0
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 211392
+        "real_tick": 211392,
+        "frame": 12386.25
     },
     {
         "notes": [
@@ -4822,15 +5495,8 @@
             72,
             77
         ],
-        "real_tick": 211584
-    },
-    {
-        "notes": [
-            65,
-            72,
-            75
-        ],
-        "real_tick": 211968
+        "real_tick": 211584,
+        "frame": 12397.5
     },
     {
         "notes": [
@@ -4838,13 +5504,24 @@
             72,
             75
         ],
-        "real_tick": 212160
+        "real_tick": 211968,
+        "frame": 12420.0
+    },
+    {
+        "notes": [
+            65,
+            72,
+            75
+        ],
+        "real_tick": 212160,
+        "frame": 12431.25
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 212352
+        "real_tick": 212352,
+        "frame": 12442.5
     },
     {
         "notes": [
@@ -4852,7 +5529,8 @@
             72,
             77
         ],
-        "real_tick": 212544
+        "real_tick": 212544,
+        "frame": 12453.75
     },
     {
         "notes": [
@@ -4860,21 +5538,24 @@
             72,
             77
         ],
-        "real_tick": 212736
+        "real_tick": 212736,
+        "frame": 12465.0
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 213120
+        "real_tick": 213120,
+        "frame": 12487.5
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 213504
+        "real_tick": 213504,
+        "frame": 12510.0
     },
     {
         "notes": [
@@ -4883,7 +5564,8 @@
             80,
             84
         ],
-        "real_tick": 213888
+        "real_tick": 213888,
+        "frame": 12532.5
     },
     {
         "notes": [
@@ -4891,14 +5573,16 @@
             72,
             77
         ],
-        "real_tick": 215040
+        "real_tick": 215040,
+        "frame": 12600.0
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 215232
+        "real_tick": 215232,
+        "frame": 12611.25
     },
     {
         "notes": [
@@ -4906,14 +5590,16 @@
             70,
             75
         ],
-        "real_tick": 215424
+        "real_tick": 215424,
+        "frame": 12622.5
     },
     {
         "notes": [
             70,
             75
         ],
-        "real_tick": 216000
+        "real_tick": 216000,
+        "frame": 12656.25
     },
     {
         "notes": [
@@ -4921,7 +5607,8 @@
             72,
             77
         ],
-        "real_tick": 216192
+        "real_tick": 216192,
+        "frame": 12667.5
     },
     {
         "notes": [
@@ -4929,14 +5616,16 @@
             72,
             77
         ],
-        "real_tick": 216576
+        "real_tick": 216576,
+        "frame": 12690.0
     },
     {
         "notes": [
             72,
             79
         ],
-        "real_tick": 216768
+        "real_tick": 216768,
+        "frame": 12701.25
     },
     {
         "notes": [
@@ -4944,7 +5633,8 @@
             77,
             80
         ],
-        "real_tick": 216960
+        "real_tick": 216960,
+        "frame": 12712.5
     },
     {
         "notes": [
@@ -4952,7 +5642,8 @@
             75,
             79
         ],
-        "real_tick": 217344
+        "real_tick": 217344,
+        "frame": 12735.0
     },
     {
         "notes": [
@@ -4960,7 +5651,8 @@
             72,
             77
         ],
-        "real_tick": 217728
+        "real_tick": 217728,
+        "frame": 12757.5
     },
     {
         "notes": [
@@ -4968,7 +5660,8 @@
             72,
             75
         ],
-        "real_tick": 218112
+        "real_tick": 218112,
+        "frame": 12780.0
     },
     {
         "notes": [
@@ -4976,21 +5669,24 @@
             80,
             84
         ],
-        "real_tick": 218496
+        "real_tick": 218496,
+        "frame": 12802.5
     },
     {
         "notes": [
             79,
             82
         ],
-        "real_tick": 218880
+        "real_tick": 218880,
+        "frame": 12825.0
     },
     {
         "notes": [
             68,
             75
         ],
-        "real_tick": 219264
+        "real_tick": 219264,
+        "frame": 12847.5
     },
     {
         "notes": [
@@ -4998,7 +5694,8 @@
             72,
             77
         ],
-        "real_tick": 219648
+        "real_tick": 219648,
+        "frame": 12870.0
     },
     {
         "notes": [
@@ -5006,21 +5703,24 @@
             80,
             84
         ],
-        "real_tick": 220032
+        "real_tick": 220032,
+        "frame": 12892.5
     },
     {
         "notes": [
             79,
             82
         ],
-        "real_tick": 220800
+        "real_tick": 220800,
+        "frame": 12937.5
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 221184
+        "real_tick": 221184,
+        "frame": 12960.0
     },
     {
         "notes": [
@@ -5029,27 +5729,31 @@
             72,
             75
         ],
-        "real_tick": 221568
+        "real_tick": 221568,
+        "frame": 12982.5
     },
     {
         "notes": [
             72,
             75
         ],
-        "real_tick": 221952
+        "real_tick": 221952,
+        "frame": 13005.0
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 222144
+        "real_tick": 222144,
+        "frame": 13016.25
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 222336
+        "real_tick": 222336,
+        "frame": 13027.5
     },
     {
         "notes": [
@@ -5058,7 +5762,8 @@
             70,
             75
         ],
-        "real_tick": 222912
+        "real_tick": 222912,
+        "frame": 13061.25
     },
     {
         "notes": [
@@ -5066,14 +5771,16 @@
             72,
             77
         ],
-        "real_tick": 223104
+        "real_tick": 223104,
+        "frame": 13072.5
     },
     {
         "notes": [
             75,
             80
         ],
-        "real_tick": 223680
+        "real_tick": 223680,
+        "frame": 13106.25
     },
     {
         "notes": [
@@ -5081,7 +5788,8 @@
             75,
             80
         ],
-        "real_tick": 223872
+        "real_tick": 223872,
+        "frame": 13117.5
     },
     {
         "notes": [
@@ -5089,7 +5797,8 @@
             77,
             84
         ],
-        "real_tick": 224256
+        "real_tick": 224256,
+        "frame": 13140.0
     },
     {
         "notes": [
@@ -5097,21 +5806,24 @@
             77,
             84
         ],
-        "real_tick": 224640
+        "real_tick": 224640,
+        "frame": 13162.5
     },
     {
         "notes": [
             70,
             75
         ],
-        "real_tick": 225408
+        "real_tick": 225408,
+        "frame": 13207.5
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 225792
+        "real_tick": 225792,
+        "frame": 13230.0
     },
     {
         "notes": [
@@ -5120,7 +5832,8 @@
             80,
             84
         ],
-        "real_tick": 226176
+        "real_tick": 226176,
+        "frame": 13252.5
     },
     {
         "notes": [
@@ -5128,21 +5841,24 @@
             72,
             77
         ],
-        "real_tick": 226944
+        "real_tick": 226944,
+        "frame": 13297.5
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 227328
+        "real_tick": 227328,
+        "frame": 13320.0
     },
     {
         "notes": [
             72,
             75
         ],
-        "real_tick": 227520
+        "real_tick": 227520,
+        "frame": 13331.25
     },
     {
         "notes": [
@@ -5150,14 +5866,16 @@
             70,
             75
         ],
-        "real_tick": 227712
+        "real_tick": 227712,
+        "frame": 13342.5
     },
     {
         "notes": [
             70,
             75
         ],
-        "real_tick": 227904
+        "real_tick": 227904,
+        "frame": 13353.75
     },
     {
         "notes": [
@@ -5165,22 +5883,16 @@
             70,
             75
         ],
-        "real_tick": 228096
+        "real_tick": 228096,
+        "frame": 13365.0
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 228288
-    },
-    {
-        "notes": [
-            68,
-            72,
-            77
-        ],
-        "real_tick": 228480
+        "real_tick": 228288,
+        "frame": 13376.25
     },
     {
         "notes": [
@@ -5188,14 +5900,25 @@
             72,
             77
         ],
-        "real_tick": 228864
+        "real_tick": 228480,
+        "frame": 13387.5
+    },
+    {
+        "notes": [
+            68,
+            72,
+            77
+        ],
+        "real_tick": 228864,
+        "frame": 13410.0
     },
     {
         "notes": [
             72,
             79
         ],
-        "real_tick": 229056
+        "real_tick": 229056,
+        "frame": 13421.25
     },
     {
         "notes": [
@@ -5203,7 +5926,8 @@
             77,
             80
         ],
-        "real_tick": 229248
+        "real_tick": 229248,
+        "frame": 13432.5
     },
     {
         "notes": [
@@ -5211,7 +5935,8 @@
             75,
             79
         ],
-        "real_tick": 229632
+        "real_tick": 229632,
+        "frame": 13455.0
     },
     {
         "notes": [
@@ -5219,7 +5944,8 @@
             72,
             77
         ],
-        "real_tick": 230016
+        "real_tick": 230016,
+        "frame": 13477.5
     },
     {
         "notes": [
@@ -5227,7 +5953,8 @@
             72,
             75
         ],
-        "real_tick": 230400
+        "real_tick": 230400,
+        "frame": 13500.0
     },
     {
         "notes": [
@@ -5235,21 +5962,24 @@
             80,
             84
         ],
-        "real_tick": 230784
+        "real_tick": 230784,
+        "frame": 13522.5
     },
     {
         "notes": [
             79,
             82
         ],
-        "real_tick": 231168
+        "real_tick": 231168,
+        "frame": 13545.0
     },
     {
         "notes": [
             68,
             75
         ],
-        "real_tick": 231552
+        "real_tick": 231552,
+        "frame": 13567.5
     },
     {
         "notes": [
@@ -5257,7 +5987,8 @@
             72,
             77
         ],
-        "real_tick": 231936
+        "real_tick": 231936,
+        "frame": 13590.0
     },
     {
         "notes": [
@@ -5265,7 +5996,8 @@
             80,
             84
         ],
-        "real_tick": 232320
+        "real_tick": 232320,
+        "frame": 13612.5
     },
     {
         "notes": [
@@ -5273,21 +6005,24 @@
             70,
             77
         ],
-        "real_tick": 233088
+        "real_tick": 233088,
+        "frame": 13657.5
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 233472
+        "real_tick": 233472,
+        "frame": 13680.0
     },
     {
         "notes": [
             72,
             75
         ],
-        "real_tick": 233664
+        "real_tick": 233664,
+        "frame": 13691.25
     },
     {
         "notes": [
@@ -5296,13 +6031,15 @@
             72,
             75
         ],
-        "real_tick": 233856
+        "real_tick": 233856,
+        "frame": 13702.5
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 234240
+        "real_tick": 234240,
+        "frame": 13725.0
     },
     {
         "notes": [
@@ -5310,54 +6047,62 @@
             72,
             77
         ],
-        "real_tick": 234624
+        "real_tick": 234624,
+        "frame": 13747.5
     },
     {
         "notes": [
             70,
             75
         ],
-        "real_tick": 235200
+        "real_tick": 235200,
+        "frame": 13781.25
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 235392
+        "real_tick": 235392,
+        "frame": 13792.5
     },
     {
         "notes": [
             72,
             77
         ],
-        "real_tick": 235584
+        "real_tick": 235584,
+        "frame": 13803.75
     },
     {
         "notes": [
             80
         ],
-        "real_tick": 235968
+        "real_tick": 235968,
+        "frame": 13826.25
     },
     {
         "notes": [
             75,
             80
         ],
-        "real_tick": 236160
+        "real_tick": 236160,
+        "frame": 13837.5
     },
     {
         "notes": [
             80
         ],
-        "real_tick": 236544
+        "real_tick": 236544,
+        "frame": 13860.0
     },
     {
         "notes": [
             79,
             84
         ],
-        "real_tick": 236736
+        "real_tick": 236736,
+        "frame": 13871.25
     },
     {
         "notes": [
@@ -5365,13 +6110,15 @@
             79,
             84
         ],
-        "real_tick": 236928
+        "real_tick": 236928,
+        "frame": 13882.5
     },
     {
         "notes": [
             83
         ],
-        "real_tick": 237504
+        "real_tick": 237504,
+        "frame": 13916.25
     },
     {
         "notes": [
@@ -5379,73 +6126,85 @@
             82,
             87
         ],
-        "real_tick": 237696
+        "real_tick": 237696,
+        "frame": 13927.5
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 238848
+        "real_tick": 238848,
+        "frame": 13995.0
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 239232
+        "real_tick": 239232,
+        "frame": 14017.5
     },
     {
         "notes": [
             80
         ],
-        "real_tick": 239616
+        "real_tick": 239616,
+        "frame": 14040.0
     },
     {
         "notes": [
             82
         ],
-        "real_tick": 240000
+        "real_tick": 240000,
+        "frame": 14062.5
     },
     {
         "notes": [
             80
         ],
-        "real_tick": 240192
+        "real_tick": 240192,
+        "frame": 14073.75
     },
     {
         "notes": [
             82
         ],
-        "real_tick": 240384
+        "real_tick": 240384,
+        "frame": 14085.0
     },
     {
         "notes": [
             83
         ],
-        "real_tick": 240576
+        "real_tick": 240576,
+        "frame": 14096.25
     },
     {
         "notes": [
             82
         ],
-        "real_tick": 240768
+        "real_tick": 240768,
+        "frame": 14107.5
     },
     {
         "notes": [
             80
         ],
-        "real_tick": 240960
+        "real_tick": 240960,
+        "frame": 14118.75
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 241152
+        "real_tick": 241152,
+        "frame": 14130.0
     },
     {
         "notes": [
             75
         ],
-        "real_tick": 241344
+        "real_tick": 241344,
+        "frame": 14141.25
     },
     {
         "notes": [
@@ -5454,7 +6213,8 @@
             72,
             77
         ],
-        "real_tick": 241536
+        "real_tick": 241536,
+        "frame": 14152.5
     },
     {
         "notes": [
@@ -5462,7 +6222,8 @@
             60,
             65
         ],
-        "real_tick": 241728
+        "real_tick": 241728,
+        "frame": 14163.75
     },
     {
         "notes": [
@@ -5470,7 +6231,8 @@
             60,
             65
         ],
-        "real_tick": 241920
+        "real_tick": 241920,
+        "frame": 14175.0
     },
     {
         "notes": [
@@ -5478,7 +6240,8 @@
             63,
             68
         ],
-        "real_tick": 242304
+        "real_tick": 242304,
+        "frame": 14197.5
     },
     {
         "notes": [
@@ -5486,7 +6249,8 @@
             60,
             65
         ],
-        "real_tick": 242880
+        "real_tick": 242880,
+        "frame": 14231.25
     },
     {
         "notes": [
@@ -5494,7 +6258,8 @@
             60,
             65
         ],
-        "real_tick": 243264
+        "real_tick": 243264,
+        "frame": 14253.75
     },
     {
         "notes": [
@@ -5502,7 +6267,8 @@
             60,
             65
         ],
-        "real_tick": 243456
+        "real_tick": 243456,
+        "frame": 14265.0
     },
     {
         "notes": [
@@ -5510,7 +6276,8 @@
             63,
             68
         ],
-        "real_tick": 243840
+        "real_tick": 243840,
+        "frame": 14287.5
     },
     {
         "notes": [
@@ -5518,7 +6285,8 @@
             82,
             89
         ],
-        "real_tick": 244224
+        "real_tick": 244224,
+        "frame": 14310.0
     },
     {
         "notes": [
@@ -5526,7 +6294,8 @@
             60,
             65
         ],
-        "real_tick": 244800
+        "real_tick": 244800,
+        "frame": 14343.75
     },
     {
         "notes": [
@@ -5534,7 +6303,8 @@
             60,
             65
         ],
-        "real_tick": 244992
+        "real_tick": 244992,
+        "frame": 14355.0
     },
     {
         "notes": [
@@ -5542,7 +6312,8 @@
             63,
             68
         ],
-        "real_tick": 245376
+        "real_tick": 245376,
+        "frame": 14377.5
     },
     {
         "notes": [
@@ -5550,7 +6321,8 @@
             60,
             65
         ],
-        "real_tick": 245952
+        "real_tick": 245952,
+        "frame": 14411.25
     },
     {
         "notes": [
@@ -5558,7 +6330,8 @@
             60,
             65
         ],
-        "real_tick": 246336
+        "real_tick": 246336,
+        "frame": 14433.75
     },
     {
         "notes": [
@@ -5567,7 +6340,8 @@
             65,
             68
         ],
-        "real_tick": 246528
+        "real_tick": 246528,
+        "frame": 14445.0
     },
     {
         "notes": [
@@ -5575,20 +6349,23 @@
             60,
             65
         ],
-        "real_tick": 246912
+        "real_tick": 246912,
+        "frame": 14467.5
     },
     {
         "notes": [
             58,
             62
         ],
-        "real_tick": 247104
+        "real_tick": 247104,
+        "frame": 14478.75
     },
     {
         "notes": [
             72
         ],
-        "real_tick": 247296
+        "real_tick": 247296,
+        "frame": 14490.0
     },
     {
         "notes": [
@@ -5596,7 +6373,8 @@
             60,
             65
         ],
-        "real_tick": 247680
+        "real_tick": 247680,
+        "frame": 14512.5
     },
     {
         "notes": [
@@ -5604,7 +6382,8 @@
             60,
             65
         ],
-        "real_tick": 247872
+        "real_tick": 247872,
+        "frame": 14523.75
     },
     {
         "notes": [
@@ -5612,7 +6391,8 @@
             60,
             65
         ],
-        "real_tick": 248064
+        "real_tick": 248064,
+        "frame": 14535.0
     },
     {
         "notes": [
@@ -5620,7 +6400,8 @@
             63,
             68
         ],
-        "real_tick": 248448
+        "real_tick": 248448,
+        "frame": 14557.5
     },
     {
         "notes": [
@@ -5628,7 +6409,8 @@
             60,
             65
         ],
-        "real_tick": 249024
+        "real_tick": 249024,
+        "frame": 14591.25
     },
     {
         "notes": [
@@ -5636,7 +6418,8 @@
             60,
             65
         ],
-        "real_tick": 249408
+        "real_tick": 249408,
+        "frame": 14613.75
     },
     {
         "notes": [
@@ -5644,7 +6427,8 @@
             60,
             65
         ],
-        "real_tick": 249600
+        "real_tick": 249600,
+        "frame": 14625.0
     },
     {
         "notes": [
@@ -5652,7 +6436,8 @@
             63,
             68
         ],
-        "real_tick": 249984
+        "real_tick": 249984,
+        "frame": 14647.5
     },
     {
         "notes": [
@@ -5663,85 +6448,98 @@
             82,
             89
         ],
-        "real_tick": 250752
+        "real_tick": 250752,
+        "frame": 14692.5
     },
     {
         "notes": [
             76
         ],
-        "real_tick": 250848
+        "real_tick": 250848,
+        "frame": 14698.125
     },
     {
         "notes": [
             77,
             82
         ],
-        "real_tick": 250944
+        "real_tick": 250944,
+        "frame": 14703.75
     },
     {
         "notes": [
             76
         ],
-        "real_tick": 251040
+        "real_tick": 251040,
+        "frame": 14709.375
     },
     {
         "notes": [
             77,
             82
         ],
-        "real_tick": 251136
+        "real_tick": 251136,
+        "frame": 14715.0
     },
     {
         "notes": [
             76
         ],
-        "real_tick": 251232
+        "real_tick": 251232,
+        "frame": 14720.625
     },
     {
         "notes": [
             77,
             82
         ],
-        "real_tick": 251328
+        "real_tick": 251328,
+        "frame": 14726.25
     },
     {
         "notes": [
             76
         ],
-        "real_tick": 251424
+        "real_tick": 251424,
+        "frame": 14731.875
     },
     {
         "notes": [
             77,
             82
         ],
-        "real_tick": 251520
+        "real_tick": 251520,
+        "frame": 14737.5
     },
     {
         "notes": [
             76
         ],
-        "real_tick": 251616
+        "real_tick": 251616,
+        "frame": 14743.125
     },
     {
         "notes": [
             77,
             82
         ],
-        "real_tick": 251712
+        "real_tick": 251712,
+        "frame": 14748.75
     },
     {
         "notes": [
             76
         ],
-        "real_tick": 251808
+        "real_tick": 251808,
+        "frame": 14754.375
     },
     {
         "notes": [
             77,
             82
         ],
-        "real_tick": 251904
+        "real_tick": 251904,
+        "frame": 14760.0
     },
     {
         "notes": [
@@ -5751,129 +6549,150 @@
             72,
             75
         ],
-        "real_tick": 252992
+        "real_tick": 252992,
+        "frame": 14823.75
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 253056
+        "real_tick": 253056,
+        "frame": 14827.5
     },
     {
         "notes": [
             80
         ],
-        "real_tick": 253313
+        "real_tick": 253313,
+        "frame": 14842.55859375
     },
     {
         "notes": [
             83
         ],
-        "real_tick": 253825
+        "real_tick": 253825,
+        "frame": 14872.55859375
     },
     {
         "notes": [
             82
         ],
-        "real_tick": 254017
+        "real_tick": 254017,
+        "frame": 14883.80859375
     },
     {
         "notes": [
             80
         ],
-        "real_tick": 254145
+        "real_tick": 254145,
+        "frame": 14891.30859375
     },
     {
         "notes": [
             79
         ],
-        "real_tick": 254274
+        "real_tick": 254274,
+        "frame": 14898.8671875
     },
     {
         "notes": [
             77
         ],
-        "real_tick": 254402
+        "real_tick": 254402,
+        "frame": 14906.3671875
     },
     {
         "notes": [
             65,
             80
         ],
-        "real_tick": 255362
+        "real_tick": 255362,
+        "frame": 14962.6171875
     },
     {
         "notes": [
             63
         ],
-        "real_tick": 255554
+        "real_tick": 255554,
+        "frame": 14973.8671875
     },
     {
         "notes": [
             60
         ],
-        "real_tick": 255682
+        "real_tick": 255682,
+        "frame": 14981.3671875
     },
     {
         "notes": [
             58
         ],
-        "real_tick": 255811
+        "real_tick": 255811,
+        "frame": 14988.92578125
     },
     {
         "notes": [
             56
         ],
-        "real_tick": 255939
+        "real_tick": 255939,
+        "frame": 14996.42578125
     },
     {
         "notes": [
             58,
             63
         ],
-        "real_tick": 256323
+        "real_tick": 256323,
+        "frame": 15018.92578125
     },
     {
         "notes": [
             60
         ],
-        "real_tick": 256451
+        "real_tick": 256451,
+        "frame": 15026.42578125
     },
     {
         "notes": [
             58
         ],
-        "real_tick": 256580
+        "real_tick": 256580,
+        "frame": 15033.984375
     },
     {
         "notes": [
             53
         ],
-        "real_tick": 256708
+        "real_tick": 256708,
+        "frame": 15041.484375
     },
     {
         "notes": [
             58
         ],
-        "real_tick": 256804
+        "real_tick": 256804,
+        "frame": 15047.109375
     },
     {
         "notes": [
             53
         ],
-        "real_tick": 256900
+        "real_tick": 256900,
+        "frame": 15052.734375
     },
     {
         "notes": [
             56
         ],
-        "real_tick": 257092
+        "real_tick": 257092,
+        "frame": 15063.984375
     },
     {
         "notes": [
             53
         ],
-        "real_tick": 257476
+        "real_tick": 257476,
+        "frame": 15086.484375
     },
     {
         "notes": [
@@ -5881,7 +6700,8 @@
             64,
             68
         ],
-        "real_tick": 258436
+        "real_tick": 258436,
+        "frame": 15142.734375
     },
     {
         "notes": [
@@ -5889,6 +6709,7 @@
             83,
             92
         ],
-        "real_tick": 259012
+        "real_tick": 259012,
+        "frame": 15176.484375
     }
 ]

@@ -8,18 +8,18 @@ import json
 
 
 class Recorder:
-    def __init__(self, piano: Piano, left_hands: list[Hand], right_hands: list[Hand], current_entropy: int, real_tick: float, real_ticks: list[float]):
+    def __init__(self, piano: Piano, left_hands: list[Hand], right_hands: list[Hand], current_entropy: int, frame: float, frames: list[float]):
         self.piano: Piano = piano
         self.left_hands: list[Hand] = left_hands
         self.right_hands: list[Hand] = right_hands
         self.current_entropy: int = current_entropy
-        self.real_tick = real_tick
-        self.real_ticks: list[float] = real_ticks[:]
-        self.real_ticks.append(real_tick)
+        self.frame = frame
+        self.frames: list[float] = frames
+        self.frames.append(frame)
 
     def next_generation_recorders_generator(self, notes_map: NotesMap, hand_range: int, finger_range: int) -> Iterator['Recorder']:
         notes = notes_map['notes']
-        real_tick = notes_map['real_tick']
+        frame = notes_map['frame']
         note_amount = len(notes)
         finger_indexs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
@@ -33,11 +33,11 @@ class Recorder:
 
                 # 根据映射创建新的Recorder实例
                 new_recorder = self._create_new_recorder(
-                    note_finger_mapping, note_amount, hand_range, finger_range, real_tick)
+                    note_finger_mapping, note_amount, hand_range, finger_range, frame)
                 if new_recorder is not None:
                     yield new_recorder
 
-    def _create_new_recorder(self, note_finger_mapping: dict[int, int], note_amount: int, hand_range: int, finger_range: int, real_tick: float) -> Optional['Recorder']:
+    def _create_new_recorder(self, note_finger_mapping: dict[int, int], note_amount: int, hand_range: int, finger_range: int, frame: float) -> Optional['Recorder']:
         # 按手指索引排序
         sorted_items = sorted(note_finger_mapping.items(),
                               key=lambda x: x[1])
@@ -135,15 +135,16 @@ class Recorder:
 
         new_entropy = self.current_entropy + \
             left_hand_diff + right_hand_diff
+        new_frames = self.frames[:]
         new_recorder = Recorder(
-            self.piano, new_left_hands, new_right_hands, new_entropy, real_tick, self.real_ticks)
+            self.piano, new_left_hands, new_right_hands, new_entropy, frame, new_frames)
 
         return new_recorder
 
     def export_recorders(self, file_path: str):
-        if len(self.left_hands) != len(self.right_hands) or len(self.left_hands) != len(self.real_ticks):
+        if len(self.left_hands) != len(self.right_hands) or len(self.left_hands) != len(self.frames):
             print(
-                f'Error: 左手一共{len(self.left_hands)}个，右手一共{len(self.right_hands)}个，real_ticks一共{len(self.real_ticks)}个')
+                f'Error: 左手一共{len(self.left_hands)}个，右手一共{len(self.right_hands)}个，frames一共{len(self.frames)}个')
             raise Exception('数量不一致')
 
         result = []
@@ -151,11 +152,11 @@ class Recorder:
         right_hands_info = [hand.export_hand_info()
                             for hand in self.right_hands]
 
-        for i in range(len(self.real_ticks)):
+        for i in range(len(self.frames)):
             result.append({
                 'left_hand': left_hands_info[i],
                 'right_hand': right_hands_info[i],
-                'real_tick': self.real_ticks[i]
+                'frame': self.frames[i]
             })
 
         with open(file_path, 'w', encoding='utf-8') as f:
