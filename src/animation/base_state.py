@@ -42,32 +42,9 @@ class BaseState:
             finger_positions[finger_index] = f'P{right_hand_position}_finger{finger_index}_{key_type.value}'
 
         self.position_balls = {
-            "left_hand_position_ball": {
-                "name": f'P{left_hand_position}_H_{key_type.value}_L',
-                "collection": "hand_position_balls"},
-            "right_hand_position_ball": {
-                "name": f'P{right_hand_position}_H_{key_type.value}_R',
-                "collection": "hand_position_balls"},
-            "left_hand_pivot_position": {
-                "name": f'P{left_hand_position}_HP_{key_type.value}_L',
-                "collection": "hand_position_balls"},
-            "right_hand_pivot_position": {
-                "name": f'P{right_hand_position}_HP_{key_type.value}_R',
-                "collection": "hand_position_balls"},
             "finger_positions": {
                 "names": finger_positions,
                 "collection": f"finger_position_balls"}
-        }
-
-        self.rotate_cones = {
-            "left_rotate_cone": {
-                "name": f'P{left_hand_position}_H_rotation_{key_type.value}_L',
-                "collection": "hand_rotation_cones"
-            },
-            "right_rotate_cone": {
-                "name": f'P{right_hand_position}_H_rotation_{key_type.value}_R',
-                "collection": "hand_rotation_cones"
-            }
         }
 
         self.hand_target = {

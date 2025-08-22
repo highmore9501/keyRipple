@@ -39,13 +39,7 @@ class Animator:
         # 创建一个字典来存储所有基础状态信息
         base_states_data = {
             "base_state_params": [],
-            "left_hand_position_ball": [],
-            "right_hand_position_ball": [],
-            "left_hand_pivot_position": [],
-            "right_hand_pivot_position": [],
             "finger_positions": {i: [] for i in range(self.finger_count)},
-            "left_rotate_cone": [],
-            "right_rotate_cone": [],
             "left_hand_target": [],
             "right_hand_target": []
         }
@@ -72,23 +66,6 @@ class Animator:
 
                     # 添加位置球信息
                     position_balls = data_entry.get("position_balls", {})
-                    base_states_data["left_hand_position_ball"].append(
-                        position_balls.get("left_hand_position_ball"))
-                    base_states_data["right_hand_position_ball"].append(
-                        position_balls.get("right_hand_position_ball"))
-
-                    # 添加手部枢轴位置
-                    base_states_data["left_hand_pivot_position"].append(
-                        position_balls.get("left_hand_pivot_position"))
-                    base_states_data["right_hand_pivot_position"].append(
-                        position_balls.get("right_hand_pivot_position"))
-
-                    # 添加旋转锥信息
-                    rotate_cone_infos = data_entry.get("rotate_cones")
-                    base_states_data["left_rotate_cone"].append(
-                        rotate_cone_infos.get("left_rotate_cone"))
-                    base_states_data["right_rotate_cone"].append(
-                        rotate_cone_infos.get("right_rotate_cone"))
 
                     # 添加手指位置信息
                     finger_positions = position_balls.get(
@@ -114,7 +91,6 @@ class Animator:
         self.base_states = base_states_data
         self.use_quaternion = self.avatar_info['base_states'][0][
             'hand_targets']['left_hand_target']['rotation_mode'] == 'QUATERNION'
-        print(f'当前人物使用四元数旋转模式：{self.use_quaternion}')
 
     def generate_animation_info(self):
         coefficients = self.get_all_coefficients()
@@ -194,57 +170,6 @@ class Animator:
         animation_plane_base_points['right_hand_base_points'] = right_hand_base_points
 
         # 准备各部位位置数据，确保格式正确
-        # 对于每个位置数据，我们需要构建一个4xn的数组，其中n是位置的维度(通常是3)
-
-        # 左手位置球
-        left_hand_position_ball_locs = np.array([
-            self.base_states["left_hand_position_ball"][i].get('location')
-            for i in range(3)
-        ])
-
-        # 右手位置球
-        right_hand_position_ball_locs = np.array([
-            self.base_states["right_hand_position_ball"][i].get('location')
-            for i in range(3)
-        ])
-
-        # 左手枢轴位置
-        left_hand_pivot_position_ball_locs = np.array([
-            self.base_states["left_hand_pivot_position"][i].get('location')
-            for i in range(3)
-        ])
-
-        # 右手枢轴位置
-        right_hand_pivot_position_ball_locs = np.array([
-            self.base_states["right_hand_pivot_position"][i].get('location')
-            for i in range(3)
-        ])
-
-        # 左手旋转锥
-        left_rotate_cone_rots = np.array([
-            self.base_states["left_rotate_cone"][i].get('rotation')
-            for i in range(3)
-        ])
-
-        # 右手旋转锥
-        right_rotate_cone_rots = np.array([
-            self.base_states["right_rotate_cone"][i].get('rotation')
-            for i in range(3)
-        ])
-
-        # 计算各部分的二维插值系统
-        result["left_hand_position_ball_2d_coefficients"] = calculate_2d_coefficients(
-            left_hand_base_points, left_hand_position_ball_locs)
-        result["right_hand_position_ball_2d_coefficients"] = calculate_2d_coefficients(
-            right_hand_base_points, right_hand_position_ball_locs)
-        result['left_hand_pivot_position_ball_2d_coefficients'] = calculate_2d_coefficients(
-            left_hand_base_points, left_hand_pivot_position_ball_locs)
-        result['right_hand_pivot_position_ball_2d_coefficients'] = calculate_2d_coefficients(
-            right_hand_base_points, right_hand_pivot_position_ball_locs)
-        result['left_hand_rotate_cone_2d_coefficients'] = calculate_2d_coefficients(
-            left_hand_base_points, left_rotate_cone_rots)
-        result['right_hand_rotate_cone_2d_coefficients'] = calculate_2d_coefficients(
-            right_hand_base_points, right_rotate_cone_rots)
 
         # 处理手指位置
         result['finger_position_ball_2d_coefficients'] = {}
@@ -290,10 +215,12 @@ class Animator:
             left_hand_base_points, left_hand_target_locs)
         result['right_hand_target_2d_coefficients'] = calculate_2d_coefficients(
             right_hand_base_points, right_hand_target_locs)
-        result['left_hand_target_rotation_2d_coefficients'] = calculate_2d_coefficients(
-            left_hand_base_points, left_hand_target_rots)
-        result['right_hand_target_rotation_2d_coefficients'] = calculate_2d_coefficients(
-            right_hand_base_points, right_hand_target_rots)
+        # 不使用四元数时，计算插值系数，因为如果使用四元数，到时候会直接使用slerp求解
+        if not self.use_quaternion:
+            result['left_hand_target_rotation_2d_coefficients'] = calculate_2d_coefficients(
+                left_hand_base_points, left_hand_target_rots)
+            result['right_hand_target_rotation_2d_coefficients'] = calculate_2d_coefficients(
+                right_hand_base_points, right_hand_target_rots)
 
         return result
 
@@ -308,12 +235,8 @@ class Animator:
         right_hand_white_key_value = 0
         pressed_fingers = {}
 
-        left_hand_points = [(24, 1, 0), (52, 1, 0), (24, 0, 0)]
-        H_L_points = [np.array(item) for item in left_hand_points]
         H_L_target_point = np.array(
             [left_hand_position, left_hand_white_key_value])
-        right_hand_points = [(105, 1, 0), (76, 1, 0), (76, 0, 0)]
-        H_R_points = [np.array(item) for item in right_hand_points]
         H_R_target_point = np.array(
             [right_hand_position, right_hand_white_key_value])
 
@@ -348,26 +271,6 @@ class Animator:
                 if not right_finger["key_note"]["is_black"]:
                     right_hand_white_key_value = 1
 
-        # 左右手的位置
-        H_L = evaluate_2d_point(
-            coefficients["left_hand_position_ball_2d_coefficients"], H_L_target_point)
-        if left_finger_pressed_count > 0 and ready:
-            H_L[2] += 0.5*press_distance
-        result['H_L'] = H_L.tolist()
-        H_R = evaluate_2d_point(
-            coefficients["right_hand_position_ball_2d_coefficients"], H_R_target_point)
-        if right_finger_pressed_count > 0 and ready:
-            H_R[2] += 0.5*press_distance
-        result['H_R'] = H_R.tolist()
-
-        # 控制手部旋转的控件
-        HP_L = evaluate_2d_point(
-            coefficients["left_hand_pivot_position_ball_2d_coefficients"], H_L_target_point)
-        result["HP_L"] = HP_L.tolist()
-        HP_R = evaluate_2d_point(
-            coefficients["right_hand_pivot_position_ball_2d_coefficients"], H_R_target_point)
-        result["HP_R"] = HP_R.tolist()
-
         # 左手目标点位置
         Tar_H_L = evaluate_2d_point(
             coefficients["left_hand_target_2d_coefficients"], H_L_target_point)
@@ -384,12 +287,6 @@ class Animator:
 
         # 旋转值如果是euler，使用当前方法；如果是四元数，使用quaternion_interpolation_from_3_points
         if not self.use_quaternion:
-            H_rotation_L = evaluate_2d_point(
-                coefficients["left_hand_rotate_cone_2d_coefficients"], H_L_target_point)
-
-            H_rotation_R = evaluate_2d_point(
-                coefficients["right_hand_rotate_cone_2d_coefficients"], H_R_target_point)
-
             Tar_H_rotation_L = evaluate_2d_point(
                 coefficients["left_hand_target_rotation_2d_coefficients"], H_L_target_point)
 
@@ -397,58 +294,38 @@ class Animator:
                 coefficients["right_hand_target_rotation_2d_coefficients"], H_R_target_point)
 
         else:
-            # 这里计算H_rotation_L
-            left_hand_quaternions = [
-                self.base_states['left_rotate_cone'][0]['rotation'],
-                self.base_states['left_rotate_cone'][1]['rotation'],
-                self.base_states['left_rotate_cone'][2]['rotation']
-            ]
-            H_L_quaternions = [np.array(quat)
-                               for quat in left_hand_quaternions]
-
-            H_L_target_point_3d = np.array(
-                [left_hand_position, left_hand_white_key_value, 0])
-
-            H_rotation_L = quaternion_interpolation_from_3_points(
-                H_L_points, H_L_quaternions, H_L_target_point_3d)
-
-            # 这里计算H_rotation_R
-            right_hand_quaternions = [
-                self.base_states['right_rotate_cone'][0]['rotation'],
-                self.base_states['right_rotate_cone'][1]['rotation'],
-                self.base_states['right_rotate_cone'][2]['rotation']
-            ]
-            H_R_quaternions = [np.array(quat)
-                               for quat in right_hand_quaternions]
-
-            H_R_target_point_3d = np.array(
-                [right_hand_position, right_hand_white_key_value, 0])
-
-            H_rotation_R = quaternion_interpolation_from_3_points(
-                H_R_points, H_R_quaternions, H_R_target_point_3d)
-
-            # 这里计算Tar_H_L的旋转值，直接使用最简单的一维球面插值，左手使用24-76两个位置,跨度为52个键
+            # 这里计算Tar_H_L的旋转值，直接使用最简单的一维球面插值，左手使用24-52-76三个位置,分情况进行插值计算
             left_hand_target_quaternions = [
                 self.base_states['left_hand_target'][0]['rotation'],
+                self.base_states['left_hand_target'][1]['rotation'],
                 self.base_states['left_hand_target'][2]['rotation']
             ]
 
-            left_hand_weight = (left_hand_position - 24) / 52
-            Tar_H_rotation_L = slerp(
-                left_hand_target_quaternions[0], left_hand_target_quaternions[1], left_hand_weight)
+            if left_hand_position < 52:
+                left_hand_weight = (left_hand_position - 24) / (52-24)
+                Tar_H_rotation_L = slerp(
+                    left_hand_target_quaternions[0], left_hand_target_quaternions[1], left_hand_weight)
+            else:
+                left_hand_weight = (left_hand_position - 52) / (76-52)
+                Tar_H_rotation_L = slerp(
+                    left_hand_target_quaternions[1], left_hand_target_quaternions[2], left_hand_weight)
 
-            # 这里计算Tar_H_R的旋转值，直接使用最简单的一维球面插值，右手使用52-105两个位置,跨度为53个键
+            # 这里计算Tar_H_R的旋转值，直接使用最简单的一维球面插值，右手使用52-76-105三个位置,分情况进行插值
             right_hand_target_quaternions = [
                 self.base_states['right_hand_target'][0]['rotation'],
+                self.base_states['right_hand_target'][1]['rotation'],
                 self.base_states['right_hand_target'][2]['rotation']
             ]
-            right_hand_weigth = (right_hand_position - 52) / 53
 
-            Tar_H_rotation_R = slerp(
-                right_hand_target_quaternions[0], right_hand_target_quaternions[1], right_hand_weigth)
+            if right_hand_position < 76:
+                right_hand_weight = (right_hand_position - 52) / (76 - 52)
+                Tar_H_rotation_R = slerp(
+                    right_hand_target_quaternions[0], right_hand_target_quaternions[1], right_hand_weight)
+            else:
+                right_hand_weight = (right_hand_position-76) / (105-76)
+                Tar_H_rotation_R = slerp(
+                    right_hand_target_quaternions[1], right_hand_target_quaternions[2], right_hand_weight)
 
-        result["H_rotation_L"] = H_rotation_L.tolist()
-        result["H_rotation_R"] = H_rotation_R.tolist()
         result["Tar_H_rotation_L"] = Tar_H_rotation_L.tolist()
         result["Tar_H_rotation_L"] = Tar_H_rotation_L.tolist()
         result["Tar_H_rotation_R"] = Tar_H_rotation_R.tolist()
@@ -471,7 +348,7 @@ class Animator:
                     note, is_black, self.piano, lowset_key_location, highest_key_location, black_key_location)
                 touch_point = get_touch_point(finger_position, key_location)
                 touch_point = finger_position
-                if not ready:  # 如果不是ready说明是已经按键下去了，需要在z轴上添加一段移动距离
+                if not ready:  # 如果不是ready说明是已经按键下去了，需要在z轴上添加一段移动距离，也许实际按键的方向并不是z轴，以后可以再修改
                     touch_point[2] += press_distance
                 result[f"{finger_index}"] = touch_point.tolist()
             else:

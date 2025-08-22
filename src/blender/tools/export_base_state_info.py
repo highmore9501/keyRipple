@@ -43,32 +43,9 @@ class BaseState:
             finger_positions[finger_index] = f'P{right_hand_position}_finger{finger_index}_{key_type.value}'
 
         self.position_balls = {
-            "left_hand_position_ball": {
-                "name": f'P{left_hand_position}_H_{key_type.value}_L',
-                "collection": "hand_position_balls"},
-            "right_hand_position_ball": {
-                "name": f'P{right_hand_position}_H_{key_type.value}_R',
-                "collection": "hand_position_balls"},
-            "left_hand_pivot_position": {
-                "name": f'P{left_hand_position}_HP_{key_type.value}_L',
-                "collection": "hand_position_balls"},
-            "right_hand_pivot_position": {
-                "name": f'P{right_hand_position}_HP_{key_type.value}_R',
-                "collection": "hand_position_balls"},
             "finger_positions": {
                 "names": finger_positions,
                 "collection": f"finger_position_balls"}
-        }
-
-        self.rotate_cones = {
-            "left_rotate_cone": {
-                "name": f'P{left_hand_position}_H_rotation_{key_type.value}_L',
-                "collection": "hand_rotation_cones"
-            },
-            "right_rotate_cone": {
-                "name": f'P{right_hand_position}_H_rotation_{key_type.value}_R',
-                "collection": "hand_rotation_cones"
-            }
         }
 
         self.hand_target = {
@@ -95,73 +72,13 @@ def export_base_state_info(left_hand_position: int, right_hand_position: int, ke
             "key_type": key_type.value
         },
         "position_balls": {
-            "left_hand_position_ball": {},
-            "right_hand_position_ball": {},
-            "left_hand_pivot_position": {},
-            "right_hand_pivot_position": {},
             "finger_positions": {}
-        },
-        "rotate_cones": {
-            "left_rotate_cone": {},
-            "right_rotate_cone": {}
         },
         "hand_targets": {
             "left_hand_target": {},
             "right_hand_target": {}
         }
     }
-
-    # 获取左手位置球位置
-    left_hand_position_ball_name = base_state.position_balls["left_hand_position_ball"]["name"]
-    left_hand_obj_name = f'H_L'
-
-    if left_hand_obj_name in bpy.data.objects and left_hand_position_ball_name in bpy.data.objects:
-        left_hand_position_ball = bpy.data.objects[left_hand_position_ball_name]
-        export_data["position_balls"]["left_hand_position_ball"] = {
-            "name": left_hand_position_ball_name,
-            "location": list(left_hand_position_ball.location)
-        }
-    else:
-        print(f"警告: 未找到位置球 {left_hand_position_ball_name}")
-
-    # 获取右手位置球位置
-    right_hand_position_ball_name = base_state.position_balls["right_hand_position_ball"]["name"]
-    right_hand_obj_name = f'H_R'
-
-    if right_hand_obj_name in bpy.data.objects and right_hand_position_ball_name in bpy.data.objects:
-        right_hand_position_ball = bpy.data.objects[right_hand_position_ball_name]
-        export_data["position_balls"]["right_hand_position_ball"] = {
-            "name": right_hand_position_ball_name,
-            "location": list(right_hand_position_ball.location)
-        }
-    else:
-        print(f"警告: 未找到物体 {right_hand_obj_name}")
-
-    # 获取左手轴心点位置
-    left_hand_pivot_position_name = base_state.position_balls["left_hand_pivot_position"]["name"]
-    left_hand_pivot_obj_name = f'HP_L'
-
-    if left_hand_pivot_obj_name in bpy.data.objects and left_hand_pivot_position_name in bpy.data.objects:
-        left_hand_pivot_position = bpy.data.objects[left_hand_pivot_position_name]
-        export_data["position_balls"]["left_hand_pivot_position"] = {
-            "name": left_hand_pivot_position_name,
-            "location": list(left_hand_pivot_position.location)
-        }
-    else:
-        print(f"警告: 未找到物体 {left_hand_pivot_obj_name}")
-
-    # 获取右手轴心点位置
-    right_hand_pivot_position_name = base_state.position_balls["right_hand_pivot_position"]["name"]
-    right_hand_pivot_obj_name = f'HP_R'
-
-    if right_hand_pivot_obj_name in bpy.data.objects and right_hand_pivot_position_name in bpy.data.objects:
-        right_hand_pivot_position = bpy.data.objects[right_hand_pivot_position_name]
-        export_data["position_balls"]["right_hand_pivot_position"] = {
-            "name": right_hand_pivot_position_name,
-            "location": list(right_hand_pivot_position.location)
-        }
-    else:
-        print(f"警告: 未找到轴心点 {right_hand_pivot_position_name}")
 
     # 获取手指位置球位置
     finger_positions_dict = base_state.position_balls["finger_positions"]["names"]
@@ -181,52 +98,7 @@ def export_base_state_info(left_hand_position: int, right_hand_position: int, ke
         else:
             print(f"{finger_position_name} 没找到")
 
-    # 获取左手旋转锥体旋转值
-    left_rotate_cone_name = base_state.rotate_cones["left_rotate_cone"]["name"]
-    left_hand_rotation_obj_name = f'H_rotation_L'
-
-    if left_hand_rotation_obj_name in bpy.data.objects and left_rotate_cone_name in bpy.data.objects:
-        left_rotate_cone = bpy.data.objects[left_rotate_cone_name]
-        # 根据旋转模式导出相应的旋转值
-        if left_rotate_cone.rotation_mode == 'QUATERNION':
-            export_data["rotate_cones"]["left_rotate_cone"] = {
-                "name": left_rotate_cone_name,
-                "rotation_mode": "QUATERNION",
-                "rotation": list(left_rotate_cone.rotation_quaternion)
-            }
-        else:
-            export_data["rotate_cones"]["left_rotate_cone"] = {
-                "name": left_rotate_cone_name,
-                "rotation_mode": left_rotate_cone.rotation_mode,
-                "rotation": list(left_rotate_cone.rotation_euler)
-            }
-    else:
-        print(f"警告: 未找到旋转物体 {left_hand_rotation_obj_name}")
-
-    # 获取右手旋转锥体旋转值
-    right_rotate_cone_name = base_state.rotate_cones["right_rotate_cone"]["name"]
-    right_hand_rotation_obj_name = f'H_rotation_R'
-
-    if right_hand_rotation_obj_name in bpy.data.objects and right_rotate_cone_name in bpy.data.objects:
-        right_rotate_cone = bpy.data.objects[right_rotate_cone_name]
-        # 根据旋转模式导出相应的旋转值
-        if right_rotate_cone.rotation_mode == 'QUATERNION':
-            export_data["rotate_cones"]["right_rotate_cone"] = {
-                "name": right_rotate_cone_name,
-                "rotation_mode": "QUATERNION",
-                "rotation": list(right_rotate_cone.rotation_quaternion)
-            }
-        else:
-            export_data["rotate_cones"]["right_rotate_cone"] = {
-                "name": right_rotate_cone_name,
-                "rotation_mode": right_rotate_cone.rotation_mode,
-                "rotation": list(right_rotate_cone.rotation_euler)
-            }
-    else:
-        print(
-            f"警告: 未找到旋转物体 {right_hand_rotation_obj_name} 或旋转锥体 {right_rotate_cone_name}")
-
-    # 获取左手目标点位置和旋转值 (新增部分)
+    # 获取左手目标点位置和旋转值
     left_hand_target_name = base_state.hand_target["left_hand_target"]["name"]
     left_hand_target_obj_name = f'Tar_H_L'
 

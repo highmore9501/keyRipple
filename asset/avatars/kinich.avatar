@@ -30,38 +30,6 @@
         "key_type": "white"
       },
       "position_balls": {
-        "left_hand_position_ball": {
-          "name": "P24_H_white_L",
-          "location": [
-            5.362713813781738,
-            -2.613797664642334,
-            14.780416488647461
-          ]
-        },
-        "right_hand_position_ball": {
-          "name": "P52_H_white_R",
-          "location": [
-            0.43335118889808655,
-            -1.9954636096954346,
-            14.51716136932373
-          ]
-        },
-        "left_hand_pivot_position": {
-          "name": "P24_HP_white_L",
-          "location": [
-            -0.26942119002342224,
-            8.477514266967773,
-            13.156815528869629
-          ]
-        },
-        "right_hand_pivot_position": {
-          "name": "P52_HP_white_R",
-          "location": [
-            -1.7758381366729736,
-            -8.03490924835205,
-            17.954694747924805
-          ]
-        },
         "finger_positions": {
           "names": {
             "0": {
@@ -147,28 +115,6 @@
           }
         }
       },
-      "rotate_cones": {
-        "left_rotate_cone": {
-          "name": "P24_H_rotation_white_L",
-          "rotation_mode": "QUATERNION",
-          "rotation": [
-            1,
-            0,
-            0,
-            0
-          ]
-        },
-        "right_rotate_cone": {
-          "name": "P52_H_rotation_white_R",
-          "rotation_mode": "QUATERNION",
-          "rotation": [
-            1,
-            0,
-            0,
-            0
-          ]
-        }
-      },
       "hand_targets": {
         "left_hand_target": {
           "name": "P24_H_tar_white_L",
@@ -209,38 +155,6 @@
         "key_type": "black"
       },
       "position_balls": {
-        "left_hand_position_ball": {
-          "name": "P52_H_black_L",
-          "location": [
-            0,
-            0,
-            0
-          ]
-        },
-        "right_hand_position_ball": {
-          "name": "P76_H_black_R",
-          "location": [
-            0,
-            0,
-            0
-          ]
-        },
-        "left_hand_pivot_position": {
-          "name": "P52_HP_black_L",
-          "location": [
-            0,
-            0,
-            0
-          ]
-        },
-        "right_hand_pivot_position": {
-          "name": "P76_HP_black_R",
-          "location": [
-            0,
-            0,
-            0
-          ]
-        },
         "finger_positions": {
           "names": {
             "0": {
@@ -326,28 +240,6 @@
           }
         }
       },
-      "rotate_cones": {
-        "left_rotate_cone": {
-          "name": "P52_H_rotation_black_L",
-          "rotation_mode": "QUATERNION",
-          "rotation": [
-            0.14805114269256592,
-            -0.8985388875007629,
-            -0.41269826889038086,
-            -0.01971852220594883
-          ]
-        },
-        "right_rotate_cone": {
-          "name": "P76_H_rotation_black_R",
-          "rotation_mode": "QUATERNION",
-          "rotation": [
-            -0.39551684260368347,
-            -0.10877937078475952,
-            0.0419168621301651,
-            0.9109832048416138
-          ]
-        }
-      },
       "hand_targets": {
         "left_hand_target": {
           "name": "P52_H_tar_black_L",
@@ -388,38 +280,6 @@
         "key_type": "white"
       },
       "position_balls": {
-        "left_hand_position_ball": {
-          "name": "P76_H_white_L",
-          "location": [
-            0,
-            0,
-            0
-          ]
-        },
-        "right_hand_position_ball": {
-          "name": "P105_H_white_R",
-          "location": [
-            0,
-            0,
-            0
-          ]
-        },
-        "left_hand_pivot_position": {
-          "name": "P76_HP_white_L",
-          "location": [
-            0,
-            0,
-            0
-          ]
-        },
-        "right_hand_pivot_position": {
-          "name": "P105_HP_white_R",
-          "location": [
-            0,
-            0,
-            0
-          ]
-        },
         "finger_positions": {
           "names": {
             "0": {
@@ -503,28 +363,6 @@
               ]
             }
           }
-        }
-      },
-      "rotate_cones": {
-        "left_rotate_cone": {
-          "name": "P76_H_rotation_white_L",
-          "rotation_mode": "QUATERNION",
-          "rotation": [
-            0.14805114269256592,
-            -0.8985388875007629,
-            -0.41269826889038086,
-            -0.01971852220594883
-          ]
-        },
-        "right_rotate_cone": {
-          "name": "P105_H_rotation_white_R",
-          "rotation_mode": "QUATERNION",
-          "rotation": [
-            -0.39551684260368347,
-            -0.10877937078475952,
-            0.0419168621301651,
-            0.9109832048416138
-          ]
         }
       },
       "hand_targets": {

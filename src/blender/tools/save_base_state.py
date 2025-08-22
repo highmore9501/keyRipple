@@ -42,32 +42,9 @@ class BaseState:
             finger_positions[finger_index] = f'P{right_hand_position}_finger{finger_index}_{key_type.value}'
 
         self.position_balls = {
-            "left_hand_position_ball": {
-                "name": f'P{left_hand_position}_H_{key_type.value}_L',
-                "collection": "hand_position_balls"},
-            "right_hand_position_ball": {
-                "name": f'P{right_hand_position}_H_{key_type.value}_R',
-                "collection": "hand_position_balls"},
-            "left_hand_pivot_position": {
-                "name": f'P{left_hand_position}_HP_{key_type.value}_L',
-                "collection": "hand_position_balls"},
-            "right_hand_pivot_position": {
-                "name": f'P{right_hand_position}_HP_{key_type.value}_R',
-                "collection": "hand_position_balls"},
             "finger_positions": {
                 "names": finger_positions,
                 "collection": f"finger_position_balls"}
-        }
-
-        self.rotate_cones = {
-            "left_rotate_cone": {
-                "name": f'P{left_hand_position}_H_rotation_{key_type.value}_L',
-                "collection": "hand_rotation_cones"
-            },
-            "right_rotate_cone": {
-                "name": f'P{right_hand_position}_H_rotation_{key_type.value}_R',
-                "collection": "hand_rotation_cones"
-            }
         }
 
         self.hand_target = {
@@ -105,90 +82,6 @@ def operate_base_state(base_state: BaseState, is_operate_save: bool = False):
 
         print(f"已复制 {source_obj.name} 的旋转到 {target_obj.name}")
 
-    # 处理左手位置球
-    left_hand_position_ball_name = position_balls["left_hand_position_ball"][f"name"]
-    left_hand_obj_name = f'H_L'
-
-    # 检查对象是否存在
-    if left_hand_obj_name in bpy.data.objects and left_hand_position_ball_name in bpy.data.objects:
-        left_hand_obj = bpy.data.objects[left_hand_obj_name]
-        left_hand_position_ball = bpy.data.objects[left_hand_position_ball_name]
-
-        # 根据操作类型确定源和目标
-        if is_operate_save:
-            copy_position(left_hand_obj, left_hand_position_ball)
-        else:
-            copy_position(left_hand_position_ball, left_hand_obj)
-    else:
-        # 错误处理
-        if left_hand_obj_name not in bpy.data.objects:
-            print(f"警告: 未找到物体 {left_hand_obj_name}")
-        if left_hand_position_ball_name not in bpy.data.objects:
-            print(f"警告: 未找到位置球 {left_hand_position_ball_name}")
-
-    # 处理右手位置球
-    right_hand_position_ball_name = position_balls["right_hand_position_ball"]["name"]
-    right_hand_obj_name = f'H_R'
-
-    # 检查对象是否存在
-    if right_hand_obj_name in bpy.data.objects and right_hand_position_ball_name in bpy.data.objects:
-        right_hand_obj = bpy.data.objects[right_hand_obj_name]
-        right_hand_position_ball = bpy.data.objects[right_hand_position_ball_name]
-
-        # 根据操作类型确定源和目标
-        if is_operate_save:
-            copy_position(right_hand_obj, right_hand_position_ball)
-        else:
-            copy_position(right_hand_position_ball, right_hand_obj)
-    else:
-        # 错误处理
-        if right_hand_obj_name not in bpy.data.objects:
-            print(f"警告: 未找到物体 {right_hand_obj_name}")
-        if right_hand_position_ball_name not in bpy.data.objects:
-            print(f"警告: 未找到位置球 {right_hand_position_ball_name}")
-
-    # 处理左手轴心点
-    left_hand_pivot_position_name = position_balls["left_hand_pivot_position"]["name"]
-    left_hand_pivot_obj_name = f'HP_L'
-
-    # 检查对象是否存在
-    if left_hand_pivot_obj_name in bpy.data.objects and left_hand_pivot_position_name in bpy.data.objects:
-        left_hand_pivot_obj = bpy.data.objects[left_hand_pivot_obj_name]
-        left_hand_pivot_position = bpy.data.objects[left_hand_pivot_position_name]
-
-        # 根据操作类型确定源和目标
-        if is_operate_save:
-            copy_position(left_hand_pivot_obj, left_hand_pivot_position)
-        else:
-            copy_position(left_hand_pivot_position, left_hand_pivot_obj)
-    else:
-        # 错误处理
-        if left_hand_pivot_obj_name not in bpy.data.objects:
-            print(f"警告: 未找到物体 {left_hand_pivot_obj_name}")
-        if left_hand_pivot_position_name not in bpy.data.objects:
-            print(f"警告: 未找到轴心点 {left_hand_pivot_position_name}")
-
-    # 处理右手轴心点
-    right_hand_pivot_position_name = position_balls["right_hand_pivot_position"]["name"]
-    right_hand_pivot_obj_name = f'HP_R'
-
-    # 检查对象是否存在
-    if right_hand_pivot_obj_name in bpy.data.objects and right_hand_pivot_position_name in bpy.data.objects:
-        right_hand_pivot_obj = bpy.data.objects[right_hand_pivot_obj_name]
-        right_hand_pivot_position = bpy.data.objects[right_hand_pivot_position_name]
-
-        # 根据操作类型确定源和目标
-        if is_operate_save:
-            copy_position(right_hand_pivot_obj, right_hand_pivot_position)
-        else:
-            copy_position(right_hand_pivot_position, right_hand_pivot_obj)
-    else:
-        # 错误处理
-        if right_hand_pivot_obj_name not in bpy.data.objects:
-            print(f"警告: 未找到物体 {right_hand_pivot_obj_name}")
-        if right_hand_pivot_position_name not in bpy.data.objects:
-            print(f"警告: 未找到轴心点 {right_hand_pivot_position_name}")
-
     # 处理手指位置球
     finger_positions_dict = position_balls["finger_positions"]["names"]
 
@@ -211,58 +104,6 @@ def operate_base_state(base_state: BaseState, is_operate_save: bool = False):
                 print(f"警告: 未找到手指物体 {finger_obj_name}")
             if finger_position_name not in bpy.data.objects:
                 print(f"警告: 未找到手指位置球 {finger_position_name}")
-
-    # 处理左手旋转锥体
-    left_rotate_cone_name = base_state.rotate_cones["left_rotate_cone"]["name"]
-    left_hand_rotation_obj_name = f'H_rotation_L'
-
-    # 检查对象是否存在
-    if left_hand_rotation_obj_name in bpy.data.objects and left_rotate_cone_name in bpy.data.objects:
-        left_hand_rotation_obj = bpy.data.objects[left_hand_rotation_obj_name]
-        left_rotate_cone = bpy.data.objects[left_rotate_cone_name]
-
-        # 检查旋转模式是否一致
-        if left_hand_rotation_obj.rotation_mode != left_rotate_cone.rotation_mode:
-            print(
-                f"警告: {left_hand_rotation_obj_name} 和 {left_rotate_cone_name} 的旋转模式不一致")
-        else:
-            # 根据操作类型确定源和目标
-            if is_operate_save:
-                copy_rotation(left_hand_rotation_obj, left_rotate_cone)
-            else:
-                copy_rotation(left_rotate_cone, left_hand_rotation_obj)
-    else:
-        # 错误处理
-        if left_hand_rotation_obj_name not in bpy.data.objects:
-            print(f"警告: 未找到旋转物体 {left_hand_rotation_obj_name}")
-        if left_rotate_cone_name not in bpy.data.objects:
-            print(f"警告: 未找到旋转锥体 {left_rotate_cone_name}")
-
-    # 处理右手旋转锥体
-    right_rotate_cone_name = base_state.rotate_cones["right_rotate_cone"]["name"]
-    right_hand_rotation_obj_name = f'H_rotation_R'
-
-    # 检查对象是否存在
-    if right_hand_rotation_obj_name in bpy.data.objects and right_rotate_cone_name in bpy.data.objects:
-        right_hand_rotation_obj = bpy.data.objects[right_hand_rotation_obj_name]
-        right_rotate_cone = bpy.data.objects[right_rotate_cone_name]
-
-        # 检查旋转模式是否一致
-        if right_hand_rotation_obj.rotation_mode != right_rotate_cone.rotation_mode:
-            print(
-                f"警告: {right_hand_rotation_obj_name} 和 {right_rotate_cone_name} 的旋转模式不一致")
-        else:
-            # 根据操作类型确定源和目标
-            if is_operate_save:
-                copy_rotation(right_hand_rotation_obj, right_rotate_cone)
-            else:
-                copy_rotation(right_rotate_cone, right_hand_rotation_obj)
-    else:
-        # 错误处理
-        if right_hand_rotation_obj_name not in bpy.data.objects:
-            print(f"警告: 未找到旋转物体 {right_hand_rotation_obj_name}")
-        if right_rotate_cone_name not in bpy.data.objects:
-            print(f"警告: 未找到旋转锥体 {right_rotate_cone_name}")
 
     # 处理手部目标点
     hand_targets = base_state.hand_target
@@ -358,6 +199,7 @@ if __name__ == "__main__":
 
     base_state = BaseState(left_hand_position, right_hand_position, key_type)
 
-    is_operate_save = True
+    is_operate_save = False
+    # is_operate_save = True
 
     operate_base_state(base_state, is_operate_save)
