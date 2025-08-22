@@ -100,7 +100,7 @@ class MidiProcessor:
 
         return result
 
-    def midiToPianoNotes(self) -> tuple[List[NotesMap], List[PitchWheelItem], list[MessageItem]]:
+    def midiToPianoNotes(self, higher_octave: bool = False) -> tuple[List[NotesMap], List[PitchWheelItem], list[MessageItem]]:
         """    
         :param midi_file_path: path of input midi file. 输入midi文件路径
         :param useTrack: track number to use. 使用的轨道编号
@@ -133,7 +133,7 @@ class MidiProcessor:
                     messages.append(
                         {'message': str(message), 'real_tick': real_tick})
                     if message.type == 'note_on':
-                        message_note = message.note
+                        message_note = message.note if not higher_octave else message.note + 12
                         note.append(message_note)
                     else:
                         # 结束音符的收集
@@ -227,7 +227,7 @@ class MidiProcessor:
 
         return simplified_chord_notes
 
-    def generate_notes_map_and_messages(self) -> list[NotesMap]:
+    def generate_notes_map_and_messages(self, higher_octave: bool = False) -> list[NotesMap]:
         """
         :return: notes_map, pitch_wheel_map, messages. 音符映射，音高映射，消息
         """
@@ -236,7 +236,8 @@ class MidiProcessor:
         messages_file = "asset/temp/messages.json"
 
         tempo_changes, ticks_per_beat = self.get_tempo_changes()
-        notes_maps, pitch_wheel_map, messages = self.midiToPianoNotes()
+        notes_maps, pitch_wheel_map, messages = self.midiToPianoNotes(
+            higher_octave)
 
         # 保存notes_map,pitch_wheel_map,messages到文件
 

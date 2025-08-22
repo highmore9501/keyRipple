@@ -129,21 +129,54 @@ def make_animation(animation_file_path: str):
         for obj_name, transform_data in hand_infos.items():
             # 检查物体是否存在
             if obj_name not in bpy.data.objects:
-                print(f"警告: 物体 {obj_name} 不存在于场景中")
+                if not obj_name.startswith("Tar_H"):
+                    print(f"警告: 物体 {obj_name} 不存在于场景中")
                 continue
 
             obj = bpy.data.objects[obj_name]
 
             # 根据物体名称判断是位置还是旋转
             if "rotation" in obj_name.lower():
-                # 设置旋转值 (欧拉角)
-                obj.rotation_euler = transform_data
-                obj.keyframe_insert(
-                    data_path="rotation_euler", frame=frame)
+                # 判断旋转数据维度
+                if len(transform_data) == 4:
+                    # 四元数旋转 (w, x, y, z)
+                    obj.rotation_mode = 'QUATERNION'
+                    obj.rotation_quaternion = transform_data
+                    obj.keyframe_insert(
+                        data_path="rotation_quaternion", frame=frame)
+                else:
+                    # 欧拉角旋转
+                    obj.rotation_euler = transform_data
+                    obj.keyframe_insert(
+                        data_path="rotation_euler", frame=frame)
             else:
                 # 设置位置值
                 obj.location = transform_data
                 obj.keyframe_insert(data_path="location", frame=frame)
+
+                # 特别处理hand_target物体，同时设置旋转值
+                # 检查是否是手部目标点物体 (Tar_H_L 或 Tar_H_R)
+                if obj_name.startswith("Tar_H_"):
+                    # 查找对应的旋转数据
+                    rotation_obj_name = obj_name.replace(
+                        "Tar_H_", "Tar_H_rotation_")
+                    if rotation_obj_name in hand_infos:
+                        rotation_data = hand_infos[rotation_obj_name]
+                        # 判断旋转数据维度
+                        if len(rotation_data) == 4:
+                            # 四元数旋转 (w, x, y, z)
+                            obj.rotation_mode = 'QUATERNION'
+                            obj.rotation_quaternion = rotation_data
+                            obj.keyframe_insert(
+                                data_path="rotation_quaternion", frame=frame)
+                        else:
+                            # 欧拉角旋转
+                            obj.rotation_euler = rotation_data
+                            obj.keyframe_insert(
+                                data_path="rotation_euler", frame=frame)
+                    else:
+                        print(
+                            f"警告: 未找到 {obj_name} 对应的旋转数据 {rotation_obj_name}")
 
 
 if __name__ == "__main__":

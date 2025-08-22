@@ -1,6 +1,6 @@
 import json
 from src.animation.base_state import NormalBaseState, KeyType
-from src.utils import calculate_3d_coefficients, evaluate_3d_point, calculate_2d_coefficients, evaluate_2d_point, get_key_location, get_touch_point
+from src.utils import calculate_3d_coefficients, evaluate_3d_point, calculate_2d_coefficients, evaluate_2d_point, quaternion_interpolation_from_3_points, get_key_location, get_touch_point, slerp
 from src.piano.piano import Piano
 from typing import Dict, Any
 import numpy as np
@@ -45,7 +45,9 @@ class Animator:
             "right_hand_pivot_position": [],
             "finger_positions": {i: [] for i in range(self.finger_count)},
             "left_rotate_cone": [],
-            "right_rotate_cone": []
+            "right_rotate_cone": [],
+            "left_hand_target": [],
+            "right_hand_target": []
         }
 
         # 遍历NormalBaseState枚举中的每个元素
@@ -99,9 +101,20 @@ class Animator:
                         else:
                             base_states_data["finger_positions"][i].append(
                                 None)
+
+                    # 添加手部目标点信息
+                    hand_targets = data_entry.get("hand_targets", {})
+                    base_states_data["left_hand_target"].append(
+                        hand_targets.get("left_hand_target"))
+                    base_states_data["right_hand_target"].append(
+                        hand_targets.get("right_hand_target"))
+
                     break
 
         self.base_states = base_states_data
+        self.use_quaternion = self.avatar_info['base_states'][0][
+            'hand_targets']['left_hand_target']['rotation_mode'] == 'QUATERNION'
+        print(f'当前人物使用四元数旋转模式：{self.use_quaternion}')
 
     def generate_animation_info(self):
         coefficients = self.get_all_coefficients()
@@ -147,6 +160,8 @@ class Animator:
                     "hand_infos": hand_ready_info
                 })
 
+            # 在间隔时间非常长的情况下要考虑不用的手回到休息位置
+
         file_path = f"output/animation_recorders/{self.midi_name}_{self.avatar_name}.animation"
         with open(file_path, "w") as f:
             json.dump(animation_data, f)
@@ -160,20 +175,23 @@ class Animator:
             raise Exception("未能成功加载人物状态数据")
 
         # 构建动画空间中的四个基准点
-        animation_space_base_points: list[np.ndarray] = []
-        animation_plane_base_points: list[np.ndarray] = []
+        animation_plane_base_points: dict = {}
+        left_hand_base_points: list[np.ndarray] = []
+        right_hand_base_points: list[np.ndarray] = []
 
-        for i in range(4):
+        for i in range(3):
             base_state_param = self.base_states["base_state_params"][i]
             left_hand_position = base_state_param.get("left_hand_position")
             right_hand_position = base_state_param.get("right_hand_position")
             key_type = base_state_param.get("key_type")
             white_key_value = 1 if key_type == 'white' else 0
-            animation_space_base_points.append(
-                np.array([left_hand_position, right_hand_position, white_key_value]))
-            if i < 3:
-                animation_plane_base_points.append(
-                    np.array([left_hand_position, right_hand_position]))
+            left_hand_base_points.append(
+                np.array([left_hand_position, white_key_value]))
+            right_hand_base_points.append(
+                np.array([right_hand_position, white_key_value]))
+
+        animation_plane_base_points['left_hand_base_points'] = left_hand_base_points
+        animation_plane_base_points['right_hand_base_points'] = right_hand_base_points
 
         # 准备各部位位置数据，确保格式正确
         # 对于每个位置数据，我们需要构建一个4xn的数组，其中n是位置的维度(通常是3)
@@ -181,80 +199,102 @@ class Animator:
         # 左手位置球
         left_hand_position_ball_locs = np.array([
             self.base_states["left_hand_position_ball"][i].get('location')
-            for i in range(4)
+            for i in range(3)
         ])
 
         # 右手位置球
         right_hand_position_ball_locs = np.array([
             self.base_states["right_hand_position_ball"][i].get('location')
-            for i in range(4)
+            for i in range(3)
         ])
 
         # 左手枢轴位置
         left_hand_pivot_position_ball_locs = np.array([
             self.base_states["left_hand_pivot_position"][i].get('location')
-            for i in range(4)
+            for i in range(3)
         ])
 
         # 右手枢轴位置
         right_hand_pivot_position_ball_locs = np.array([
             self.base_states["right_hand_pivot_position"][i].get('location')
-            for i in range(4)
+            for i in range(3)
         ])
 
         # 左手旋转锥
         left_rotate_cone_rots = np.array([
             self.base_states["left_rotate_cone"][i].get('rotation')
-            for i in range(4)
+            for i in range(3)
         ])
 
         # 右手旋转锥
         right_rotate_cone_rots = np.array([
             self.base_states["right_rotate_cone"][i].get('rotation')
-            for i in range(4)
+            for i in range(3)
         ])
-
-        # 计算各部位的三维插值系数
-        result["left_hand_position_ball_3d_coefficients"] = calculate_3d_coefficients(
-            animation_space_base_points, left_hand_position_ball_locs)
-        result['right_hand_position_ball_3d_coefficients'] = calculate_3d_coefficients(
-            animation_space_base_points, right_hand_position_ball_locs)
-        result['left_hand_pivot_position_ball_3d_coefficients'] = calculate_3d_coefficients(
-            animation_space_base_points, left_hand_pivot_position_ball_locs)
-        result['right_hand_pivot_position_ball_3d_coefficients'] = calculate_3d_coefficients(
-            animation_space_base_points, right_hand_pivot_position_ball_locs)
-        result["left_hand_rotate_cone_3d_coefficients"] = calculate_3d_coefficients(
-            animation_space_base_points, left_rotate_cone_rots)
-        result["right_hand_rotate_cone_3d_coefficients"] = calculate_3d_coefficients(
-            animation_space_base_points, right_rotate_cone_rots)
 
         # 计算各部分的二维插值系统
         result["left_hand_position_ball_2d_coefficients"] = calculate_2d_coefficients(
-            animation_plane_base_points, left_hand_position_ball_locs[:3])
+            left_hand_base_points, left_hand_position_ball_locs)
         result["right_hand_position_ball_2d_coefficients"] = calculate_2d_coefficients(
-            animation_plane_base_points, right_hand_position_ball_locs[:3])
+            right_hand_base_points, right_hand_position_ball_locs)
         result['left_hand_pivot_position_ball_2d_coefficients'] = calculate_2d_coefficients(
-            animation_plane_base_points, left_hand_pivot_position_ball_locs[:3])
+            left_hand_base_points, left_hand_pivot_position_ball_locs)
         result['right_hand_pivot_position_ball_2d_coefficients'] = calculate_2d_coefficients(
-            animation_plane_base_points, right_hand_pivot_position_ball_locs[:3])
+            right_hand_base_points, right_hand_pivot_position_ball_locs)
         result['left_hand_rotate_cone_2d_coefficients'] = calculate_2d_coefficients(
-            animation_plane_base_points, left_rotate_cone_rots[:3])
+            left_hand_base_points, left_rotate_cone_rots)
         result['right_hand_rotate_cone_2d_coefficients'] = calculate_2d_coefficients(
-            animation_plane_base_points, right_rotate_cone_rots[:3])
+            right_hand_base_points, right_rotate_cone_rots)
 
         # 处理手指位置
-        result["finger_position_ball_3d_coefficients"] = {}
         result['finger_position_ball_2d_coefficients'] = {}
         for finger_index in range(self.finger_count):
             finger_positions = np.array([
                 self.base_states["finger_positions"][finger_index][i].get(
                     'location')
-                for i in range(4)
+                for i in range(3)
             ])
-            result["finger_position_ball_3d_coefficients"][str(finger_index)] = calculate_3d_coefficients(
-                animation_space_base_points, finger_positions)
-            result['finger_position_ball_2d_coefficients'][str(finger_index)] = calculate_2d_coefficients(
-                animation_plane_base_points, finger_positions[:3])
+            if finger_index < 5:
+                result['finger_position_ball_2d_coefficients'][str(
+                    finger_index)] = calculate_2d_coefficients(left_hand_base_points, finger_positions)
+            else:
+                result['finger_position_ball_2d_coefficients'][str(
+                    finger_index)] = calculate_2d_coefficients(right_hand_base_points, finger_positions)
+
+        # 左手目标点位置
+        left_hand_target_locs = np.array([
+            self.base_states["left_hand_target"][i].get('location')
+            for i in range(3)
+        ])
+
+        # 右手目标点位置
+        right_hand_target_locs = np.array([
+            self.base_states["right_hand_target"][i].get('location')
+            for i in range(3)
+        ])
+
+        # 左手目标点旋转
+        left_hand_target_rots = np.array([
+            self.base_states["left_hand_target"][i].get('rotation')
+            for i in range(3)
+        ])
+
+        # 右手目标点旋转
+        right_hand_target_rots = np.array([
+            self.base_states["right_hand_target"][i].get('rotation')
+            for i in range(3)
+        ])
+
+        # 计算手部目标点的二维插值系数
+        result['left_hand_target_2d_coefficients'] = calculate_2d_coefficients(
+            left_hand_base_points, left_hand_target_locs)
+        result['right_hand_target_2d_coefficients'] = calculate_2d_coefficients(
+            right_hand_base_points, right_hand_target_locs)
+        result['left_hand_target_rotation_2d_coefficients'] = calculate_2d_coefficients(
+            left_hand_base_points, left_hand_target_rots)
+        result['right_hand_target_rotation_2d_coefficients'] = calculate_2d_coefficients(
+            right_hand_base_points, right_hand_target_rots)
+
         return result
 
     def cacluate_hand_info(self, left_hand_item, right_hand_item, coefficients, ready: bool = False) -> dict:
@@ -267,6 +307,15 @@ class Animator:
         left_hand_white_key_value = 0
         right_hand_white_key_value = 0
         pressed_fingers = {}
+
+        left_hand_points = [(24, 1, 0), (52, 1, 0), (24, 0, 0)]
+        H_L_points = [np.array(item) for item in left_hand_points]
+        H_L_target_point = np.array(
+            [left_hand_position, left_hand_white_key_value])
+        right_hand_points = [(105, 1, 0), (76, 1, 0), (76, 0, 0)]
+        H_R_points = [np.array(item) for item in right_hand_points]
+        H_R_target_point = np.array(
+            [right_hand_position, right_hand_white_key_value])
 
         lowset_key_location = np.array(self.avatar_info["piano_info"][
             "lowest_white_key"].get('location'))
@@ -286,10 +335,7 @@ class Animator:
                     "is_black": left_finger["key_note"]["is_black"]
                 }
                 if left_finger["key_note"]["is_black"]:
-                    left_hand_white_key_value += 1
-
-        left_hand_white_key_value = left_hand_white_key_value / \
-            left_finger_pressed_count if left_finger_pressed_count > 0 else 0
+                    left_hand_white_key_value = 1
 
         for right_finger in right_hand_item.get("fingers"):
             if right_finger.get("pressed"):
@@ -300,53 +346,130 @@ class Animator:
                     "is_black": right_finger["key_note"]["is_black"]
                 }
                 if not right_finger["key_note"]["is_black"]:
-                    right_hand_white_key_value += 1
+                    right_hand_white_key_value = 1
 
-        right_hand_white_key_value = right_hand_white_key_value / \
-            right_finger_pressed_count if right_finger_pressed_count > 0 else 0
-
-        # 计算左右手控件的位置
-        use_3d_coefficients = True
-
-        # 左右手的位置，使用3维插值还挺接近结果的，暂时用它
-        H_L = evaluate_3d_point(coefficients["left_hand_position_ball_3d_coefficients"], np.array(
-            [left_hand_position, right_hand_position, left_hand_white_key_value]))
+        # 左右手的位置
+        H_L = evaluate_2d_point(
+            coefficients["left_hand_position_ball_2d_coefficients"], H_L_target_point)
+        if left_finger_pressed_count > 0 and ready:
+            H_L[2] += 0.5*press_distance
         result['H_L'] = H_L.tolist()
-        H_R = evaluate_3d_point(coefficients["right_hand_position_ball_3d_coefficients"], np.array(
-            [left_hand_position, right_hand_position, right_hand_white_key_value]))
+        H_R = evaluate_2d_point(
+            coefficients["right_hand_position_ball_2d_coefficients"], H_R_target_point)
+        if right_finger_pressed_count > 0 and ready:
+            H_R[2] += 0.5*press_distance
         result['H_R'] = H_R.tolist()
 
-        # 控制手部旋转的控件，2维插值和3维插值都不太好用，要试着用别的方法，当然也可能是它们本质上不在一个线性空间里
-        HP_L = evaluate_3d_point(coefficients["left_hand_pivot_position_ball_3d_coefficients"], np.array(
-            [left_hand_position, right_hand_position, left_hand_white_key_value])) if use_3d_coefficients else evaluate_2d_point(coefficients["left_hand_pivot_position_ball_2d_coefficients"], np.array([left_hand_position, left_hand_white_key_value]))
+        # 控制手部旋转的控件
+        HP_L = evaluate_2d_point(
+            coefficients["left_hand_pivot_position_ball_2d_coefficients"], H_L_target_point)
         result["HP_L"] = HP_L.tolist()
-        HP_R = evaluate_3d_point(coefficients["right_hand_pivot_position_ball_3d_coefficients"], np.array(
-            [left_hand_position, right_hand_position, right_hand_white_key_value])) if use_3d_coefficients else evaluate_2d_point(coefficients["right_hand_pivot_position_ball_2d_coefficients"], np.array(
-                [left_hand_position, right_hand_position]))
+        HP_R = evaluate_2d_point(
+            coefficients["right_hand_pivot_position_ball_2d_coefficients"], H_R_target_point)
         result["HP_R"] = HP_R.tolist()
-        H_rotation_L = evaluate_3d_point(coefficients["left_hand_rotate_cone_3d_coefficients"], np.array(
-            [left_hand_position, right_hand_position, left_hand_white_key_value])) if use_3d_coefficients else evaluate_2d_point(coefficients["left_hand_rotate_cone_2d_coefficients"], np.array(
-                [left_hand_position, right_hand_position]))
+
+        # 左手目标点位置
+        Tar_H_L = evaluate_2d_point(
+            coefficients["left_hand_target_2d_coefficients"], H_L_target_point)
+        if left_finger_pressed_count > 0 and ready:
+            Tar_H_L[2] += 0.5*press_distance
+        result["Tar_H_L"] = Tar_H_L.tolist()
+
+        # 右手目标点位置
+        Tar_H_R = evaluate_2d_point(
+            coefficients["right_hand_target_2d_coefficients"], H_R_target_point)
+        if right_finger_pressed_count > 0 and ready:
+            Tar_H_R[2] += 0.5*press_distance
+        result["Tar_H_R"] = Tar_H_R.tolist()
+
+        # 旋转值如果是euler，使用当前方法；如果是四元数，使用quaternion_interpolation_from_3_points
+        if not self.use_quaternion:
+            H_rotation_L = evaluate_2d_point(
+                coefficients["left_hand_rotate_cone_2d_coefficients"], H_L_target_point)
+
+            H_rotation_R = evaluate_2d_point(
+                coefficients["right_hand_rotate_cone_2d_coefficients"], H_R_target_point)
+
+            Tar_H_rotation_L = evaluate_2d_point(
+                coefficients["left_hand_target_rotation_2d_coefficients"], H_L_target_point)
+
+            Tar_H_rotation_R = evaluate_2d_point(
+                coefficients["right_hand_target_rotation_2d_coefficients"], H_R_target_point)
+
+        else:
+            # 这里计算H_rotation_L
+            left_hand_quaternions = [
+                self.base_states['left_rotate_cone'][0]['rotation'],
+                self.base_states['left_rotate_cone'][1]['rotation'],
+                self.base_states['left_rotate_cone'][2]['rotation']
+            ]
+            H_L_quaternions = [np.array(quat)
+                               for quat in left_hand_quaternions]
+
+            H_L_target_point_3d = np.array(
+                [left_hand_position, left_hand_white_key_value, 0])
+
+            H_rotation_L = quaternion_interpolation_from_3_points(
+                H_L_points, H_L_quaternions, H_L_target_point_3d)
+
+            # 这里计算H_rotation_R
+            right_hand_quaternions = [
+                self.base_states['right_rotate_cone'][0]['rotation'],
+                self.base_states['right_rotate_cone'][1]['rotation'],
+                self.base_states['right_rotate_cone'][2]['rotation']
+            ]
+            H_R_quaternions = [np.array(quat)
+                               for quat in right_hand_quaternions]
+
+            H_R_target_point_3d = np.array(
+                [right_hand_position, right_hand_white_key_value, 0])
+
+            H_rotation_R = quaternion_interpolation_from_3_points(
+                H_R_points, H_R_quaternions, H_R_target_point_3d)
+
+            # 这里计算Tar_H_L的旋转值，直接使用最简单的一维球面插值，左手使用24-76两个位置,跨度为52个键
+            left_hand_target_quaternions = [
+                self.base_states['left_hand_target'][0]['rotation'],
+                self.base_states['left_hand_target'][2]['rotation']
+            ]
+
+            left_hand_weight = (left_hand_position - 24) / 52
+            Tar_H_rotation_L = slerp(
+                left_hand_target_quaternions[0], left_hand_target_quaternions[1], left_hand_weight)
+
+            # 这里计算Tar_H_R的旋转值，直接使用最简单的一维球面插值，右手使用52-105两个位置,跨度为53个键
+            right_hand_target_quaternions = [
+                self.base_states['right_hand_target'][0]['rotation'],
+                self.base_states['right_hand_target'][2]['rotation']
+            ]
+            right_hand_weigth = (right_hand_position - 52) / 53
+
+            Tar_H_rotation_R = slerp(
+                right_hand_target_quaternions[0], right_hand_target_quaternions[1], right_hand_weigth)
+
         result["H_rotation_L"] = H_rotation_L.tolist()
-        H_rotation_R = evaluate_3d_point(coefficients["right_hand_rotate_cone_3d_coefficients"], np.array(
-            [left_hand_position, right_hand_position, right_hand_white_key_value])) if use_3d_coefficients else evaluate_2d_point(coefficients["right_hand_rotate_cone_2d_coefficients"], np.array(
-                [left_hand_position, right_hand_position]
-            ))
         result["H_rotation_R"] = H_rotation_R.tolist()
+        result["Tar_H_rotation_L"] = Tar_H_rotation_L.tolist()
+        result["Tar_H_rotation_L"] = Tar_H_rotation_L.tolist()
+        result["Tar_H_rotation_R"] = Tar_H_rotation_R.tolist()
+        result["Tar_H_rotation_R"] = Tar_H_rotation_R.tolist()
 
         for finger_index in range(self.finger_count):
-            # 手指部分比较靠谱了，所以应该是使用2d插值，或者说现在这种情况本质上是1维插值
-            finger_position = evaluate_2d_point(coefficients["finger_position_ball_2d_coefficients"][str(finger_index)], np.array(
-                [left_hand_position, right_hand_position]))
+            if finger_index < 5:
+                finger_position = evaluate_2d_point(
+                    coefficients["finger_position_ball_2d_coefficients"][str(finger_index)], H_L_target_point)
+            else:
+                finger_position = evaluate_2d_point(
+                    coefficients["finger_position_ball_2d_coefficients"][str(finger_index)], H_R_target_point)
 
-            # 这一步要修正实际按键的手指位置，但这个修正方法好像有问题，按键的手指移动了大约21个位置，所以需要检查一touch_point的计算方法
+            # 这一步是计算实际按键的手指位置
             if finger_index in pressed_fingers:
-                # note = pressed_fingers[finger_index]["note"]
-                # is_black = pressed_fingers[finger_index]["is_black"]
+                note = pressed_fingers[finger_index]["note"]
+                is_black = pressed_fingers[finger_index]["is_black"]
 
-                # key_location = get_key_location(
-                #     note, is_black, self.piano, lowset_key_location, highest_key_location, black_key_location)
-                # touch_point = get_touch_point(finger_position, key_location)
+                key_location = get_key_location(
+                    note, is_black, self.piano, lowset_key_location, highest_key_location, black_key_location)
+                touch_point = get_touch_point(finger_position, key_location)
                 touch_point = finger_position
                 if not ready:  # 如果不是ready说明是已经按键下去了，需要在z轴上添加一段移动距离
                     touch_point[2] += press_distance

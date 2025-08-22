@@ -36,23 +36,23 @@ class BaseState:
         finger_positions = {}
 
         for finger_index in self.left_finger_indexs:
-            finger_positions[finger_index] = f'P{left_hand_position}_{right_hand_position}_finger{finger_index}_{key_type.value}'
+            finger_positions[finger_index] = f'P{left_hand_position}_finger{finger_index}_{key_type.value}'
 
         for finger_index in self.right_finger_indexs:
-            finger_positions[finger_index] = f'P{left_hand_position}_{right_hand_position}_finger{finger_index}_{key_type.value}'
+            finger_positions[finger_index] = f'P{right_hand_position}_finger{finger_index}_{key_type.value}'
 
         self.position_balls = {
             "left_hand_position_ball": {
-                "name": f'P{left_hand_position}_{right_hand_position}_H_{key_type.value}_L',
+                "name": f'P{left_hand_position}_H_{key_type.value}_L',
                 "collection": "hand_position_balls"},
             "right_hand_position_ball": {
-                "name": f'P{left_hand_position}_{right_hand_position}_H_{key_type.value}_R',
+                "name": f'P{right_hand_position}_H_{key_type.value}_R',
                 "collection": "hand_position_balls"},
             "left_hand_pivot_position": {
-                "name": f'P{left_hand_position}_{right_hand_position}_HP_{key_type.value}_L',
+                "name": f'P{left_hand_position}_HP_{key_type.value}_L',
                 "collection": "hand_position_balls"},
             "right_hand_pivot_position": {
-                "name": f'P{left_hand_position}_{right_hand_position}_HP_{key_type.value}_R',
+                "name": f'P{right_hand_position}_HP_{key_type.value}_R',
                 "collection": "hand_position_balls"},
             "finger_positions": {
                 "names": finger_positions,
@@ -61,12 +61,23 @@ class BaseState:
 
         self.rotate_cones = {
             "left_rotate_cone": {
-                "name": f'P{left_hand_position}_{right_hand_position}_H_rotation_{key_type.value}_L',
+                "name": f'P{left_hand_position}_H_rotation_{key_type.value}_L',
                 "collection": "hand_rotation_cones"
             },
             "right_rotate_cone": {
-                "name": f'P{left_hand_position}_{right_hand_position}_H_rotation_{key_type.value}_R',
+                "name": f'P{right_hand_position}_H_rotation_{key_type.value}_R',
                 "collection": "hand_rotation_cones"
+            }
+        }
+
+        self.hand_target = {
+            "left_hand_target": {
+                "name": f'P{left_hand_position}_H_tar_{key_type.value}_L',
+                "collection": "hand_targets"
+            },
+            "right_hand_target": {
+                "name": f'P{right_hand_position}_H_tar_{key_type.value}_R',
+                "collection": "hand_targets"
             }
         }
 
@@ -252,20 +263,64 @@ def generate_base_state_recorders(base_state: BaseState):
             # 添加到目标集合
             target_collection.objects.link(right_rotate_cone)
 
+    # 处理手部目标点 (新增部分)
+    hand_targets = base_state.hand_target
+
+    # 处理左手目标点
+    left_hand_target_data = hand_targets["left_hand_target"]
+    left_hand_target_name = left_hand_target_data["name"]
+    left_hand_target_collection = left_hand_target_data["collection"]
+
+    if left_hand_target_name not in bpy.data.objects:
+        # 创建圆锥形空物体
+        left_hand_target = bpy.data.objects.new(left_hand_target_name, None)
+        left_hand_target.empty_display_type = 'CONE'
+        left_hand_target.empty_display_size = 0.1
+
+        # 添加到场景中
+        bpy.context.collection.objects.link(left_hand_target)
+
+        # 将物体移动到对应的集合
+        target_collection = bpy.data.collections.get(
+            left_hand_target_collection)
+        if target_collection:
+            # 从当前所有集合中移除
+            for coll in left_hand_target.users_collection:
+                coll.objects.unlink(left_hand_target)
+            # 添加到目标集合
+            target_collection.objects.link(left_hand_target)
+
+    # 处理右手目标点
+    right_hand_target_data = hand_targets["right_hand_target"]
+    right_hand_target_name = right_hand_target_data["name"]
+    right_hand_target_collection = right_hand_target_data["collection"]
+
+    if right_hand_target_name not in bpy.data.objects:
+        # 创建圆锥形空物体
+        right_hand_target = bpy.data.objects.new(right_hand_target_name, None)
+        right_hand_target.empty_display_type = 'CONE'
+        right_hand_target.empty_display_size = 0.1
+
+        # 添加到场景中
+        bpy.context.collection.objects.link(right_hand_target)
+
+        # 将物体移动到对应的集合
+        target_collection = bpy.data.collections.get(
+            right_hand_target_collection)
+        if target_collection:
+            # 从当前所有集合中移除
+            for coll in right_hand_target.users_collection:
+                coll.objects.unlink(right_hand_target)
+            # 添加到目标集合
+            target_collection.objects.link(right_hand_target)
+
 
 if __name__ == "__main__":
     base_states: list[BaseState] = []
-    # 这个是左手在最左边,右手在最右边，同时按白键的状态
-    base_states.append(BaseState(24, 105, KeyType.WHITE))
 
-    # 这个是左手在中间，右手也在中间，同时按黑键的状态
-    base_states.append(BaseState(52, 76, KeyType.WHITE))
-
-    # 这个是左手在最左边,右手在中间，同时按黑键的状态
-    base_states.append(BaseState(24, 76, KeyType.BLACK))
-
-    # 这个是左手在中间，右手在最右边，同时按白键的状态
-    base_states.append(BaseState(52, 105, KeyType.WHITE))
+    base_states.append(BaseState(24, 52, KeyType.WHITE))
+    base_states.append(BaseState(52, 76, KeyType.BLACK))
+    base_states.append(BaseState(76, 105, KeyType.WHITE))
 
     # 为以上所有状态生成位置球
     for base_state in base_states:

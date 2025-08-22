@@ -5,6 +5,7 @@
 import numpy as np
 from src.piano.keyNote import KeyNote
 from src.piano.piano import Piano
+from typing import Any
 
 
 def get_touch_point(finger_position: np.ndarray, key_position: np.ndarray) -> np.ndarray:
@@ -155,6 +156,8 @@ def calculate_2d_coefficients(points: list[np.ndarray], values: np.ndarray) -> n
             coef = np.linalg.lstsq(M, S, rcond=None)[0]
             coefficients_list.append(coef)
         except np.linalg.LinAlgError:
+            print(points)
+            print(values)
             raise ValueError("三个点共线，无法确定唯一的二维平面函数")
 
     # 将系数组合成矩阵，形状为 (n_dims, 3)
@@ -165,6 +168,60 @@ def calculate_2d_coefficients(points: list[np.ndarray], values: np.ndarray) -> n
         raise ValueError("系数矩阵的维度与属性值的维度不一致")
 
     return coefficients
+
+
+def calculate_quaternion_2d_coefficients(points: list[np.ndarray], quaternions: list[Any]) -> Any:
+    """
+    根据三个不共线的点和对应的四元数，计算用于四元数插值的参考数据
+
+    参数:
+    points: 3个点的坐标，格式为 [(x1,y1), (x2,y2), (x3,y3)]
+    quaternions: 3个点对应的四元数，格式为 [[w1,x1,y1,z1], [w2,x2,y2,z2], [w3,x3,y3,z3]]
+
+    返回:
+    reference_data: 包含参考点和四元数的列表，用于后续插值
+    """
+    if len(points) != 3 or len(quaternions) != 3:
+        raise ValueError("需要恰好3个点和对应的四元数")
+
+    # 确保所有四元数在同一半球
+    q0 = np.array(quaternions[0])
+    q1 = np.array(quaternions[1])
+    q2 = np.array(quaternions[2])
+
+    if np.dot(q0, q1) < 0:
+        q1 = -q1
+    if np.dot(q0, q2) < 0:
+        q2 = -q2
+
+    # 返回参考数据，包括点坐标和对应的四元数
+    reference_data = [
+        (np.array(points[0]), q0),
+        (np.array(points[1]), q1),
+        (np.array(points[2]), q2)
+    ]
+
+    return reference_data
+
+
+def interpolate_quaternion_from_coefficients(reference_data: Any, target_point: np.ndarray) -> np.ndarray:
+    """
+    使用参考数据为二维平面上的任意点插值四元数
+
+    参数:
+    reference_data: 由calculate_quaternion_2d_coefficients生成的参考数据
+    target_point: 目标点坐标，格式为 [x, y]
+
+    返回:
+    插值后的四元数，格式为 [w, x, y, z]
+    """
+    # 提取参考点和四元数
+    points = [data[0] for data in reference_data]
+    quaternions = [data[1] for data in reference_data]
+
+    # 使用现有的quaternion_interpolation_from_3_points方法
+    return quaternion_interpolation_from_3_points(points, quaternions,
+                                                  np.array([target_point[0], target_point[1], 0]))
 
 
 def evaluate_2d_point(coefficients, point):
@@ -203,3 +260,179 @@ def evaluate_3d_point(coefficients, point):
     result = coefficients[:, 0] * x + coefficients[:, 1] * \
         y + coefficients[:, 2] * z + coefficients[:, 3]
     return result
+
+
+def slerp(q1: np.ndarray, q2: np.ndarray, t: float) -> np.ndarray:
+    """
+    四元数球面线性插值 (Spherical Linear Interpolation)
+
+    参数:
+    q1, q2: 四元数，格式为 [w, x, y, z]
+    t: 插值参数，范围 [0, 1]
+
+    返回:
+    插值后的四元数
+    """
+    # 标准化四元数
+    q1 = q1 / np.linalg.norm(q1)
+    q2 = q2 / np.linalg.norm(q2)
+
+    # 计算点积
+    dot = np.dot(q1, q2)
+
+    # 如果点积为负，取反一个四元数以选择较短的路径
+    if dot < 0.0:
+        q2 = -q2
+        dot = -dot
+
+    # 如果四元数非常接近，使用线性插值避免数值问题
+    if dot > 0.9995:
+        result = q1 + t * (q2 - q1)
+        return result / np.linalg.norm(result)
+
+    # 计算夹角
+    theta_0 = np.arccos(np.clip(dot, -1.0, 1.0))
+    theta = theta_0 * t
+
+    # 计算插值
+    q3 = q2 - q1 * dot
+    q3 = q3 / np.linalg.norm(q3)
+
+    return q1 * np.cos(theta) + q3 * np.sin(theta)
+
+
+def calculate_barycentric_coordinates(p1: np.ndarray, p2: np.ndarray, p3: np.ndarray, p: np.ndarray) -> tuple[float, float, float]:
+    """
+    计算点p在三角形p1,p2,p3内的重心坐标
+
+    参数:
+    p1, p2, p3: 三角形的三个顶点坐标，格式为 [x, y, z]
+    p: 目标点坐标，格式为 [x, y, z]
+
+    返回:
+    (u, v, w): 重心坐标，满足 p = u*p1 + v*p2 + w*p3 且 u + v + w = 1
+    """
+    # 计算向量
+    v0 = p2 - p1
+    v1 = p3 - p1
+    v2 = p - p1
+
+    # 计算点积
+    dot00 = np.dot(v0, v0)
+    dot01 = np.dot(v0, v1)
+    dot02 = np.dot(v0, v2)
+    dot11 = np.dot(v1, v1)
+    dot12 = np.dot(v1, v2)
+
+    # 计算重心坐标
+    inv_denom = 1.0 / (dot00 * dot11 - dot01 * dot01)
+    v = (dot11 * dot02 - dot01 * dot12) * inv_denom
+    w = (dot00 * dot12 - dot01 * dot02) * inv_denom
+    u = 1.0 - v - w
+
+    return (u, v, w)
+
+
+def quaternion_interpolation_from_3_points(points: list[np.ndarray], quaternions: list[np.ndarray], target_point: np.ndarray) -> np.ndarray:
+    """
+    基于三个已知点的四元数，在平面上插值得到目标点的四元数
+
+    参数:
+    points: 3个已知点的坐标，格式为 [[x1,y1,z1], [x2,y2,z2], [x3,y3,z3]]
+    quaternions: 3个已知点对应的四元数，格式为 [[w1,x1,y1,z1], [w2,x2,y2,z2], [w3,x3,y3,z3]]
+    target_point: 目标点坐标，格式为 [x, y, z]
+
+    返回:
+    目标点的四元数，格式为 [w, x, y, z]
+    """
+    if len(points) != 3 or len(quaternions) != 3:
+        raise ValueError("需要恰好3个点和对应的四元数")
+
+    # 计算重心坐标
+    u, v, w = calculate_barycentric_coordinates(
+        np.array(points[0]),
+        np.array(points[1]),
+        np.array(points[2]),
+        np.array(target_point)
+    )
+
+    # 使用重心坐标进行四元数插值
+    # 首先对前两个四元数进行插值
+    if abs(u) < 1e-10:  # u接近0
+        q01 = slerp(quaternions[1], quaternions[2], v / (v + w))
+    elif abs(v) < 1e-10:  # v接近0
+        q01 = slerp(quaternions[0], quaternions[2], u / (u + w))
+    elif abs(w) < 1e-10:  # w接近0
+        q01 = slerp(quaternions[0], quaternions[1], u / (u + v))
+    else:
+        # 一般情况：分两步进行SLERP插值
+        q0 = slerp(quaternions[0], quaternions[1], v / (u + v))
+        q1 = slerp(quaternions[0], quaternions[2], w / (u + w))
+        # 根据重心坐标权重进行最终插值
+        weights_sum = abs(u) + abs(v) + abs(w)
+        if weights_sum > 1e-10:
+            normalized_u = abs(u) / weights_sum
+            normalized_v = abs(v) / weights_sum
+            normalized_w = abs(w) / weights_sum
+            # 重新计算插值
+            q0 = slerp(quaternions[0], quaternions[1], normalized_v / (
+                normalized_u + normalized_v) if (normalized_u + normalized_v) > 1e-10 else 0)
+            q1 = slerp(quaternions[0], quaternions[2], normalized_w / (
+                normalized_u + normalized_w) if (normalized_u + normalized_w) > 1e-10 else 0)
+            q01 = slerp(q0, q1, 0.5)  # 简化处理
+        else:
+            q01 = quaternions[0]
+
+    # 更准确的实现方式：使用多重SLERP
+    # 将三个四元数按照重心坐标进行插值
+    # 首先确保所有四元数在同一半球
+    q0, q1, q2 = quaternions[0], quaternions[1], quaternions[2]
+    if np.dot(q0, q1) < 0:
+        q1 = -q1
+    if np.dot(q0, q2) < 0:
+        q2 = -q2
+
+    # 使用重心坐标进行插值的近似方法
+    # 这是一种简化的处理方式，适用于重心坐标都为正的情况
+    if u >= 0 and v >= 0 and w >= 0:
+        # 当重心坐标都为正时，可以使用多重SLERP
+        if abs(u - 1.0) < 1e-10:
+            return q0
+        elif abs(v - 1.0) < 1e-10:
+            return q1
+        elif abs(w - 1.0) < 1e-10:
+            return q2
+        else:
+            # 分步插值
+            # 先在q0和q1之间插值
+            if u + v > 1e-10:
+                t1 = v / (u + v)
+                q01 = slerp(q0, q1, t1)
+            else:
+                q01 = q0
+
+            # 再在q01和q2之间插值
+            if (u + v) + w > 1e-10:
+                t2 = w / ((u + v) + w)
+                result = slerp(q01, q2, t2)
+            else:
+                result = q01
+
+            return result / np.linalg.norm(result)
+    else:
+        # 处理负的重心坐标（点在三角形外部）
+        # 这种情况下使用加权平均的近似方法
+        weights = [u, v, w]
+        # 确保四元数在同一半球
+        qs = [q0, q1, q2]
+        for i in range(1, 3):
+            if np.dot(qs[0], qs[i]) < 0:
+                qs[i] = -qs[i]
+
+        # 加权平均后标准化
+        result = u * qs[0] + v * qs[1] + w * qs[2]
+        norm = np.linalg.norm(result)
+        if norm > 1e-10:
+            return result / norm
+        else:
+            return np.array([1.0, 0.0, 0.0, 0.0])  # 返回单位四元数

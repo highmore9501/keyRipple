@@ -36,23 +36,23 @@ class BaseState:
         finger_positions = {}
 
         for finger_index in self.left_finger_indexs:
-            finger_positions[finger_index] = f'P{left_hand_position}_{right_hand_position}_finger{finger_index}_{key_type.value}'
+            finger_positions[finger_index] = f'P{left_hand_position}_finger{finger_index}_{key_type.value}'
 
         for finger_index in self.right_finger_indexs:
-            finger_positions[finger_index] = f'P{left_hand_position}_{right_hand_position}_finger{finger_index}_{key_type.value}'
+            finger_positions[finger_index] = f'P{right_hand_position}_finger{finger_index}_{key_type.value}'
 
         self.position_balls = {
             "left_hand_position_ball": {
-                "name": f'P{left_hand_position}_{right_hand_position}_H_{key_type.value}_L',
+                "name": f'P{left_hand_position}_H_{key_type.value}_L',
                 "collection": "hand_position_balls"},
             "right_hand_position_ball": {
-                "name": f'P{left_hand_position}_{right_hand_position}_H_{key_type.value}_R',
+                "name": f'P{right_hand_position}_H_{key_type.value}_R',
                 "collection": "hand_position_balls"},
             "left_hand_pivot_position": {
-                "name": f'P{left_hand_position}_{right_hand_position}_HP_{key_type.value}_L',
+                "name": f'P{left_hand_position}_HP_{key_type.value}_L',
                 "collection": "hand_position_balls"},
             "right_hand_pivot_position": {
-                "name": f'P{left_hand_position}_{right_hand_position}_HP_{key_type.value}_R',
+                "name": f'P{right_hand_position}_HP_{key_type.value}_R',
                 "collection": "hand_position_balls"},
             "finger_positions": {
                 "names": finger_positions,
@@ -61,18 +61,28 @@ class BaseState:
 
         self.rotate_cones = {
             "left_rotate_cone": {
-                "name": f'P{left_hand_position}_{right_hand_position}_H_rotation_{key_type.value}_L',
+                "name": f'P{left_hand_position}_H_rotation_{key_type.value}_L',
                 "collection": "hand_rotation_cones"
             },
             "right_rotate_cone": {
-                "name": f'P{left_hand_position}_{right_hand_position}_H_rotation_{key_type.value}_R',
+                "name": f'P{right_hand_position}_H_rotation_{key_type.value}_R',
                 "collection": "hand_rotation_cones"
+            }
+        }
+
+        self.hand_target = {
+            "left_hand_target": {
+                "name": f'P{left_hand_position}_H_tar_{key_type.value}_L',
+                "collection": "hand_targets"
+            },
+            "right_hand_target": {
+                "name": f'P{right_hand_position}_H_tar_{key_type.value}_R',
+                "collection": "hand_targets"
             }
         }
 
 
 class NormalBaseState(Enum):
-    BOTH_FAR_WHITE = BaseState(24, 105, KeyType.WHITE, 5)
-    BOTH_MIDDLE_WHITE = BaseState(52, 76, KeyType.WHITE, 5)
-    RIGHT_FAR_LEFT_MIDDLE_WHITE = BaseState(52, 105, KeyType.WHITE, 5)
-    LEFT_FAR_RIGHT_MIDDLE_BLACK = BaseState(24, 76, KeyType.BLACK, 5)
+    RIGHT_WHITE = BaseState(24, 52, KeyType.WHITE, 5)
+    MIDDLE_BLACK = BaseState(52, 76, KeyType.BLACK, 5)
+    LEFT_WHITE = BaseState(76, 105, KeyType.WHITE, 5)

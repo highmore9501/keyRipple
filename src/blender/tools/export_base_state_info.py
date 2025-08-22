@@ -17,7 +17,7 @@ class BaseState:
     """
     表示一个基准手型
     param left_hand_position: 左手位置
-    param right_hand_position: 右手位置
+    param right_hand_position: 右手位置    
     param key_type: 当前按的是黑键还是白键
     param finger_number: 一共有多少个手指，当然默认情况下是5个手指
     """
@@ -37,23 +37,23 @@ class BaseState:
         finger_positions = {}
 
         for finger_index in self.left_finger_indexs:
-            finger_positions[finger_index] = f'P{left_hand_position}_{right_hand_position}_finger{finger_index}_{key_type.value}'
+            finger_positions[finger_index] = f'P{left_hand_position}_finger{finger_index}_{key_type.value}'
 
         for finger_index in self.right_finger_indexs:
-            finger_positions[finger_index] = f'P{left_hand_position}_{right_hand_position}_finger{finger_index}_{key_type.value}'
+            finger_positions[finger_index] = f'P{right_hand_position}_finger{finger_index}_{key_type.value}'
 
         self.position_balls = {
             "left_hand_position_ball": {
-                "name": f'P{left_hand_position}_{right_hand_position}_H_{key_type.value}_L',
+                "name": f'P{left_hand_position}_H_{key_type.value}_L',
                 "collection": "hand_position_balls"},
             "right_hand_position_ball": {
-                "name": f'P{left_hand_position}_{right_hand_position}_H_{key_type.value}_R',
+                "name": f'P{right_hand_position}_H_{key_type.value}_R',
                 "collection": "hand_position_balls"},
             "left_hand_pivot_position": {
-                "name": f'P{left_hand_position}_{right_hand_position}_HP_{key_type.value}_L',
+                "name": f'P{left_hand_position}_HP_{key_type.value}_L',
                 "collection": "hand_position_balls"},
             "right_hand_pivot_position": {
-                "name": f'P{left_hand_position}_{right_hand_position}_HP_{key_type.value}_R',
+                "name": f'P{right_hand_position}_HP_{key_type.value}_R',
                 "collection": "hand_position_balls"},
             "finger_positions": {
                 "names": finger_positions,
@@ -62,12 +62,23 @@ class BaseState:
 
         self.rotate_cones = {
             "left_rotate_cone": {
-                "name": f'P{left_hand_position}_{right_hand_position}_H_rotation_{key_type.value}_L',
+                "name": f'P{left_hand_position}_H_rotation_{key_type.value}_L',
                 "collection": "hand_rotation_cones"
             },
             "right_rotate_cone": {
-                "name": f'P{left_hand_position}_{right_hand_position}_H_rotation_{key_type.value}_R',
+                "name": f'P{right_hand_position}_H_rotation_{key_type.value}_R',
                 "collection": "hand_rotation_cones"
+            }
+        }
+
+        self.hand_target = {
+            "left_hand_target": {
+                "name": f'P{left_hand_position}_H_tar_{key_type.value}_L',
+                "collection": "hand_targets"
+            },
+            "right_hand_target": {
+                "name": f'P{right_hand_position}_H_tar_{key_type.value}_R',
+                "collection": "hand_targets"
             }
         }
 
@@ -93,6 +104,10 @@ def export_base_state_info(left_hand_position: int, right_hand_position: int, ke
         "rotate_cones": {
             "left_rotate_cone": {},
             "right_rotate_cone": {}
+        },
+        "hand_targets": {
+            "left_hand_target": {},
+            "right_hand_target": {}
         }
     }
 
@@ -172,10 +187,19 @@ def export_base_state_info(left_hand_position: int, right_hand_position: int, ke
 
     if left_hand_rotation_obj_name in bpy.data.objects and left_rotate_cone_name in bpy.data.objects:
         left_rotate_cone = bpy.data.objects[left_rotate_cone_name]
-        export_data["rotate_cones"]["left_rotate_cone"] = {
-            "name": left_rotate_cone_name,
-            "rotation": list(left_rotate_cone.rotation_euler)
-        }
+        # 根据旋转模式导出相应的旋转值
+        if left_rotate_cone.rotation_mode == 'QUATERNION':
+            export_data["rotate_cones"]["left_rotate_cone"] = {
+                "name": left_rotate_cone_name,
+                "rotation_mode": "QUATERNION",
+                "rotation": list(left_rotate_cone.rotation_quaternion)
+            }
+        else:
+            export_data["rotate_cones"]["left_rotate_cone"] = {
+                "name": left_rotate_cone_name,
+                "rotation_mode": left_rotate_cone.rotation_mode,
+                "rotation": list(left_rotate_cone.rotation_euler)
+            }
     else:
         print(f"警告: 未找到旋转物体 {left_hand_rotation_obj_name}")
 
@@ -185,13 +209,72 @@ def export_base_state_info(left_hand_position: int, right_hand_position: int, ke
 
     if right_hand_rotation_obj_name in bpy.data.objects and right_rotate_cone_name in bpy.data.objects:
         right_rotate_cone = bpy.data.objects[right_rotate_cone_name]
-        export_data["rotate_cones"]["right_rotate_cone"] = {
-            "name": right_rotate_cone_name,
-            "rotation": list(right_rotate_cone.rotation_euler)
-        }
+        # 根据旋转模式导出相应的旋转值
+        if right_rotate_cone.rotation_mode == 'QUATERNION':
+            export_data["rotate_cones"]["right_rotate_cone"] = {
+                "name": right_rotate_cone_name,
+                "rotation_mode": "QUATERNION",
+                "rotation": list(right_rotate_cone.rotation_quaternion)
+            }
+        else:
+            export_data["rotate_cones"]["right_rotate_cone"] = {
+                "name": right_rotate_cone_name,
+                "rotation_mode": right_rotate_cone.rotation_mode,
+                "rotation": list(right_rotate_cone.rotation_euler)
+            }
     else:
         print(
             f"警告: 未找到旋转物体 {right_hand_rotation_obj_name} 或旋转锥体 {right_rotate_cone_name}")
+
+    # 获取左手目标点位置和旋转值 (新增部分)
+    left_hand_target_name = base_state.hand_target["left_hand_target"]["name"]
+    left_hand_target_obj_name = f'Tar_H_L'
+
+    if left_hand_target_obj_name in bpy.data.objects and left_hand_target_name in bpy.data.objects:
+        left_hand_target = bpy.data.objects[left_hand_target_name]
+        # 根据旋转模式导出相应的旋转值
+        if left_hand_target.rotation_mode == 'QUATERNION':
+            export_data["hand_targets"]["left_hand_target"] = {
+                "name": left_hand_target_name,
+                "location": list(left_hand_target.location),
+                "rotation_mode": "QUATERNION",
+                "rotation": list(left_hand_target.rotation_quaternion)
+            }
+        else:
+            export_data["hand_targets"]["left_hand_target"] = {
+                "name": left_hand_target_name,
+                "location": list(left_hand_target.location),
+                "rotation_mode": left_hand_target.rotation_mode,
+                "rotation": list(left_hand_target.rotation_euler)
+            }
+    else:
+        print(
+            f"警告: 未找到目标控制器 {left_hand_target_obj_name} 或目标记录器 {left_hand_target_name}")
+
+    # 获取右手目标点位置和旋转值
+    right_hand_target_name = base_state.hand_target["right_hand_target"]["name"]
+    right_hand_target_obj_name = f'Tar_H_R'
+
+    if right_hand_target_obj_name in bpy.data.objects and right_hand_target_name in bpy.data.objects:
+        right_hand_target = bpy.data.objects[right_hand_target_name]
+        # 根据旋转模式导出相应的旋转值
+        if right_hand_target.rotation_mode == 'QUATERNION':
+            export_data["hand_targets"]["right_hand_target"] = {
+                "name": right_hand_target_name,
+                "location": list(right_hand_target.location),
+                "rotation_mode": "QUATERNION",
+                "rotation": list(right_hand_target.rotation_quaternion)
+            }
+        else:
+            export_data["hand_targets"]["right_hand_target"] = {
+                "name": right_hand_target_name,
+                "location": list(right_hand_target.location),
+                "rotation_mode": right_hand_target.rotation_mode,
+                "rotation": list(right_hand_target.rotation_euler)
+            }
+    else:
+        print(
+            f"警告: 未找到目标控制器 {right_hand_target_obj_name} 或目标记录器 {right_hand_target_name}")
 
     return export_data
 
@@ -226,21 +309,16 @@ if __name__ == "__main__":
     base_states = {
         "0": {
             "left_hand_position": 24,
-            "right_hand_position": 105,
+            "right_hand_position": 52,
             "key_type": KeyType.WHITE,
         },
         "1": {
             "left_hand_position": 52,
             "right_hand_position": 76,
-            "key_type": KeyType.WHITE,
-        },
-        "2": {
-            "left_hand_position": 24,
-            "right_hand_position": 76,
             "key_type": KeyType.BLACK,
         },
-        "3": {
-            "left_hand_position": 52,
+        "2": {
+            "left_hand_position": 76,
             "right_hand_position": 105,
             "key_type": KeyType.WHITE,
         }
@@ -251,7 +329,7 @@ if __name__ == "__main__":
         "base_states": []
     }
 
-    for i in range(4):
+    for i in range(3):
         base_state = base_states[f"{i}"]
         left_hand_position = base_state["left_hand_position"]
         right_hand_position = base_state["right_hand_position"]
