@@ -216,7 +216,7 @@ def generate_piano_key_animation(hand_recorder_path: str, frames_ahead: int = 3,
             # 遍历所有手指
             for finger in fingers:
                 if finger.get("pressed", False):  # 只处理按下的手指
-                    note = finger["key_note"]["position"]
+                    note = finger["key_note"]["note"]
                     key_name = f"key_{note}"
                     shape_key_name = f"{key_name}_pressed"
 

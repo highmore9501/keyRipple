@@ -49,15 +49,15 @@ class Animator:
             base_state = enum_member.value
 
             # 构造用于匹配JSON数据的标识符
-            left_hand_position = base_state.left_hand_position
-            right_hand_position = base_state.right_hand_position
+            left_hand_note = base_state.left_hand_note
+            right_hand_note = base_state.right_hand_note
             key_type = base_state.key_type.value
 
             # 在JSON数据中查找匹配的条目
             for data_entry in self.avatar_info["base_states"]:
                 base_state_params = data_entry.get('base_state_params')
-                if base_state_params and base_state_params.get('left_hand_position') == left_hand_position and \
-                        base_state_params.get('right_hand_position') == right_hand_position and \
+                if base_state_params and base_state_params.get('left_hand_note') == left_hand_note and \
+                        base_state_params.get('right_hand_note') == right_hand_note and \
                         base_state_params.get('key_type') == key_type:
 
                     # 添加基础状态参数
@@ -157,14 +157,14 @@ class Animator:
 
         for i in range(3):
             base_state_param = self.base_states["base_state_params"][i]
-            left_hand_position = base_state_param.get("left_hand_position")
-            right_hand_position = base_state_param.get("right_hand_position")
+            left_hand_note = base_state_param.get("left_hand_note")
+            right_hand_note = base_state_param.get("right_hand_note")
             key_type = base_state_param.get("key_type")
             white_key_value = 1 if key_type == 'white' else 0
             left_hand_base_points.append(
-                np.array([left_hand_position, white_key_value]))
+                np.array([left_hand_note, white_key_value]))
             right_hand_base_points.append(
-                np.array([right_hand_position, white_key_value]))
+                np.array([right_hand_note, white_key_value]))
 
         animation_plane_base_points['left_hand_base_points'] = left_hand_base_points
         animation_plane_base_points['right_hand_base_points'] = right_hand_base_points
@@ -227,8 +227,8 @@ class Animator:
     def cacluate_hand_info(self, left_hand_item, right_hand_item, coefficients, ready: bool = False) -> dict:
         # 先初始化数据
         result = {}
-        left_hand_position = left_hand_item.get("hand_position")
-        right_hand_position = right_hand_item.get("hand_position")
+        left_hand_note = left_hand_item.get("hand_note")
+        right_hand_note = right_hand_item.get("hand_note")
         left_finger_pressed_count = 0
         right_finger_pressed_count = 0
         left_hand_white_key_value = 0
@@ -236,9 +236,9 @@ class Animator:
         pressed_fingers = {}
 
         H_L_target_point = np.array(
-            [left_hand_position, left_hand_white_key_value])
+            [left_hand_note, left_hand_white_key_value])
         H_R_target_point = np.array(
-            [right_hand_position, right_hand_white_key_value])
+            [right_hand_note, right_hand_white_key_value])
 
         lowset_key_location = np.array(self.avatar_info["piano_info"][
             "lowest_white_key"].get('location'))
@@ -294,35 +294,73 @@ class Animator:
                 coefficients["right_hand_target_rotation_2d_coefficients"], H_R_target_point)
 
         else:
-            # 这里计算Tar_H_L的旋转值，直接使用最简单的一维球面插值，左手使用24-52-76三个位置,分情况进行插值计算
+            # 基于正弦值的插值方法
             left_hand_target_quaternions = [
+                # 24位置，65度
                 self.base_states['left_hand_target'][0]['rotation'],
-                self.base_states['left_hand_target'][1]['rotation'],
+                self.base_states['left_hand_target'][1]['rotation'],  # 52位置，0度
+                # 76位置，-55度
                 self.base_states['left_hand_target'][2]['rotation']
             ]
 
-            if left_hand_position < 52:
-                left_hand_weight = (left_hand_position - 24) / (52-24)
+            if left_hand_note < 52:
+                # 24位置(65度)到52位置(0度)
+                # 手位置与sin值成线性关系
+                sin_max = np.sin(np.radians(65))  # 24位置对应的sin值
+                sin_current = (52 - left_hand_note) / \
+                    (52 - 24) * sin_max  # 当前位置对应的sin值
+                # 反推角度
+                angle_rad = np.arcsin(sin_current)
+                max_angle_rad = np.radians(65)
+                left_hand_weight = angle_rad / max_angle_rad if max_angle_rad != 0 else 0
                 Tar_H_rotation_L = slerp(
-                    left_hand_target_quaternions[0], left_hand_target_quaternions[1], left_hand_weight)
+                    left_hand_target_quaternions[1], left_hand_target_quaternions[0], left_hand_weight)
             else:
-                left_hand_weight = (left_hand_position - 52) / (76-52)
+                # 52位置(0度)到76位置(-55度)
+                # 手位置与sin值成线性关系
+                sin_max = np.sin(np.radians(55))  # 76位置对应的sin值
+                sin_current = (left_hand_note - 52) / \
+                    (76 - 52) * sin_max  # 当前位置对应的sin值
+                # 反推角度
+                angle_rad = np.arcsin(sin_current)
+                max_angle_rad = np.radians(55)
+                left_hand_weight = angle_rad / max_angle_rad if max_angle_rad != 0 else 0
                 Tar_H_rotation_L = slerp(
                     left_hand_target_quaternions[1], left_hand_target_quaternions[2], left_hand_weight)
 
-            # 这里计算Tar_H_R的旋转值，直接使用最简单的一维球面插值，右手使用52-76-105三个位置,分情况进行插值
+            # 这里计算Tar_H_R的旋转值，基于实际测量的角度值进行插值
+            # 右手使用52-76-105三个位置，其中52位置为-55度，76位置为0度，105位置为65度
             right_hand_target_quaternions = [
+                # 52位置，-55度
                 self.base_states['right_hand_target'][0]['rotation'],
+                # 76位置，0度
                 self.base_states['right_hand_target'][1]['rotation'],
+                # 105位置，65度
                 self.base_states['right_hand_target'][2]['rotation']
             ]
 
-            if right_hand_position < 76:
-                right_hand_weight = (right_hand_position - 52) / (76 - 52)
+            if right_hand_note < 76:
+                # 52位置(-55度)到76位置(0度)
+                # 手位置与sin值成线性关系
+                sin_max = np.sin(np.radians(55))  # 52位置对应的sin值
+                sin_current = (76 - right_hand_note) / \
+                    (76 - 52) * sin_max  # 当前位置对应的sin值
+                # 反推角度
+                angle_rad = np.arcsin(sin_current)
+                max_angle_rad = np.radians(55)
+                right_hand_weight = angle_rad / max_angle_rad if max_angle_rad != 0 else 0
                 Tar_H_rotation_R = slerp(
-                    right_hand_target_quaternions[0], right_hand_target_quaternions[1], right_hand_weight)
+                    right_hand_target_quaternions[1], right_hand_target_quaternions[0], right_hand_weight)
             else:
-                right_hand_weight = (right_hand_position-76) / (105-76)
+                # 76位置(0度)到105位置(65度)
+                # 手位置与sin值成线性关系
+                sin_max = np.sin(np.radians(65))  # 105位置对应的sin值
+                sin_current = (right_hand_note - 76) / \
+                    (105 - 76) * sin_max  # 当前位置对应的sin值
+                # 反推角度
+                angle_rad = np.arcsin(sin_current)
+                max_angle_rad = np.radians(65)
+                right_hand_weight = angle_rad / max_angle_rad if max_angle_rad != 0 else 0
                 Tar_H_rotation_R = slerp(
                     right_hand_target_quaternions[1], right_hand_target_quaternions[2], right_hand_weight)
 
@@ -347,7 +385,6 @@ class Animator:
                 key_location = get_key_location(
                     note, is_black, self.piano, lowset_key_location, highest_key_location, black_key_location)
                 touch_point = get_touch_point(finger_position, key_location)
-                touch_point = finger_position
                 if not ready:  # 如果不是ready说明是已经按键下去了，需要在z轴上添加一段移动距离，也许实际按键的方向并不是z轴，以后可以再修改
                     touch_point[2] += press_distance
                 result[f"{finger_index}"] = touch_point.tolist()

@@ -16,31 +16,31 @@ class KeyType(Enum):
 class BaseState:
     """
     表示一个基准手型
-    param left_hand_position: 左手位置
-    param right_hand_position: 右手位置    
+    param left_hand_note: 左手位置
+    param right_hand_note: 右手位置    
     param key_type: 当前按的是黑键还是白键
     param finger_number: 一共有多少个手指，当然默认情况下是5个手指
     """
 
-    def __init__(self, left_hand_position: int, right_hand_position: int, key_type: KeyType, finger_number: int = 5) -> None:
-        self.left_hand_position = left_hand_position
-        self.right_hand_position = right_hand_position
+    def __init__(self, left_hand_note: int, right_hand_note: int, key_type: KeyType, finger_number: int = 5) -> None:
+        self.left_hand_note = left_hand_note
+        self.right_hand_note = right_hand_note
         self.key_type = key_type
         self.finger_number = finger_number
-        self.body_position = (left_hand_position + right_hand_position)/2
+        self.body_position = (left_hand_note + right_hand_note)/2
 
-        self.left_finger_indexs = [finger_index for finger_index in range(
+        self.left_finger_indices = [finger_index for finger_index in range(
             self.finger_number)]
-        self.right_finger_indexs = [finger_index for finger_index in range(
+        self.right_finger_indices = [finger_index for finger_index in range(
             self.finger_number, 2*self.finger_number)]
 
         finger_positions = {}
 
-        for finger_index in self.left_finger_indexs:
-            finger_positions[finger_index] = f'P{left_hand_position}_finger{finger_index}_{key_type.value}'
+        for finger_index in self.left_finger_indices:
+            finger_positions[finger_index] = f'P{left_hand_note}_finger{finger_index}_{key_type.value}'
 
-        for finger_index in self.right_finger_indexs:
-            finger_positions[finger_index] = f'P{right_hand_position}_finger{finger_index}_{key_type.value}'
+        for finger_index in self.right_finger_indices:
+            finger_positions[finger_index] = f'P{right_hand_note}_finger{finger_index}_{key_type.value}'
 
         self.position_balls = {
             "finger_positions": {
@@ -50,25 +50,25 @@ class BaseState:
 
         self.hand_target = {
             "left_hand_target": {
-                "name": f'P{left_hand_position}_H_tar_{key_type.value}_L',
+                "name": f'P{left_hand_note}_H_tar_{key_type.value}_L',
                 "collection": "hand_targets"
             },
             "right_hand_target": {
-                "name": f'P{right_hand_position}_H_tar_{key_type.value}_R',
+                "name": f'P{right_hand_note}_H_tar_{key_type.value}_R',
                 "collection": "hand_targets"
             }
         }
 
 
-def export_base_state_info(left_hand_position: int, right_hand_position: int, key_type: KeyType) -> dict:
+def export_base_state_info(left_hand_note: int, right_hand_note: int, key_type: KeyType) -> dict:
     # 创建 BaseState 实例
-    base_state = BaseState(left_hand_position, right_hand_position, key_type)
+    base_state = BaseState(left_hand_note, right_hand_note, key_type)
 
     # 初始化导出数据
     export_data = {
         "base_state_params": {
-            "left_hand_position": left_hand_position,
-            "right_hand_position": right_hand_position,
+            "left_hand_note": left_hand_note,
+            "right_hand_note": right_hand_note,
             "key_type": key_type.value
         },
         "position_balls": {
@@ -180,18 +180,18 @@ if __name__ == "__main__":
 
     base_states = {
         "0": {
-            "left_hand_position": 24,
-            "right_hand_position": 52,
+            "left_hand_note": 24,
+            "right_hand_note": 52,
             "key_type": KeyType.WHITE,
         },
         "1": {
-            "left_hand_position": 52,
-            "right_hand_position": 76,
+            "left_hand_note": 52,
+            "right_hand_note": 76,
             "key_type": KeyType.BLACK,
         },
         "2": {
-            "left_hand_position": 76,
-            "right_hand_position": 105,
+            "left_hand_note": 76,
+            "right_hand_note": 105,
             "key_type": KeyType.WHITE,
         }
     }
@@ -203,11 +203,11 @@ if __name__ == "__main__":
 
     for i in range(3):
         base_state = base_states[f"{i}"]
-        left_hand_position = base_state["left_hand_position"]
-        right_hand_position = base_state["right_hand_position"]
+        left_hand_note = base_state["left_hand_note"]
+        right_hand_note = base_state["right_hand_note"]
         key_type = base_state["key_type"]
         result["base_states"].append(export_base_state_info(
-            left_hand_position, right_hand_position, key_type))
+            left_hand_note, right_hand_note, key_type))
 
     result["piano_info"] = export_piano_info()
 
