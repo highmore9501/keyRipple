@@ -18,7 +18,7 @@ def get_touch_point(finger_position: np.ndarray, key_position: np.ndarray) -> np
     if len(finger_position) != 3 or len(key_position) != 3:
         raise ValueError("位置参数长度错误")
 
-    return np.array([key_position[0], max(finger_position[1], key_position[1]), key_position[2]])
+    return np.array([key_position[0], min(finger_position[1], key_position[1]), key_position[2]])
 
 
 def get_key_location(note: int, is_black: bool, piano: Piano, lowest_key_position: np.ndarray, highest_key_position: np.ndarray, black_key_position: np.ndarray) -> np.ndarray:
