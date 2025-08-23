@@ -21,83 +21,88 @@ class Recorder:
         notes = notes_map['notes']
         frame = notes_map['frame']
         note_amount = len(notes)
-        finger_indexs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        finger_indices = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
         # 生成所有可能的组合
-        # 从10个手指中选择len(notes)个手指来按这些音符
-        for finger_combination in itertools.combinations(finger_indexs, note_amount):
-            # 生成手指与音符的所有可能分配方式
-            for finger_permutation in itertools.permutations(finger_combination):
-                # 为每个音符分配一个手指
-                note_finger_mapping = dict(zip(notes, finger_permutation))
+        # 从10个手指中选择len(notes)个手指来按这些音符，且手指按顺序排列
+        for finger_combination in itertools.combinations(finger_indices, note_amount):
+            # 直接将有序的音符与有序的手指组合配对
+            note_finger_mapping = dict(zip(notes, finger_combination))
 
-                # 根据映射创建新的Recorder实例
-                new_recorder = self._create_new_recorder(
-                    note_finger_mapping, note_amount, hand_range, finger_range, frame)
-                if new_recorder is not None:
-                    yield new_recorder
+            # 根据映射创建新的Recorder实例
+            new_recorder = self._create_new_recorder(
+                note_finger_mapping, hand_range, finger_range, frame)
+            if new_recorder is not None:
+                yield new_recorder
 
-    def _create_new_recorder(self, note_finger_mapping: dict[int, int], note_amount: int, hand_range: int, finger_range: int, frame: float) -> Optional['Recorder']:
-        # 按手指索引排序
-        sorted_items = sorted(note_finger_mapping.items(),
-                              key=lambda x: x[1])
+    def _create_new_recorder(self, note_finger_mapping: dict[int, int], hand_range: int, finger_range: int, frame: float) -> Optional['Recorder']:
+        left_hand_notes = []   # 存储左手的音符 [(note, finger_index), ...]
+        right_hand_notes = []  # 存储右手的音符 [(note, finger_index), ...]
 
-        left_hand_notes_amount = 0
-        lasted_note = 0
-        lasted_finger_index = 0
-        left_hand_lowest_note = 0
-        left_hand_highest_note = 0
-        current_is_left = True
-        right_hand_lowest_note = 0
-        right_hand_highest_note = 0
+        # 初始化左右手的统计变量
+        left_lowest_note = None
+        left_highest_note = None
+        right_lowest_note = None
+        right_highest_note = None
 
-        for i, (note, finger_index) in enumerate(sorted_items):
-            # 排序靠后的手指按的音符比前面的还低，判定无效
-            if note < lasted_note:
-                return None
-
-            if i == 0:
-                left_hand_lowest_note = note
-                lasted_note = note
-
-            if i == len(sorted_items) - 1:
-                right_hand_highest_note = note
-
-            # 检查音符间隔是否过大（除了左手到右手的第一次过渡）
-            is_transition_from_left_to_right = current_is_left and finger_index >= 5
-            if not is_transition_from_left_to_right:
-                note_span_too_wide = note - lasted_note > finger_range * \
-                    (finger_index - lasted_finger_index)
-                if note_span_too_wide:
-                    return None
-
+        # 分离左右手的音符
+        for note, finger_index in note_finger_mapping.items():
             if finger_index < 5:
-                left_hand_notes_amount += 1
-                # 左手按音超过5个，判定无效
-                if left_hand_notes_amount > 5:
+                # 左手处理
+                left_hand_notes.append((note, finger_index))
+
+                # 更新左手音域范围
+                if left_lowest_note is None:
+                    left_lowest_note = note
+                    left_highest_note = note
+                else:
+                    # 由于音符已经有序，只需要更新最高音符
+                    if not left_highest_note or note > left_highest_note:
+                        left_highest_note = note
+
+                # 检查音域跨度
+                if left_highest_note - left_lowest_note > hand_range:
                     return None
-                lasted_note = note
-                left_hand_highest_note = note
-                lasted_finger_index = finger_index
+
             else:
-                if current_is_left:
-                    if note_amount - left_hand_notes_amount > 5:
-                        return None
-                    current_is_left = False
-                    right_hand_lowest_note = note
-                lasted_note = note
+                # 右手处理
+                right_hand_notes.append((note, finger_index))
 
-        # 左右手任何一只跨度超过hand_range，判定无效
-        if left_hand_highest_note - left_hand_lowest_note > hand_range:
-            return None
+                # 更新右手音域范围
+                if right_lowest_note is None:
+                    right_lowest_note = note
+                    right_highest_note = note
+                else:
+                    # 由于音符已经有序，只需要更新最高音符
+                    if not right_highest_note or note > right_highest_note:
+                        right_highest_note = note
 
-        if right_hand_highest_note - right_hand_lowest_note > hand_range:
-            return None
+                # 检查音域跨度
+                if right_highest_note - right_lowest_note > hand_range:
+                    return None
+
+        # 检查手指跨度限制（仅在有多个音符时检查）
+        if len(left_hand_notes) > 1:
+            for i in range(1, len(left_hand_notes)):
+                note, finger_index = left_hand_notes[i]
+                prev_note, prev_finger_index = left_hand_notes[i-1]
+                note_diff = note - prev_note
+                finger_diff = finger_index - prev_finger_index
+                if note_diff > finger_range * finger_diff:
+                    return None
+
+        if len(right_hand_notes) > 1:
+            for i in range(1, len(right_hand_notes)):
+                note, finger_index = right_hand_notes[i]
+                prev_note, prev_finger_index = right_hand_notes[i-1]
+                note_diff = note - prev_note
+                finger_diff = finger_index - prev_finger_index
+                if note_diff > finger_range * finger_diff:
+                    return None
 
         # 生成新的左右手并且计算它们的熵
-        left_hand_items = list(filter(lambda item: item[1] < 5, sorted_items))
         left_fingers: list[Finger] = []
-        for note, finger_index in left_hand_items:
+        for note, finger_index in left_hand_notes:
             key_note = self.piano.note_to_key(note)
             left_fingers.append(Finger(finger_index, key_note, True, True))
 
@@ -105,16 +110,16 @@ class Recorder:
         # 如果左手没有需要按的音符，那么保持上一手型
         if len(left_fingers) == 0:
             left_fingers = lasted_left_hand.fingers[:]
+
         new_left_hand = Hand(left_fingers, self.piano, True,
                              lasted_left_hand.max_distance, lasted_left_hand.finger_number)
         left_hand_diff = lasted_left_hand.calculate_hand_diff(new_left_hand)
 
-        right_hand_items = list(
-            filter(lambda item: item[1] >= 5, sorted_items))
         right_fingers: list[Finger] = []
-        for note, finger_index in right_hand_items:
+        for note, finger_index in right_hand_notes:
             key_note = self.piano.note_to_key(note)
             right_fingers.append(Finger(finger_index, key_note, False, True))
+
         lasted_right_hand = self.right_hands[-1]
 
         # 如果右手没有需要按的音符，那么保持上一手型

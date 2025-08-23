@@ -119,7 +119,7 @@ class MidiProcessor:
         messages: list[MessageItem] = []
 
         for midTrack in midTracks:
-            note = []
+            note: list[int] = []
             real_tick: float = 0
             pre_tick: float = 0
             for message in midTrack:
@@ -133,14 +133,15 @@ class MidiProcessor:
                     messages.append(
                         {'message': str(message), 'real_tick': real_tick})
                     if message.type == 'note_on':
-                        message_note = message.note if not higher_octave else message.note + 12
+                        message_note: int = message.note if not higher_octave else message.note + 12
                         note.append(message_note)
                     else:
                         # 结束音符的收集
                         if len(note) == 0:
                             continue
                         # 将note里的元素按大小排序
-                        notes = sorted(note)
+                        notes = sorted(set(note))
+                        notes = self.simplifyNotes(notes)
                         notes_maps.append(
                             {"notes": notes, "real_tick": pre_tick, "frame": 0})
                         note = []
@@ -196,7 +197,7 @@ class MidiProcessor:
         3. if there are still notes need to be removed, randomly remove the notes from the middle notes.
         
         精简音符的规则如下：
-        1. 如果音符数量不大于10，直接返回音符。
+        1. 如果音符数量不大于3，直接返回音符。
         2. 移除与最低音或者最高音有八度关系的音符。
         3. 如果还有音符需要移除，随机从中间音符里挑出来需要移除的音符。
         """

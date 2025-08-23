@@ -7,79 +7,176 @@ class Hand:
         self.fingers: list[Finger] = fingers
         self.piano: Piano = piano
         self.is_left: bool = is_left
+        self.middle_position: int = 52 if is_left else 76
         self.max_distance: int = max_distance
         self.finger_number: int = finger_number
-        self.hand_position: float = 0.0
+        self.hand_note: float = 0.0
         if len(fingers) < self.finger_number:
-            self._gernate_empty_fingers()
-        self._calculate_hand_position()
+            self._generate_empty_fingers()
+        self._calculate_hand_note()
 
-    def _gernate_empty_fingers(self):
+    def _generate_empty_fingers(self):
         """
         生成空的手指，确保手指数量为finger_number
+        根据已有的手指位置推断缺失手指的合理位置
         """
-        finger_indexs = [finger_index for finger_index in range(self.finger_number)] if self.is_left else [
-            finger_index for finger_index in range(self.finger_number, 2*self.finger_number)]
+        # 确定手指索引范围
+        finger_indices = list(range(self.finger_number)) if self.is_left else \
+            list(range(self.finger_number, 2 * self.finger_number))
 
-        used_finger_indexs = [finger.finger_index for finger in self.fingers]
-        leftest_finger_position = self.fingers[0].key_note.position
-        leftest_finger_index = self.fingers[0].finger_index
-        latest_finger_position = 0
-        latest_finger_index = finger_indexs[0]
-        is_beyond_leftest_finger = False
-        need_new_finger = False
+        # 获取已存在的手指索引和位置
+        existing_fingers = {finger.finger_index: finger.key_note.position
+                            for finger in self.fingers}
 
-        for i in range(self.finger_number):
-            current_finger_index = finger_indexs[i]
-            # 如果当前手指已经使用过了，那么就跳过，只更新latest_finger_index和latest_finger_position
-            if current_finger_index in used_finger_indexs:
-                latest_finger_position = next(
-                    (finger.key_note.position for finger in self.fingers if finger.finger_index == latest_finger_index), 0)
+        # 找出缺失的手指索引
+        missing_indices = [
+            idx for idx in finger_indices if idx not in existing_fingers]
 
-                latest_finger_index = current_finger_index
-                need_new_finger = False
-            # 如果当前手指比最左的手指还小，那么就计算并且生成一个新的休息手指
-            elif current_finger_index < leftest_finger_index:
-                latest_finger_position = leftest_finger_position - \
-                    2*(latest_finger_index-current_finger_index)
-                need_new_finger = True
-            elif not is_beyond_leftest_finger:
-                # 第一次超越最左手指
-                is_beyond_leftest_finger = True
-                latest_finger_index = current_finger_index
-                latest_finger_position = leftest_finger_position + \
-                    2*(current_finger_index-leftest_finger_index)
-                need_new_finger = True
-            else:
-                latest_finger_index = current_finger_index
-                latest_finger_position = latest_finger_position + \
-                    2*(current_finger_index-latest_finger_index)
-                need_new_finger = True
+        # 如果没有缺失的手指，直接返回
+        if not missing_indices:
+            return
 
-            if need_new_finger:
+        # 如果没有任何手指存在，使用默认位置
+        if not existing_fingers:
+            # 左手从位置52开始，右手从位置76开始
+            base_position = 52 if self.is_left else 76
+            for i, finger_index in enumerate(finger_indices):
+                position = base_position + (i - 2) * 2  # 大致按五指分布
                 self.fingers.append(
-                    Finger(current_finger_index, self.piano.position_to_key_note(latest_finger_position), self.is_left, False))
+                    Finger(finger_index,
+                           self.piano.position_to_key_note(position),
+                           self.is_left,
+                           False))
+            return
+
+        # 根据现有手指推断缺失手指的位置
+        for missing_index in missing_indices:
+            # 计算相邻手指的位置来推断缺失手指位置
+            position = self._estimate_finger_position(
+                missing_index, existing_fingers)
+            self.fingers.append(
+                Finger(missing_index,
+                       self.piano.position_to_key_note(position),
+                       self.is_left,
+                       False))
+
+        # 按手指索引排序
+        self.fingers.sort(key=lambda f: f.finger_index)
+
+    def _estimate_finger_position(self, finger_index: int, existing_fingers: dict) -> int:
+        """
+        根据相邻手指位置估算指定手指的位置
+        考虑到E-F和B-C之间只相隔1个半音，需要特殊处理
+        """
+        # 获取所有存在的手指索引并排序
+        existing_indices = sorted(existing_fingers.keys())
+
+        # 找到相邻的手指
+        left_neighbor = None
+        right_neighbor = None
+
+        for idx in existing_indices:
+            if idx < finger_index:
+                left_neighbor = idx
+            elif idx > finger_index and right_neighbor is None:
+                right_neighbor = idx
+                break
+
+        # 如果有左侧邻居
+        if left_neighbor is not None:
+            left_pos = existing_fingers[left_neighbor]
+
+            if right_neighbor is not None:
+                # 两侧都有邻居，在中间位置附近估算
+                right_pos = existing_fingers[right_neighbor]
+                # 根据手指索引距离加权计算位置
+                left_distance = finger_index - left_neighbor
+                right_distance = right_neighbor - finger_index
+                total_distance = left_distance + right_distance
+
+                # 计算加权位置
+                estimated_pos = (right_pos * left_distance +
+                                 left_pos * right_distance) // total_distance
+            else:
+                # 只有左侧邻居，根据手指索引差值估算位置
+                left_distance = finger_index - left_neighbor
+                estimated_pos = left_pos + \
+                    self._calculate_expected_distance(left_pos, left_distance)
+            return estimated_pos
+
+        # 如果只有右侧邻居
+        elif right_neighbor is not None:
+            right_pos = existing_fingers[right_neighbor]
+            right_distance = right_neighbor - finger_index
+            estimated_pos = right_pos - \
+                self._calculate_expected_distance(right_pos, right_distance)
+            return estimated_pos
+
+        # 如果没有邻居（理论上不应该发生），使用默认位置
+        return 52 if self.is_left else 76
+
+    def _calculate_expected_distance(self, base_position: int, finger_distance: int) -> int:
+        """
+        根据基础位置和手指距离计算期望的距离
+        考虑E-F和B-C之间只相隔1个半音的特殊情况
+        """
+        expected_distance = 0
+        current_note = self.piano.min_key + base_position
+
+        for i in range(finger_distance):
+            # 检查当前音符是否是E或B（这些音符到下一个音符只有1个半音）
+            note_mod = current_note % 12
+            if note_mod == 4 or note_mod == 11:  # E(4)或B(11)
+                expected_distance += 1  # 只移动1个半音
+            else:
+                expected_distance += 2  # 通常移动2个半音
+            current_note += 2  # 近似增加
+
+        return expected_distance
 
     def calculate_hand_diff(self, next_hand: 'Hand') -> int:
         # 因为运行到这里，默认next_hand已经有相同数量的fingers，所以只需要遍历fingers，然后求diff
         total_diff = 0
+        hand_diff = int(abs(self.hand_note - next_hand.hand_note))
+        total_diff += hand_diff
+
         for i in range(self.finger_number):
             current_finger = self.fingers[i]
-            next_finger = next_hand.fingers[i]
-            diff = abs(current_finger.key_note.position -
-                       next_finger.key_note.position)
-            total_diff += diff
+            if current_finger.pressed:
+                next_finger = next_hand.fingers[i]
+                diff = abs(current_finger.key_note.position -
+                           next_finger.key_note.position)
+                total_diff += diff
+                # 如果两个手指都是按下的，那么diff翻倍，因为不推荐同一个手指反复使用
+                if current_finger.pressed and next_finger.pressed:
+                    total_diff += 2 * diff
+                # 如果手跨过了它的舒适区，左手去弹右边的，或者相反，那么diff乘6
+                if (self.is_left and next_hand.hand_note > 52) or (not self.is_left and next_hand.hand_note < 76):
+                    total_diff += 6 * diff
 
         return total_diff
 
-    def _calculate_hand_position(self):
-        positions = [finger.key_note.position for finger in self.fingers]
-        avarage_position = sum(positions) / len(positions)
-        self.hand_position = avarage_position
+    def _calculate_hand_note(self):
+        # 检测当前手指数量是否满足要求
+        if len(self.fingers) != self.finger_number:
+            raise ValueError("当前手指数量不满足要求")
+        notes = [finger.key_note.note for finger in self.fingers]
+        avarage_note = sum(notes) / len(notes)
+        self.hand_note = avarage_note
+        # 检测一下hand_note和中指的finger_index差距有多大
+        middle_finger_index = 2 if self.is_left else 7
+        middle_finger = next(
+            finger for finger in self.fingers if finger.finger_index == middle_finger_index)
+        diff = abs(avarage_note - middle_finger.key_note.note)
+        if diff > 2:
+            print(f"警告: hand_note和中指的finger_index差距过大: {diff}")
+            for finger in self.fingers:
+                print(
+                    f"finger_index: {finger.finger_index}, note: {finger.key_note.note},pressed: {finger.pressed}")
 
     def export_hand_info(self) -> dict:
         return {
-            'hand_position': self.hand_position,
+            'hand_note': self.hand_note,
             'fingers': [finger.export_finger_info() for finger in self.fingers],
             'is_left': self.is_left
         }
