@@ -102,29 +102,34 @@ class MidiProcessor:
 
     def midiToPianoNotes(self, higher_octave: bool = False) -> tuple[List[NotesMap], List[PitchWheelItem], list[MessageItem]]:
         """    
-        :param midi_file_path: path of input midi file. 输入midi文件路径
-        :param useTrack: track number to use. 使用的轨道编号
-        :param useChannel: channel number to use. 使用的通道编号，如果使用-1表示不限制
+        :param higher_octave: whether to shift notes up an octave. 是否将音符上移一个八度
         :return: notes and beat in the midi file. 返回midi文件中指定轨道的音符和时间信息
         """
+        midi_file = MidiFile(self.midi_file_path)
         midTracks = []
-        try:
-            for track in self.track_numbers:
-                midTracks.append(MidiFile(self.midi_file_path).tracks[track])
-        except:
-            midTracks.append(MidiFile(self.midi_file_path).tracks[0])
+
+        # 如果指定了track_numbers，则只使用这些轨道；否则使用所有轨道
+        if self.track_numbers:
+            for i, track in enumerate(midi_file.tracks):
+                if i in self.track_numbers:
+                    midTracks.append(track)
+        else:
+            midTracks = midi_file.tracks
+
+        print(f"一共有{len(midTracks)}个轨道")
 
         notes_maps: list[NotesMap] = []
         pitch_wheel_map: list[PitchWheelItem] = []
         messages: list[MessageItem] = []
 
+        # 使用字典来跟踪每个时间点的活动音符
+        active_notes_by_time: dict[float, list[int]] = {}
+
         for midTrack in midTracks:
-            note: list[int] = []
             real_tick: float = 0
-            pre_tick: float = 0
+
             for message in midTrack:
-                ticks = message.time
-                real_tick += ticks
+                real_tick += message.time
 
                 if not hasattr(message, 'channel'):
                     continue
@@ -132,28 +137,31 @@ class MidiProcessor:
                 if message.channel == self.channel_number or self.channel_number == -1:
                     messages.append(
                         {'message': str(message), 'real_tick': real_tick})
-                    if message.type == 'note_on':
+
+                    if message.type == 'note_on' and message.velocity > 0:
                         message_note: int = message.note if not higher_octave else message.note + 12
-                        note.append(message_note)
-                    else:
-                        # 结束音符的收集
-                        if len(note) == 0:
-                            continue
-                        # 将note里的元素按大小排序
-                        notes = sorted(set(note))
-                        notes = self.simplifyNotes(notes)
-                        notes_maps.append(
-                            {"notes": notes, "real_tick": pre_tick, "frame": 0})
-                        note = []
+                        if real_tick not in active_notes_by_time:
+                            active_notes_by_time[real_tick] = []
+                        active_notes_by_time[real_tick].append(message_note)
+
+                    elif message.type == 'note_off' or (message.type == 'note_on' and message.velocity == 0):
+                        # note_off事件不需要特殊处理，因为我们关注的是note_on事件的时间点
+                        pass
 
                     if message.type == 'pitchwheel':
                         pitch_wheel_map.append(
-                            {"pitch_wheel": message.pitch, "real_tick": pre_tick})
+                            {"pitch_wheel": message.pitch, "real_tick": real_tick})
 
-                pre_tick = real_tick
+        # 将收集到的音符按时间点组织成notes_maps
+        for tick, notes in sorted(active_notes_by_time.items()):
+            if notes:  # 只有当有音符时才添加
+                unique_notes = sorted(set(notes))  # 去重并排序
+                simplified_notes = self.simplifyNotes(unique_notes)
+                notes_maps.append(
+                    {"notes": simplified_notes, "real_tick": tick, "frame": 0})
 
-        # notes_map，pitch_wheel_map,messages都按real_tick排序
-        notes_map = sorted(notes_maps, key=lambda x: x['real_tick'])
+        # 按real_tick排序
+        notes_maps = sorted(notes_maps, key=lambda x: x['real_tick'])
         pitch_wheel_map = sorted(pitch_wheel_map, key=lambda x: x['real_tick'])
         messages = sorted(messages, key=lambda x: x['real_tick'])
 
@@ -256,6 +264,23 @@ class MidiProcessor:
 
         print(f'\n全曲的每拍tick数是:{ticks_per_beat}\n')
 
+        # 统计所有note的数量
+        total_notes = 0
+        unique_notes = set()
+
+        # 统计所有note的数量（按下的音符总数）
+        total_notes = 0
+        all_unique_notes = set()
+
+        for notes_map in notes_maps:
+            notes = notes_map.get('notes', [])
+            total_notes += len(notes)  # 累加每个和弦中的音符数量
+            all_unique_notes.update(notes)  # 收集所有出现过的不重复音符
+
+        print(f'总共有 {len(notes_maps)} 个和弦/单音符')
+        print(f'总共按下了 {total_notes} 个音符（包含和弦中的每个音符）')
+        print(f'其中不重复的音符有 {len(all_unique_notes)} 个')
+
         # 计算总时长
         total_tick = notes_maps[-1].get('real_tick', 0)
         total_frame = self.calculate_frame(
@@ -274,7 +299,3 @@ class MidiProcessor:
             print("notes_map 保存到了", notes_map_file)
 
         return notes_maps
-
-
-if __name__ == '__main__':
-    pass
