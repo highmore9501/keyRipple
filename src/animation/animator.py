@@ -1,6 +1,6 @@
 import json
 from src.animation.base_state import NormalBaseState, KeyType
-from src.utils import calculate_3d_coefficients, evaluate_3d_point, calculate_2d_coefficients, evaluate_2d_point, quaternion_interpolation_from_3_points, get_key_location, get_touch_point, slerp
+from src.utils import evaluate_rotation, calculate_2d_coefficients, evaluate_2d_point, get_key_location, get_touch_point, slerp, get_actual_press_depth
 from src.piano.piano import Piano
 from typing import Dict, Any
 import numpy as np
@@ -288,6 +288,62 @@ class Animator:
             result['right_hand_target_rotation_2d_coefficients'] = calculate_2d_coefficients(
                 right_hand_base_points, right_hand_target_rots)
 
+        # 计算左手四元数插值所需的实际sin_max值
+        left_hand_q_24 = np.array(
+            self.base_states['left_hand_target'][0]['rotation'])
+        left_hand_q_52 = np.array(
+            self.base_states['left_hand_target'][1]['rotation'])
+        left_hand_q_76 = np.array(
+            self.base_states['left_hand_target'][2]['rotation'])
+
+        # 确保四元数在同一半球
+        if np.dot(left_hand_q_24, left_hand_q_52) < 0:
+            left_hand_q_24 = -left_hand_q_24
+        if np.dot(left_hand_q_52, left_hand_q_76) < 0:
+            left_hand_q_76 = -left_hand_q_76
+
+        # 计算24到52位置之间的实际角度差
+        dot_24_52 = np.clip(np.dot(left_hand_q_24, left_hand_q_52), -1.0, 1.0)
+        actual_angle_24_52 = 2 * np.arccos(dot_24_52)
+        left_hand_sin_max_24_52 = np.sin(actual_angle_24_52)
+
+        # 计算52到76位置之间的实际角度差
+        dot_52_76 = np.clip(np.dot(left_hand_q_52, left_hand_q_76), -1.0, 1.0)
+        actual_angle_52_76 = 2 * np.arccos(dot_52_76)
+        left_hand_sin_max_52_76 = np.sin(actual_angle_52_76)
+
+        # 计算右手四元数插值所需的实际sin_max值
+        right_hand_q_52 = np.array(
+            self.base_states['right_hand_target'][0]['rotation'])
+        right_hand_q_76 = np.array(
+            self.base_states['right_hand_target'][1]['rotation'])
+        right_hand_q_105 = np.array(
+            self.base_states['right_hand_target'][2]['rotation'])
+
+        # 确保四元数在同一半球
+        if np.dot(right_hand_q_52, right_hand_q_76) < 0:
+            right_hand_q_52 = -right_hand_q_52
+        if np.dot(right_hand_q_76, right_hand_q_105) < 0:
+            right_hand_q_105 = -right_hand_q_105
+
+        # 计算52到76位置之间的实际角度差
+        dot_52_76_r = np.clip(
+            np.dot(right_hand_q_52, right_hand_q_76), -1.0, 1.0)
+        actual_angle_52_76_r = 2 * np.arccos(dot_52_76_r)
+        right_hand_sin_max_52_76 = np.sin(actual_angle_52_76_r)
+
+        # 计算76到105位置之间的实际角度差
+        dot_76_105_r = np.clip(
+            np.dot(right_hand_q_76, right_hand_q_105), -1.0, 1.0)
+        actual_angle_76_105_r = 2 * np.arccos(dot_76_105_r)
+        right_hand_sin_max_76_105 = np.sin(actual_angle_76_105_r)
+
+        # 将sin_max值存储到结果中
+        result['left_hand_sin_max_24_52'] = left_hand_sin_max_24_52
+        result['left_hand_sin_max_52_76'] = left_hand_sin_max_52_76
+        result['right_hand_sin_max_52_76'] = right_hand_sin_max_52_76
+        result['right_hand_sin_max_76_105'] = right_hand_sin_max_76_105
+
         return result
 
     def cacluate_hand_info(self, left_hand_item, right_hand_item, coefficients, ready: bool = False) -> dict:
@@ -360,80 +416,62 @@ class Animator:
                 coefficients["right_hand_target_rotation_2d_coefficients"], H_R_target_point)
 
         else:
-            # 基于正弦值的插值方法
+            # 替换原来的四元数计算部分为以下代码:
+
+            # 左手四元数计算
             left_hand_target_quaternions = [
-                # 24位置，65度
-                self.base_states['left_hand_target'][0]['rotation'],
-                self.base_states['left_hand_target'][1]['rotation'],  # 52位置，0度
-                # 76位置，-55度
-                self.base_states['left_hand_target'][2]['rotation']
+                np.array(self.base_states['left_hand_target'][0]['rotation']),
+                np.array(self.base_states['left_hand_target'][1]['rotation']),
+                np.array(self.base_states['left_hand_target'][2]['rotation'])
             ]
 
             if left_hand_note < 52:
-                # 24位置(65度)到52位置(0度)
-                # 手位置与sin值成线性关系
-                sin_max = np.sin(np.radians(65))  # 24位置对应的sin值
-                sin_current = (52 - left_hand_note) / \
-                    (52 - 24) * sin_max  # 当前位置对应的sin值
-                # 反推角度
-                angle_rad = np.arcsin(sin_current)
-                max_angle_rad = np.radians(65)
-                left_hand_weight = angle_rad / max_angle_rad if max_angle_rad != 0 else 0
-                Tar_H_rotation_L = slerp(
-                    left_hand_target_quaternions[1], left_hand_target_quaternions[0], left_hand_weight)
+                # 24位置到52位置
+                Tar_H_rotation_L = evaluate_rotation(
+                    left_hand_note,
+                    coefficients['left_hand_sin_max_24_52'],
+                    24, 52,
+                    left_hand_target_quaternions[0],
+                    left_hand_target_quaternions[1]
+                )
             else:
-                # 52位置(0度)到76位置(-55度)
-                # 手位置与sin值成线性关系
-                sin_max = np.sin(np.radians(55))  # 76位置对应的sin值
-                sin_current = (left_hand_note - 52) / \
-                    (76 - 52) * sin_max  # 当前位置对应的sin值
-                # 反推角度
-                angle_rad = np.arcsin(sin_current)
-                max_angle_rad = np.radians(55)
-                left_hand_weight = angle_rad / max_angle_rad if max_angle_rad != 0 else 0
-                Tar_H_rotation_L = slerp(
-                    left_hand_target_quaternions[1], left_hand_target_quaternions[2], left_hand_weight)
+                # 52位置到76位置
+                Tar_H_rotation_L = evaluate_rotation(
+                    left_hand_note,
+                    coefficients['left_hand_sin_max_52_76'],
+                    52, 76,
+                    left_hand_target_quaternions[1],
+                    left_hand_target_quaternions[2]
+                )
 
-            # 这里计算Tar_H_R的旋转值，基于实际测量的角度值进行插值
-            # 右手使用52-76-105三个位置，其中52位置为-55度，76位置为0度，105位置为65度
+            # 右手四元数计算
             right_hand_target_quaternions = [
-                # 52位置，-55度
-                self.base_states['right_hand_target'][0]['rotation'],
-                # 76位置，0度
-                self.base_states['right_hand_target'][1]['rotation'],
-                # 105位置，65度
-                self.base_states['right_hand_target'][2]['rotation']
+                np.array(self.base_states['right_hand_target'][0]['rotation']),
+                np.array(self.base_states['right_hand_target'][1]['rotation']),
+                np.array(self.base_states['right_hand_target'][2]['rotation'])
             ]
 
             if right_hand_note < 76:
-                # 52位置(-55度)到76位置(0度)
-                # 手位置与sin值成线性关系
-                sin_max = np.sin(np.radians(55))  # 52位置对应的sin值
-                sin_current = (76 - right_hand_note) / \
-                    (76 - 52) * sin_max  # 当前位置对应的sin值
-                # 反推角度
-                angle_rad = np.arcsin(sin_current)
-                max_angle_rad = np.radians(55)
-                right_hand_weight = angle_rad / max_angle_rad if max_angle_rad != 0 else 0
-                Tar_H_rotation_R = slerp(
-                    right_hand_target_quaternions[1], right_hand_target_quaternions[0], right_hand_weight)
+                # 52位置到76位置
+                Tar_H_rotation_R = evaluate_rotation(
+                    right_hand_note,
+                    coefficients['right_hand_sin_max_52_76'],
+                    52, 76,
+                    right_hand_target_quaternions[0],
+                    right_hand_target_quaternions[1]
+                )
             else:
-                # 76位置(0度)到105位置(65度)
-                # 手位置与sin值成线性关系
-                sin_max = np.sin(np.radians(65))  # 105位置对应的sin值
-                sin_current = (right_hand_note - 76) / \
-                    (105 - 76) * sin_max  # 当前位置对应的sin值
-                # 反推角度
-                angle_rad = np.arcsin(sin_current)
-                max_angle_rad = np.radians(65)
-                right_hand_weight = angle_rad / max_angle_rad if max_angle_rad != 0 else 0
-                Tar_H_rotation_R = slerp(
-                    right_hand_target_quaternions[1], right_hand_target_quaternions[2], right_hand_weight)
+                # 76位置到105位置
+                Tar_H_rotation_R = evaluate_rotation(
+                    right_hand_note,
+                    coefficients['right_hand_sin_max_76_105'],
+                    76, 105,
+                    right_hand_target_quaternions[1],
+                    right_hand_target_quaternions[2]
+                )
 
-        result["Tar_H_rotation_L"] = Tar_H_rotation_L.tolist()
-        result["Tar_H_rotation_L"] = Tar_H_rotation_L.tolist()
-        result["Tar_H_rotation_R"] = Tar_H_rotation_R.tolist()
-        result["Tar_H_rotation_R"] = Tar_H_rotation_R.tolist()
+            result["Tar_H_rotation_L"] = Tar_H_rotation_L.tolist()
+            result["Tar_H_rotation_R"] = Tar_H_rotation_R.tolist()
 
         for finger_index in range(self.finger_count):
             if finger_index < 5:
@@ -451,8 +489,9 @@ class Animator:
                 key_location = get_key_location(
                     note, is_black, self.piano, lowset_key_location, highest_key_location, black_key_location)
                 touch_point = get_touch_point(finger_position, key_location)
-                if not ready:  # 如果不是ready说明是已经按键下去了，需要在z轴上添加一段移动距离，也许实际按键的方向并不是z轴，以后可以再修改
-                    touch_point[2] += press_distance
+                if not ready:  # 如果不是ready说明是已经按键下去了，需要在z轴上添加一段按键距离
+                    touch_point[2] -= get_actual_press_depth(
+                        lowset_key_location, finger_position)
                 result[f"{finger_index}"] = touch_point.tolist()
             else:
                 finger_position[2] = black_key_location[2]  # 不参与演奏的手指，高度不能低于黑键
