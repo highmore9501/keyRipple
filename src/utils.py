@@ -6,6 +6,7 @@ import numpy as np
 from src.piano.keyNote import KeyNote
 from src.piano.piano import Piano
 from typing import Any
+import math
 
 
 def get_touch_point(finger_position: np.ndarray, key_position: np.ndarray) -> np.ndarray:
@@ -29,21 +30,26 @@ def get_key_location(note: int, is_black: bool, piano: Piano, lowest_key_positio
     param lowest_key_position: 最低按键的位置，正常情况下这是个白键
     param highest_key_position: 最高按键的位置，正常情况下这也是个白键
     param: black_key_position: 这是任意一个黑键的位置，用它来确定其它黑键的yz轴坐标
+    return: 按键的最靠演奏者处的位置
     """
-    number_of_white_keys = piano.numberOfWhiteKeys
-    white_key_distance = (highest_key_position -
-                          lowest_key_position) / number_of_white_keys
+    white_key_distance = (highest_key_position[0] -
+                          lowest_key_position[0]) / (piano.numberOfWhiteKeys-1)
     white_keys = piano.white_keys
 
     if not is_black:
         key_index = white_keys.index(note)
-        key_position = lowest_key_position + white_key_distance * key_index
+        key_position_x = lowest_key_position[0] + \
+            white_key_distance * key_index
+        # 如果是白键，返回的位置x坐标是经过计算的，y和z坐标直接都是读取的highest_key_position的值
+        key_position = np.array(
+            [key_position_x, highest_key_position[1], highest_key_position[2]])
     else:
         pre_key_index = white_keys.index(note - 1)
-        key_position = lowest_key_position + white_key_distance * \
-            pre_key_index + white_key_distance / 2
-        key_position[1] = black_key_position[1]
-        key_position[2] = black_key_position[2]
+        key_position_x = lowest_key_position[0] + \
+            white_key_distance * (pre_key_index + 0.5)
+        # 如果是黑键，返回的位置x坐标是经过计算的，y和z坐标直接都是读取的black_key_position的值
+        key_position = np.array(
+            [key_position_x, black_key_position[1], black_key_position[2]])
 
     return key_position
 
@@ -436,3 +442,20 @@ def quaternion_interpolation_from_3_points(points: list[np.ndarray], quaternions
             return result / norm
         else:
             return np.array([1.0, 0.0, 0.0, 0.0])  # 返回单位四元数
+
+
+def get_actual_press_depth(lowest_key_position: np.ndarray, touch_position: np.ndarray) -> float:
+    """
+    计算实际按键深度
+
+    参数:
+    is_black: 是否为黑键
+    lowest_key_position: 最低键的坐标    
+    touch_position: 触摸点的坐标
+
+    返回:
+    实际按键深度
+    """
+    diff_y: float = abs(touch_position[1] - lowest_key_position[1])
+
+    return diff_y * math.sin(math.radians(15))
