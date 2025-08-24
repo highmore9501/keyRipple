@@ -98,49 +98,115 @@ class Animator:
         animation_data = []
         recorder_number = len(self.hand_recorder)
 
+        # 定义时间参数（以帧为单位）
+        press_duration = self.fps / 10           # 0.1秒按下耗时
+        up_duration = press_duration * 1.5       # 0.15秒抬起耗时
+        hand_move_duration = press_duration * 2  # 0.2秒手掌移动时间
+
         for i in range(recorder_number):
             item = self.hand_recorder[i]
             next_item = self.hand_recorder[i +
-                                           1] if i+1 < recorder_number else None
+                                           1] if i + 1 < recorder_number else None
             current_frame = item.get("frame")
             next_frame = next_item.get("frame") if next_item else None
-
-            # 这个意思表示按键耗时为0.1秒，以帧为单位
-            key_press_duration = self.fps / 10
-            # 这个表示手会提前移动，提前的时间，也是以帧为单位
-            ready_duration = self.fps / 5
 
             left_hand_item = item.get("left_hand")
             right_hand_item = item.get("right_hand")
 
-            # 添加预备动作
-            hand_ready_info = self.cacluate_hand_info(
-                left_hand_item, right_hand_item, coefficients, True)
-            animation_data.append({
-                "frame": current_frame if i == 0 else current_frame - key_press_duration,
-                "hand_infos": hand_ready_info
-            })
+            # 预备动作 - 提前press_duration秒到达预备位置（如果时间允许）
+            prepare_frame = current_frame - press_duration
+            # 只有当不是第一个音符或者距离上一个音符有足够时间时才添加预备动作
+            if i == 0 or (current_frame - self.hand_recorder[i-1].get("frame")) >= press_duration:
+                prepare_info = self.cacluate_hand_info(
+                    left_hand_item, right_hand_item, coefficients, True)
+                animation_data.append({
+                    "frame": prepare_frame,
+                    "hand_infos": prepare_info
+                })
 
-            # 添加按键动作
-            hand_finished_info = self.cacluate_hand_info(
+            # 按下动作 - 在当前帧按下（必须有）
+            press_info = self.cacluate_hand_info(
                 left_hand_item, right_hand_item, coefficients, False)
             animation_data.append({
                 "frame": current_frame,
-                "hand_infos": hand_finished_info
+                "hand_infos": press_info
             })
 
-            # 在时间允许的情况下添加保持动作
-            if next_frame and next_frame - current_frame > ready_duration + key_press_duration:
+            # 处理抬起动作和保持动作
+            if next_frame:
+                # 计算抬起开始时间（下一帧前up_duration+hand_move_duration秒）
+                release_start_frame = next_frame - up_duration - hand_move_duration
+
+                # 如果有足够时间保持按下状态
+                if current_frame + press_duration <= release_start_frame:
+                    # 保持动作 - 保持按下状态（优先级：低）
+                    hold_frame = release_start_frame - press_duration  # 在抬起前保持一小段时间
+                    animation_data.append({
+                        "frame": hold_frame,
+                        "hand_infos": press_info
+                    })
+
+                # 抬起动作 - 使用up_duration时间抬起（必须有）
+                # 抬起过程中使用预备状态（手抬起）
+                release_info = self.cacluate_hand_info(
+                    left_hand_item, right_hand_item, coefficients, True)
+
+                # 抬起开始帧
                 animation_data.append({
-                    "frame": next_frame - key_press_duration-ready_duration,
-                    "hand_infos": hand_ready_info
+                    "frame": release_start_frame,
+                    "hand_infos": release_info
                 })
 
-            # 在间隔时间非常长的情况下要考虑不用的手回到休息位置
+                # 抬起结束帧
+                release_end_frame = release_start_frame + up_duration
+                animation_data.append({
+                    "frame": release_end_frame,
+                    "hand_infos": release_info
+                })
+            else:
+                # 最后一个音符的处理
+                # 保持一小段时间后抬起
+                hold_frame = current_frame + press_duration * 2
+                animation_data.append({
+                    "frame": hold_frame,
+                    "hand_infos": press_info
+                })
+
+                # 抬起动作
+                release_start_frame = hold_frame + press_duration
+                release_info = self.cacluate_hand_info(
+                    left_hand_item, right_hand_item, coefficients, True)
+                animation_data.append({
+                    "frame": release_start_frame,
+                    "hand_infos": release_info
+                })
+
+                # 抬起结束
+                release_end_frame = release_start_frame + up_duration
+                animation_data.append({
+                    "frame": release_end_frame,
+                    "hand_infos": release_info
+                })
+
+        # 按帧号排序
+        animation_data.sort(key=lambda x: x["frame"])
+
+        # 合并相同帧的数据，保留最后一个
+        final_animation_data = []
+        if animation_data:
+            current_frame_data = animation_data[0]
+            for i in range(1, len(animation_data)):
+                if animation_data[i]["frame"] == current_frame_data["frame"]:
+                    # 合并相同帧的数据
+                    current_frame_data = animation_data[i]
+                else:
+                    final_animation_data.append(current_frame_data)
+                    current_frame_data = animation_data[i]
+            final_animation_data.append(current_frame_data)
 
         file_path = f"output/animation_recorders/{self.midi_name}_{self.avatar_name}.animation"
         with open(file_path, "w") as f:
-            json.dump(animation_data, f)
+            json.dump(final_animation_data, f)
 
         print(f"动画数据已保存到{file_path}")
 
@@ -389,6 +455,7 @@ class Animator:
                     touch_point[2] += press_distance
                 result[f"{finger_index}"] = touch_point.tolist()
             else:
+                finger_position[2] = black_key_location[2]  # 不参与演奏的手指，高度不能低于黑键
                 result[f"{finger_index}"] = finger_position.tolist()
 
         return result
