@@ -187,14 +187,13 @@ def make_animation(animation_file_path: str):
                             f"警告: 未找到 {obj_name} 对应的旋转数据 {rotation_obj_name}")
 
 
-def generate_piano_key_animation(hand_recorder_path: str, frames_ahead: int = 3, frames_duration: int = 6):
+def generate_piano_key_animation(hand_recorder_path: str, FPS: int = 60):
     """
     根据hand_recorder数据生成钢琴键动画
 
     参数:
     hand_recorder_path: hand_recorder文件路径
-    frames_ahead: 按键提前帧数（在目标帧之前多少帧开始按下）
-    frames_duration: 按键持续帧数
+    FPS: 帧率
     """
 
     # 读取hand_recorder数据
@@ -205,9 +204,19 @@ def generate_piano_key_animation(hand_recorder_path: str, frames_ahead: int = 3,
         print(f"无法读取hand_recorder文件: {e}")
         return
 
-    # 处理每一帧数据
+    # 定义时间参数（以帧为单位）
+    normal_press_duration = int(FPS / 10)          # 0.1秒按下耗时
+    normal_up_duration = int(normal_press_duration * 1.5)       # 0.15秒抬起耗时
+    hand_move_duration = int(normal_press_duration * 2)  # 0.2秒手掌移动时间
+
+    frames: list[int] = []
+    all_notes: list[list[int]] = []
+
+    # 收集所有数据
     for frame_data in hand_recorder:
         frame = int(frame_data.get("frame", 0))
+        frames.append(frame)
+        notes: list[int] = []
 
         # 处理左手和右手
         for hand in [frame_data.get("left_hand", {}), frame_data.get("right_hand", {})]:
@@ -215,70 +224,112 @@ def generate_piano_key_animation(hand_recorder_path: str, frames_ahead: int = 3,
 
             # 遍历所有手指
             for finger in fingers:
-                if finger.get("pressed", False):  # 只处理按下的手指
+                if finger.get("pressed", True):  # 只处理按下的手指
                     note = finger["key_note"]["note"]
-                    key_name = f"key_{note}"
-                    shape_key_name = f"{key_name}_pressed"
+                    notes.append(note)
 
-                    # 检查物体是否存在
-                    if key_name not in bpy.data.objects:
-                        print(f"警告: 钢琴键物体 {key_name} 不存在")
-                        continue
+        all_notes.append((notes))
 
-                    obj = bpy.data.objects[key_name]
+    for i in range(len(frames)):
+        current_frame = frames[i]
+        prev_frame = frames[i-1] if i > 0 else None
+        next_frame = frames[i+1] if i < len(frames)-1 else None
 
-                    # 检查shape key是否存在
-                    if not hasattr(obj.data, "shape_keys") or not obj.data.shape_keys:
-                        print(f"警告: 物体 {key_name} 没有shape keys")
-                        continue
+        prev_time_enough_for_ready = prev_frame and current_frame - \
+            prev_frame >= normal_up_duration + hand_move_duration
 
-                    # 查找对应的shape key
-                    shape_key = None
-                    for block in obj.data.shape_keys.key_blocks:
-                        if block.name == shape_key_name:
-                            shape_key = block
-                            break
+        time_enough_for_hold = next_frame and next_frame - \
+            current_frame >= normal_up_duration + hand_move_duration
 
-                    if not shape_key:
-                        print(f"警告: 未找到shape key {shape_key_name}")
-                        continue
+        time_enough_for_up = next_frame and next_frame - \
+            current_frame >= normal_up_duration
 
-                    # 设置动画关键帧
-                    # 在目标帧之前几帧开始按下
-                    press_frame = frame + frames_ahead
-                    # 按下状态持续几帧
-                    release_frame = press_frame + frames_duration
+        current_notes = all_notes[i]
+        next_notes = all_notes[i+1] if i < len(frames)-1 else None
+        prev_notes = all_notes[i-1] if i > 0 else None
 
-                    # 设置按下前为0的关键帧
-                    bpy.context.scene.frame_set(frame)
-                    shape_key.value = 0.0
-                    shape_key.keyframe_insert(
-                        data_path="value", frame=frame)
+        # 为每个音符生成动画
+        for note in current_notes:
+            key_name = f"key_{note}"
+            shape_key_name = f"{key_name}_pressed"
 
-                    # 设置按下后的关键帧
-                    bpy.context.scene.frame_set(press_frame)
-                    shape_key.value = 1.0
-                    shape_key.keyframe_insert(
-                        data_path="value", frame=press_frame)
+            # 检查物体是否存在
+            if key_name not in bpy.data.objects:
+                print(f"警告: 钢琴键物体 {key_name} 不存在")
+                continue
 
-                    # 设置释放关键帧
-                    bpy.context.scene.frame_set(release_frame)
-                    shape_key.value = 0.0
-                    shape_key.keyframe_insert(
-                        data_path="value", frame=release_frame)
+            obj = bpy.data.objects[key_name]
+
+            # 检查shape key是否存在
+            if not hasattr(obj.data, "shape_keys") or not obj.data.shape_keys:
+                print(f"警告: 物体 {key_name} 没有shape keys")
+                continue
+
+            # 查找对应的shape key
+            shape_key = None
+            for block in obj.data.shape_keys.key_blocks:
+                if block.name == shape_key_name:
+                    shape_key = block
+                    break
+
+            if not shape_key:
+                print(f"警告: 未找到shape key {shape_key_name}")
+                continue
+
+            # 归零动作：提前press_duration秒归零（如果时间允许,或者这是该键第一次被演奏）
+            if prev_time_enough_for_ready or (prev_notes and note not in prev_notes):
+                zero_frame = max(0, current_frame - normal_press_duration)
+                # 只有当不是第一个按键或者距离上一个按键有足够时间时才添加归零动作
+                bpy.context.scene.frame_set(zero_frame)
+                shape_key.value = 0.0
+                shape_key.keyframe_insert(data_path="value", frame=zero_frame)
+
+            # 按下动作：在当前帧按下（必须有）
+            bpy.context.scene.frame_set(current_frame)
+            shape_key.value = 1.0
+            shape_key.keyframe_insert(data_path="value", frame=current_frame)
+
+            # 如果有下一个按键，调整抬起时间以确保手有足够时间移动
+            if next_frame and time_enough_for_hold:
+                # 在手掌移动前就要让键先抬起来
+                release_frame = next_frame - hand_move_duration
+
+                # 琴键可以保持到抬起前，中间留一个用于抬指的时间
+                hold_frame = release_frame - normal_up_duration
+                bpy.context.scene.frame_set(hold_frame)
+                shape_key.value = 1.0  # 抬起开始时还是按下状态
+                shape_key.keyframe_insert(
+                    data_path="value", frame=hold_frame)
+            elif next_frame and time_enough_for_up:
+                # 只够常规抬指的时间，就省略掉手掌移动的时间，同时也去掉了保持按键的可能性
+                release_frame = current_frame + normal_up_duration
+            elif next_notes and note not in next_notes:
+                # 这里是两个手掌状态时间间隔非常短的情况，这种情况下，如果这个键被连续使用，那么就要修改按下和抬起的时间；如果没有被连续使用，那么就按常规按下和抬起来处理
+                release_frame = current_frame + normal_up_duration
+            elif next_notes and next_frame:
+                # 这里是两个手掌状态时间间隔非常短，而且这个音符还被连续按下，这种情况下必须改变动画的时间，否则会与前后动画相冲突
+                release_frame = int((next_frame - current_frame)/2)
+            else:
+                # 最后面这种情况应该是运行到最后一个音符了，为它添加一个抬起动作
+                release_frame = current_frame + normal_up_duration
+
+            bpy.context.scene.frame_set(release_frame)
+            shape_key.value = 0.0  # 抬起开始时还是按下状态
+            shape_key.keyframe_insert(
+                data_path="value", frame=release_frame)
 
 
 if __name__ == "__main__":
-    midi_name = "World is Mine - Hatsune Miku"
+    midi_name = "诀别书"
     avatar_name = "Kinich"
-    track_numbers = [0]
+    track_numbers = [2]
     track_text = str(track_numbers[0]) if len(track_numbers) == 1 else "_".join(
         [str(track_number) for track_number in track_numbers])
     animation_file_path = f"H:/keyRipple/output/animation_recorders/{midi_name}_{track_text}_{avatar_name}.animation"
+    FPS = 60
 
     hand_recorder_path = f"H:/keyRipple/output/hand_recorders/{midi_name}_{track_text}.hand"
 
     clear_all_keyframe(exclude_names=['Tar_B'])
     make_animation(animation_file_path)
-    generate_piano_key_animation(
-        hand_recorder_path, frames_ahead=6, frames_duration=12)
+    generate_piano_key_animation(hand_recorder_path, FPS)
