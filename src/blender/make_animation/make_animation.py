@@ -277,7 +277,7 @@ def generate_piano_key_animation(hand_recorder_path: str, FPS: int = 60):
                 continue
 
             # 归零动作：提前press_duration秒归零（如果时间允许,或者这是该键第一次被演奏）
-            if prev_time_enough_for_ready or (prev_notes and note not in prev_notes):
+            if prev_time_enough_for_ready or (prev_notes and note not in prev_notes) or not prev_notes:
                 zero_frame = max(0, current_frame - normal_press_duration)
                 # 只有当不是第一个按键或者距离上一个按键有足够时间时才添加归零动作
                 bpy.context.scene.frame_set(zero_frame)
