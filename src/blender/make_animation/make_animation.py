@@ -125,6 +125,9 @@ def make_animation(animation_file_path: str):
         print(f"无法读取动画文件: {e}")
         return
 
+    # 用于存储每个物体的上一帧四元数
+    previous_quaternions = {}
+
     # 处理每一帧动画数据
     for frame_index, frame_data in enumerate(animation_data):
         frame = int(frame_data.get("frame", 0))
@@ -149,6 +152,19 @@ def make_animation(animation_file_path: str):
                 if len(transform_data) == 4:
                     # 四元数旋转 (w, x, y, z)
                     obj.rotation_mode = 'QUATERNION'
+
+                    # 应用四元数一致性处理
+                    if obj_name in previous_quaternions:
+                        # 计算点积判断是否需要反转
+                        dot = sum(
+                            a*b for a, b in zip(previous_quaternions[obj_name], transform_data))
+                        if dot < 0:
+                            # 反转当前四元数
+                            transform_data = [-x for x in transform_data]
+
+                    # 更新存储的上一帧四元数
+                    previous_quaternions[obj_name] = transform_data
+
                     obj.rotation_quaternion = transform_data
                     obj.keyframe_insert(
                         data_path="rotation_quaternion", frame=frame)
@@ -174,6 +190,19 @@ def make_animation(animation_file_path: str):
                         if len(rotation_data) == 4:
                             # 四元数旋转 (w, x, y, z)
                             obj.rotation_mode = 'QUATERNION'
+
+                            # 应用四元数一致性处理
+                            if rotation_obj_name in previous_quaternions:
+                                # 计算点积判断是否需要反转
+                                dot = sum(
+                                    a*b for a, b in zip(previous_quaternions[rotation_obj_name], rotation_data))
+                                if dot < 0:
+                                    # 反转当前四元数
+                                    rotation_data = [-x for x in rotation_data]
+
+                            # 更新存储的上一帧四元数
+                            previous_quaternions[rotation_obj_name] = rotation_data
+
                             obj.rotation_quaternion = rotation_data
                             obj.keyframe_insert(
                                 data_path="rotation_quaternion", frame=frame)
