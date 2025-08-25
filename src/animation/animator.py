@@ -363,7 +363,7 @@ class Animator:
         right_finger_pressed_count = 0
         left_hand_white_key_value = 0
         right_hand_white_key_value = 0
-        pressed_fingers = {}
+        all_fingers = {}
 
         H_L_target_point = np.array(
             [left_hand_note, left_hand_white_key_value])
@@ -380,24 +380,26 @@ class Animator:
 
         # 统计哪些手指被按下，是黑键还是白键，以便于确实左右手的黑白键值
         for left_finger in left_hand_item.get("fingers"):
+            all_fingers[left_finger["finger_index"]] = {
+                "position": left_finger["key_note"]["position"],
+                "note": left_finger["key_note"]["note"],
+                "is_black": left_finger["key_note"]["is_black"],
+                "is_pressed": left_finger.get("pressed")
+            }
             if left_finger.get("pressed"):
                 left_finger_pressed_count += 1
-                pressed_fingers[left_finger["finger_index"]] = {
-                    "position": left_finger["key_note"]["position"],
-                    "note": left_finger["key_note"]["note"],
-                    "is_black": left_finger["key_note"]["is_black"]
-                }
                 if left_finger["key_note"]["is_black"]:
                     left_hand_white_key_value = 1
 
         for right_finger in right_hand_item.get("fingers"):
+            all_fingers[right_finger["finger_index"]] = {
+                "position": right_finger["key_note"]["position"],
+                "note": right_finger["key_note"]["note"],
+                "is_black": right_finger["key_note"]["is_black"],
+                "is_pressed": right_finger.get("pressed")
+            }
             if right_finger.get("pressed"):
                 right_finger_pressed_count += 1
-                pressed_fingers[right_finger["finger_index"]] = {
-                    "position": right_finger["key_note"]["position"],
-                    "note": right_finger["key_note"]["note"],
-                    "is_black": right_finger["key_note"]["is_black"]
-                }
                 if not right_finger["key_note"]["is_black"]:
                     right_hand_white_key_value = 1
 
@@ -528,19 +530,19 @@ class Animator:
                     coefficients["finger_position_ball_2d_coefficients"][str(finger_index)], H_R_target_point)
 
             # 这一步是计算实际按键的手指位置
-            if finger_index in pressed_fingers:
-                note = pressed_fingers[finger_index]["note"]
-                is_black = pressed_fingers[finger_index]["is_black"]
+            note = all_fingers[finger_index]["note"]
+            is_black = all_fingers[finger_index]["is_black"]
+            is_pressed = all_fingers[finger_index]["is_pressed"]
 
-                key_location = get_key_location(
-                    note, is_black, self.piano, lowset_key_location, highest_key_location, black_key_location)
-                touch_point = get_touch_point(finger_position, key_location)
-                if not ready:  # 如果不是ready说明是已经按键下去了，需要在z轴上添加一段按键距离
-                    touch_point[2] -= get_actual_press_depth(
-                        lowset_key_location, finger_position)
-                result[f"{finger_index}"] = touch_point.tolist()
+            key_location = get_key_location(
+                note, is_black, self.piano, lowset_key_location, highest_key_location, black_key_location)
+            touch_point = get_touch_point(finger_position, key_location)
+            if not ready and is_pressed:  # 如果不是ready说明是已经按键下去了，需要在z轴上添加一段按键距离
+                touch_point[2] -= get_actual_press_depth(
+                    lowset_key_location, finger_position)
             else:
-                finger_position[2] = black_key_location[2]  # 不参与演奏的手指，高度不能低于黑键
-                result[f"{finger_index}"] = finger_position.tolist()
+                touch_point[2] += get_actual_press_depth(
+                    lowset_key_location, finger_position)
+            result[f"{finger_index}"] = touch_point.tolist()
 
         return result
