@@ -358,7 +358,12 @@ class Animator:
         # 先初始化数据
         result = {}
         left_hand_note = left_hand_item.get("hand_note")
+        left_hand_span = max(8, left_hand_item.get("hand_span"))
         right_hand_note = right_hand_item.get("hand_note")
+        right_hand_span = max(8, right_hand_item.get("hand_span"))
+        span_offset = np.array(self.avatar_info["hand_expand_targets"]["hand_expand_target"].get(
+            'location')) - np.array(self.avatar_info["hand_expand_targets"]["hand_expand_target_obj"].get('location'))
+        span_offset[0] = 0.0  # 去掉手掌扩张时在x轴方向上的位移
         left_finger_pressed_count = 0
         right_finger_pressed_count = 0
         left_hand_white_key_value = 0
@@ -406,6 +411,10 @@ class Animator:
         # 左手目标点位置
         Tar_H_L = evaluate_2d_point(
             coefficients["left_hand_target_2d_coefficients"], H_L_target_point)
+        # 根据当前左手跨度，判断是否要调整位置
+        left_hand_span_weight = (left_hand_span - 8) / (12 - 8)
+        Tar_H_L += left_hand_span_weight*span_offset
+        # 根据当前左手是否按下，判断是否要调整位置
         if left_finger_pressed_count > 0 and ready:
             Tar_H_L[2] += 0.5*press_distance
         result["Tar_H_L"] = Tar_H_L.tolist()
@@ -413,6 +422,8 @@ class Animator:
         # 右手目标点位置
         Tar_H_R = evaluate_2d_point(
             coefficients["right_hand_target_2d_coefficients"], H_R_target_point)
+        right_hand_span_weight = (right_hand_span - 8) / (12 - 8)
+        Tar_H_R += right_hand_span_weight*span_offset
         if right_finger_pressed_count > 0 and ready:
             Tar_H_R[2] += 0.5*press_distance
         result["Tar_H_R"] = Tar_H_R.tolist()

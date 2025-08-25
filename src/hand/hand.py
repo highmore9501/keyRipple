@@ -163,6 +163,8 @@ class Hand:
         notes = [finger.key_note.note for finger in self.fingers]
         avarage_note = sum(notes) / len(notes)
         self.hand_note = avarage_note
+        # 计算当前手指跨度
+        self.hand_span = max(notes) - min(notes)
         # 检测一下hand_note和中指的finger_index差距有多大
         middle_finger_index = 2 if self.is_left else 7
         middle_finger = next(
@@ -178,5 +180,6 @@ class Hand:
         return {
             'hand_note': self.hand_note,
             'fingers': [finger.export_finger_info() for finger in self.fingers],
-            'is_left': self.is_left
+            'is_left': self.is_left,
+            'hand_span': self.hand_span
         }

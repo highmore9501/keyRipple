@@ -59,6 +59,8 @@ class BaseState:
             }
         }
 
+        self.hand_expand_targets = {}
+
 
 def export_base_state_info(left_hand_note: int, right_hand_note: int, key_type: KeyType) -> dict:
     # 创建 BaseState 实例
@@ -174,6 +176,28 @@ def export_piano_info() -> dict:
     return piano_info
 
 
+def export_expand_info() -> dict:
+    # 寻找后缀为.expand的物体，以及它的参照对象
+    hand_expand_target = [
+        obj for obj in bpy.data.objects if obj.name.endswith(".expand")][0]
+    hand_expand_target_obj_name = hand_expand_target.name.replace(
+        ".expand", "")
+    hand_expand_target_obj = bpy.data.objects[hand_expand_target_obj_name]
+    hand_expand_targets = {
+        "hand_expand_target": {
+            "name": hand_expand_target.name,
+            "location": list(hand_expand_target.location),
+            "collection": "hand_expand_targets"
+        },
+        "hand_expand_target_obj": {
+            "name": hand_expand_target_obj_name,
+            "location": list(hand_expand_target_obj.location),
+            "collection": "hand_expand_targets"
+        }
+    }
+    return hand_expand_targets
+
+
 if __name__ == "__main__":
     avatar_name = "kinich"
     file_path = f"H:/keyRipple/asset/avatars/{avatar_name}.avatar"
@@ -197,7 +221,8 @@ if __name__ == "__main__":
     }
 
     result = {
-        "piano_info": {},
+        "piano_info": export_piano_info(),
+        "hand_expand_targets": export_expand_info(),
         "base_states": []
     }
 
@@ -208,8 +233,6 @@ if __name__ == "__main__":
         key_type = base_state["key_type"]
         result["base_states"].append(export_base_state_info(
             left_hand_note, right_hand_note, key_type))
-
-    result["piano_info"] = export_piano_info()
 
     with open(file_path, 'w') as f:
         json.dump(result, f)
