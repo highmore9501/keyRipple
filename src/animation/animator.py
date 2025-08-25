@@ -1,6 +1,6 @@
 import json
 from src.animation.base_state import NormalBaseState, KeyType
-from src.utils import evaluate_rotation, calculate_2d_coefficients, evaluate_2d_point, get_key_location, get_touch_point, slerp, get_actual_press_depth
+from src.utils import evaluate_rotation_with_sin, calculate_2d_coefficients, evaluate_2d_point, get_key_location, get_touch_point, evaluate_rotation_with_tan, get_actual_press_depth
 from src.piano.piano import Piano
 from typing import Dict, Any
 import numpy as np
@@ -306,11 +306,13 @@ class Animator:
         dot_24_52 = np.clip(np.dot(left_hand_q_24, left_hand_q_52), -1.0, 1.0)
         actual_angle_24_52 = 2 * np.arccos(dot_24_52)
         left_hand_sin_max_24_52 = np.sin(actual_angle_24_52)
+        left_hand_tan_max_24_52 = np.tan(actual_angle_24_52)
 
         # 计算52到76位置之间的实际角度差
         dot_52_76 = np.clip(np.dot(left_hand_q_52, left_hand_q_76), -1.0, 1.0)
         actual_angle_52_76 = 2 * np.arccos(dot_52_76)
         left_hand_sin_max_52_76 = np.sin(actual_angle_52_76)
+        left_hand_tan_max_52_76 = np.tan(actual_angle_52_76/2)
 
         # 计算右手四元数插值所需的实际sin_max值
         right_hand_q_52 = np.array(
@@ -331,18 +333,24 @@ class Animator:
             np.dot(right_hand_q_52, right_hand_q_76), -1.0, 1.0)
         actual_angle_52_76_r = 2 * np.arccos(dot_52_76_r)
         right_hand_sin_max_52_76 = np.sin(actual_angle_52_76_r)
+        right_hand_tan_max_52_76 = np.tan(actual_angle_52_76_r)
 
         # 计算76到105位置之间的实际角度差
         dot_76_105_r = np.clip(
             np.dot(right_hand_q_76, right_hand_q_105), -1.0, 1.0)
         actual_angle_76_105_r = 2 * np.arccos(dot_76_105_r)
         right_hand_sin_max_76_105 = np.sin(actual_angle_76_105_r)
+        right_hand_tan_max_76_105 = np.tan(actual_angle_76_105_r)
 
         # 将sin_max值存储到结果中
         result['left_hand_sin_max_24_52'] = left_hand_sin_max_24_52
+        result['left_hand_tan_max_24_52'] = left_hand_tan_max_24_52
         result['left_hand_sin_max_52_76'] = left_hand_sin_max_52_76
+        result['left_hand_tan_max_52_76'] = left_hand_tan_max_52_76
         result['right_hand_sin_max_52_76'] = right_hand_sin_max_52_76
+        result['right_hand_tan_max_52_76'] = right_hand_tan_max_52_76
         result['right_hand_sin_max_76_105'] = right_hand_sin_max_76_105
+        result['right_hand_tan_max_76_105'] = right_hand_tan_max_76_105
 
         return result
 
@@ -407,6 +415,8 @@ class Animator:
             Tar_H_R[2] += 0.5*press_distance
         result["Tar_H_R"] = Tar_H_R.tolist()
 
+        use_tangle = True
+
         # 旋转值如果是euler，使用当前方法；如果是四元数，使用quaternion_interpolation_from_3_points
         if not self.use_quaternion:
             Tar_H_rotation_L = evaluate_2d_point(
@@ -426,23 +436,41 @@ class Animator:
             ]
 
             if left_hand_note < 52:
-                # 24位置到52位置
-                Tar_H_rotation_L = evaluate_rotation(
-                    left_hand_note,
-                    coefficients['left_hand_sin_max_24_52'],
-                    24, 52,
-                    left_hand_target_quaternions[0],
-                    left_hand_target_quaternions[1]
-                )
+                if not use_tangle:
+                    # 24位置到52位置
+                    Tar_H_rotation_L = evaluate_rotation_with_sin(
+                        left_hand_note,
+                        coefficients['left_hand_sin_max_24_52'],
+                        24, 52,
+                        left_hand_target_quaternions[0],
+                        left_hand_target_quaternions[1]
+                    )
+                else:
+                    Tar_H_rotation_L = evaluate_rotation_with_tan(
+                        left_hand_note,
+                        coefficients['left_hand_tan_max_24_52'],
+                        24, 56,
+                        left_hand_target_quaternions[0],
+                        left_hand_target_quaternions[1]
+                    )
             else:
-                # 52位置到76位置
-                Tar_H_rotation_L = evaluate_rotation(
-                    left_hand_note,
-                    coefficients['left_hand_sin_max_52_76'],
-                    52, 76,
-                    left_hand_target_quaternions[1],
-                    left_hand_target_quaternions[2]
-                )
+                if not use_tangle:
+                    # 52位置到76位置
+                    Tar_H_rotation_L = evaluate_rotation_with_sin(
+                        left_hand_note,
+                        coefficients['left_hand_sin_max_52_76'],
+                        52, 76,
+                        left_hand_target_quaternions[1],
+                        left_hand_target_quaternions[2]
+                    )
+                else:
+                    Tar_H_rotation_L = evaluate_rotation_with_tan(
+                        left_hand_note,
+                        coefficients['left_hand_tan_max_52_76'],
+                        52, 76,
+                        left_hand_target_quaternions[1],
+                        left_hand_target_quaternions[2]
+                    )
 
             # 右手四元数计算
             right_hand_target_quaternions = [
@@ -452,23 +480,41 @@ class Animator:
             ]
 
             if right_hand_note < 76:
-                # 52位置到76位置
-                Tar_H_rotation_R = evaluate_rotation(
-                    right_hand_note,
-                    coefficients['right_hand_sin_max_52_76'],
-                    52, 76,
-                    right_hand_target_quaternions[0],
-                    right_hand_target_quaternions[1]
-                )
+                if not use_tangle:
+                    # 52位置到76位置
+                    Tar_H_rotation_R = evaluate_rotation_with_sin(
+                        right_hand_note,
+                        coefficients['right_hand_sin_max_52_76'],
+                        52, 76,
+                        right_hand_target_quaternions[0],
+                        right_hand_target_quaternions[1]
+                    )
+                else:
+                    Tar_H_rotation_R = evaluate_rotation_with_tan(
+                        right_hand_note,
+                        coefficients['right_hand_tan_max_52_76'],
+                        52, 76,
+                        right_hand_target_quaternions[0],
+                        right_hand_target_quaternions[1]
+                    )
             else:
-                # 76位置到105位置
-                Tar_H_rotation_R = evaluate_rotation(
-                    right_hand_note,
-                    coefficients['right_hand_sin_max_76_105'],
-                    76, 105,
-                    right_hand_target_quaternions[1],
-                    right_hand_target_quaternions[2]
-                )
+                if not use_tangle:
+                    # 76位置到105位置
+                    Tar_H_rotation_R = evaluate_rotation_with_sin(
+                        right_hand_note,
+                        coefficients['right_hand_sin_max_76_105'],
+                        76, 105,
+                        right_hand_target_quaternions[1],
+                        right_hand_target_quaternions[2]
+                    )
+                else:
+                    Tar_H_rotation_R = evaluate_rotation_with_tan(
+                        right_hand_note,
+                        coefficients['right_hand_tan_max_76_105'],
+                        76, 105,
+                        right_hand_target_quaternions[1],
+                        right_hand_target_quaternions[2]
+                    )
 
             result["Tar_H_rotation_L"] = Tar_H_rotation_L.tolist()
             result["Tar_H_rotation_R"] = Tar_H_rotation_R.tolist()

@@ -461,8 +461,8 @@ def get_actual_press_depth(lowest_key_position: np.ndarray, touch_position: np.n
     return diff_y * math.sin(math.radians(15))
 
 
-def evaluate_rotation(hand_note: int, sin_max: float, note1: int, note2: int,
-                      quaternion1: np.ndarray, quaternion2: np.ndarray) -> np.ndarray:
+def evaluate_rotation_with_sin(hand_note: int, sin_max: float, note1: int, note2: int,
+                               quaternion1: np.ndarray, quaternion2: np.ndarray) -> np.ndarray:
     """
     根据手的位置和预先计算的sin_max值计算四元数旋转值
 
@@ -496,6 +496,41 @@ def evaluate_rotation(hand_note: int, sin_max: float, note1: int, note2: int,
 
     # 计算权重
     max_angle_rad = np.arcsin(sin_max) if sin_max <= 1 else np.pi/2
+    weight = angle_rad / max_angle_rad if max_angle_rad != 0 else 0
+
+    # 使用slerp进行插值
+    return slerp(quaternion1, quaternion2, weight)
+
+
+def evaluate_rotation_with_tan(hand_note: int, tan_max: float, note1: int, note2: int,
+                               quaternion1: np.ndarray, quaternion2: np.ndarray) -> np.ndarray:
+    """
+    根据手的位置和预先计算的tan_max值计算四元数旋转值
+
+    参数:
+    hand_note: 手的当前位置
+    tan_max: 预先计算的最大tan值
+    note1, note2: 两个参考位置
+    quaternion1, quaternion2: 两个参考位置对应的四元数
+
+    返回:
+    插值后的四元数
+    """
+    # 确保四元数在同一半球
+    if np.dot(quaternion1, quaternion2) < 0:
+        quaternion1 = -quaternion1
+
+    # 手位置与tan值成线性关系
+    if note2 != note1:
+        tan_current = abs(hand_note - note1) / abs(note2 - note1) * tan_max
+    else:
+        tan_current = 0
+
+    # 反推角度
+    angle_rad = np.arctan(tan_current)
+
+    # 计算权重
+    max_angle_rad = np.arctan(tan_max)
     weight = angle_rad / max_angle_rad if max_angle_rad != 0 else 0
 
     # 使用slerp进行插值
