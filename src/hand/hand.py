@@ -135,11 +135,17 @@ class Hand:
         return expected_distance
 
     def calculate_hand_diff(self, next_hand: 'Hand') -> int:
-        # 因为运行到这里，默认next_hand已经有相同数量的fingers，所以只需要遍历fingers，然后求diff
         total_diff = 0
-        hand_diff = int(abs(self.hand_note - next_hand.hand_note))
-        total_diff += hand_diff
 
+        # 计算手位移产生的diff
+        hand_diff = int(abs(self.hand_note - next_hand.hand_note))
+        total_diff += 5 * hand_diff
+
+        # 如果手跨过了它的舒适区，左手去弹右边的，或者相反，那么diff乘10
+        if (self.is_left and next_hand.hand_note > 52) or (not self.is_left and next_hand.hand_note < 76):
+            total_diff += 10 * hand_diff
+
+        # 计算每个手指的diff
         for i in range(self.finger_number):
             current_finger = self.fingers[i]
             if current_finger.pressed:
@@ -150,9 +156,6 @@ class Hand:
                 # 如果两个手指都是按下的，那么diff翻倍，因为不推荐同一个手指反复使用
                 if current_finger.pressed and next_finger.pressed:
                     total_diff += 2 * diff
-                # 如果手跨过了它的舒适区，左手去弹右边的，或者相反，那么diff乘6
-                if (self.is_left and next_hand.hand_note > 52) or (not self.is_left and next_hand.hand_note < 76):
-                    total_diff += 6 * diff
 
         return total_diff
 
