@@ -32,14 +32,14 @@ class RecorderPool():
         if recorder.current_entropy > self.max_entropy:
             self.max_entropy = recorder.current_entropy
 
-    def update_recorder_pool(self, notes_map: NotesMap, hand_range: int, finger_range: int):
+    def update_recorder_pool(self, notes_map: NotesMap, hand_range: int, finger_range: float, finger_distribution: list[int]):
         new_recorder_list = []
         new_recorder_heap = []
         current_notes = notes_map['notes']
         current_frame: float = notes_map['frame']
 
         for recorder in self.recorder_list:
-            for next_generation_recorder in recorder.next_generation_recorders_generator(notes_map, hand_range, finger_range):
+            for next_generation_recorder in recorder.next_generation_recorders_generator(notes_map, hand_range, finger_range, finger_distribution):
                 # 检查是否应该添加新记录器
                 if len(new_recorder_heap) < self.pool_size:
                     # 如果池未满，直接添加

@@ -8,16 +8,16 @@ import json
 
 
 class Recorder:
-    def __init__(self, piano: Piano, left_hands: list[Hand], right_hands: list[Hand], current_entropy: int, frame: float, frames: list[float]):
+    def __init__(self, piano: Piano, left_hands: list[Hand], right_hands: list[Hand], current_entropy: float, frame: float, frames: list[float]):
         self.piano: Piano = piano
         self.left_hands: list[Hand] = left_hands
         self.right_hands: list[Hand] = right_hands
-        self.current_entropy: int = current_entropy
+        self.current_entropy: float = current_entropy
         self.frame = frame
         self.frames: list[float] = frames
         self.frames.append(frame)
 
-    def next_generation_recorders_generator(self, notes_map: NotesMap, hand_range: int, finger_range: int) -> Iterator['Recorder']:
+    def next_generation_recorders_generator(self, notes_map: NotesMap, hand_range: int, finger_range: float, finger_distribution: list[int]) -> Iterator['Recorder']:
         notes = notes_map['notes']
         frame = notes_map['frame']
         note_amount = len(notes)
@@ -31,13 +31,15 @@ class Recorder:
 
             # 根据映射创建新的Recorder实例
             new_recorder = self._create_new_recorder(
-                note_finger_mapping, hand_range, finger_range, frame)
+                note_finger_mapping, hand_range, finger_range, finger_distribution, frame)
             if new_recorder is not None:
                 yield new_recorder
 
-    def _create_new_recorder(self, note_finger_mapping: dict[int, int], hand_range: int, finger_range: int, frame: float) -> Optional['Recorder']:
-        left_hand_notes = []   # 存储左手的音符 [(note, finger_index), ...]
-        right_hand_notes = []  # 存储右手的音符 [(note, finger_index), ...]
+    def _create_new_recorder(self, note_finger_mapping: dict[int, int], hand_range: int, finger_range: float, finger_distribution: list[int], frame: float) -> Optional['Recorder']:
+        # 存储左手的音符 [(note, finger_index), ...]
+        left_hand_notes: list[tuple[int, int]] = []
+        # 存储右手的音符 [(note, finger_index), ...]
+        right_hand_notes: list[tuple[int, int]] = []
 
         # 初始化左右手的统计变量
         left_lowest_note = None
@@ -87,7 +89,8 @@ class Recorder:
                 note, finger_index = left_hand_notes[i]
                 prev_note, prev_finger_index = left_hand_notes[i-1]
                 note_diff = note - prev_note
-                finger_diff = finger_index - prev_finger_index
+                finger_diff = abs(
+                    finger_distribution[finger_index] - finger_distribution[prev_finger_index])
                 if note_diff > finger_range * finger_diff:
                     return None
 
@@ -96,7 +99,8 @@ class Recorder:
                 note, finger_index = right_hand_notes[i]
                 prev_note, prev_finger_index = right_hand_notes[i-1]
                 note_diff = note - prev_note
-                finger_diff = finger_index - prev_finger_index
+                finger_diff = abs(
+                    finger_distribution[finger_index-5] - finger_distribution[prev_finger_index-5])
                 if note_diff > finger_range * finger_diff:
                     return None
 
@@ -153,7 +157,8 @@ class Recorder:
             raise Exception('数量不一致')
 
         result = []
-        left_hands_info = [hand.export_hand_info() for hand in self.left_hands]
+        left_hands_info = [hand.export_hand_info()
+                           for hand in self.left_hands]  # type: ignore
         right_hands_info = [hand.export_hand_info()
                             for hand in self.right_hands]
 
