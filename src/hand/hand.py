@@ -36,10 +36,10 @@ class Hand:
         if not missing_indices:
             return
 
-        # 如果没有任何手指存在，使用默认位置
+        # 如果没有任何手指存在，使用默认位置，其实一般不会运行到这里
         if not existing_fingers:
-            # 左手从位置52开始，右手从位置76开始
-            base_position = 52 if self.is_left else 76
+            # 左手从位置52+21开始，右手从位置76+21开始
+            base_position = 73 if self.is_left else 93
             for i, finger_index in enumerate(finger_indices):
                 position = base_position + (i - 2) * 2  # 大致按五指分布
                 self.fingers.append(
@@ -63,7 +63,7 @@ class Hand:
         # 按手指索引排序
         self.fingers.sort(key=lambda f: f.finger_index)
 
-    def _estimate_finger_position(self, finger_index: int, existing_fingers: dict) -> int:
+    def _estimate_finger_position(self, finger_index: int, existing_fingers: dict[int, int]) -> int:
         """
         根据相邻手指位置估算指定手指的位置
         考虑到E-F和B-C之间只相隔1个半音，需要特殊处理
@@ -89,14 +89,8 @@ class Hand:
             if right_neighbor is not None:
                 # 两侧都有邻居，在中间位置附近估算
                 right_pos = existing_fingers[right_neighbor]
-                # 根据手指索引距离加权计算位置
-                left_distance = finger_index - left_neighbor
-                right_distance = right_neighbor - finger_index
-                total_distance = left_distance + right_distance
-
                 # 计算加权位置
-                estimated_pos = (right_pos * left_distance +
-                                 left_pos * right_distance) // total_distance
+                estimated_pos = int((right_pos + left_pos)/2)
             else:
                 # 只有左侧邻居，根据手指索引差值估算位置
                 left_distance = finger_index - left_neighbor
@@ -134,50 +128,50 @@ class Hand:
 
         return expected_distance
 
-    def calculate_hand_diff(self, next_hand: 'Hand') -> int:
+    def calculate_hand_diff(self, next_hand: 'Hand') -> float:
         total_diff = 0
 
-        # 计算手位移产生的diff
-        hand_diff = int(abs(self.hand_note - next_hand.hand_note))
-        total_diff += 5 * hand_diff
-
         # 如果手跨过了它的舒适区，左手去弹右边的，或者相反，那么diff乘10
-        if (self.is_left and next_hand.hand_note > 52) or (not self.is_left and next_hand.hand_note < 76):
-            total_diff += 10 * hand_diff
+        # 这里的舒适区参数是写死了的，其实应该从avatar_info中获取
+        punishment_multiplicer = 1
+        over_right = self.is_left and next_hand.hand_note > 52
+        if over_right:
+            punishment_multiplicer += 0.1 * (next_hand.hand_note - 52)
+
+        over_left = not self.is_left and next_hand.hand_note < 76
+        if over_left:
+            punishment_multiplicer += 0.1 * (76 - next_hand.hand_note)
 
         # 计算每个手指的diff
         for i in range(self.finger_number):
             current_finger = self.fingers[i]
-            if current_finger.pressed:
-                next_finger = next_hand.fingers[i]
-                diff = abs(current_finger.key_note.position -
-                           next_finger.key_note.position)
-                total_diff += diff
-                # 如果两个手指都是按下的，那么diff翻倍，因为不推荐同一个手指反复使用
-                if current_finger.pressed and next_finger.pressed:
-                    total_diff += 2 * diff
+            next_finger = next_hand.fingers[i]
+            diff = abs(current_finger.key_note.note -
+                       next_finger.key_note.note)
+            total_diff += diff
+            # 如果两个手指都是按下的，那么diff翻倍，因为不推荐同一个手指反复使用
+            if current_finger.pressed and next_finger.pressed:
+                total_diff += (2 * diff + 4)
 
-        return total_diff
+        return total_diff * punishment_multiplicer
 
     def _calculate_hand_note(self):
         # 检测当前手指数量是否满足要求
         if len(self.fingers) != self.finger_number:
             raise ValueError("当前手指数量不满足要求")
         notes = [finger.key_note.note for finger in self.fingers]
-        avarage_note = sum(notes) / len(notes)
-        self.hand_note = avarage_note
         # 计算当前手指跨度
         self.hand_span = max(notes) - min(notes)
+        if self.hand_span > 12:
+            for finger in self.fingers:
+                print(
+                    f"finger_index: {finger.finger_index}, note: {finger.key_note.note},pressed: {finger.pressed}")
+            raise ValueError("当前手指跨度超过12")
         # 检测一下hand_note和中指的finger_index差距有多大
         middle_finger_index = 2 if self.is_left else 7
         middle_finger = next(
             finger for finger in self.fingers if finger.finger_index == middle_finger_index)
-        diff = abs(avarage_note - middle_finger.key_note.note)
-        if diff > 2:
-            print(f"警告: hand_note和中指的finger_index差距过大: {diff}")
-            for finger in self.fingers:
-                print(
-                    f"finger_index: {finger.finger_index}, note: {finger.key_note.note},pressed: {finger.pressed}")
+        self.hand_note = middle_finger.key_note.note
 
     def export_hand_info(self) -> dict:
         return {
