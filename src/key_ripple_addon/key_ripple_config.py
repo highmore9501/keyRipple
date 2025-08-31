@@ -23,11 +23,13 @@ class KeyRipple:
     当前blender中使用的配置文件
     """
 
-    def __init__(self, one_hand_finger_number: int, leftest_position: int, left_position: int, right_position: int, rightest_position: int):
+    def __init__(self, one_hand_finger_number: int, leftest_position: int, left_position: int, middle_left_position: int, middle_right_position: int, right_position: int, rightest_position: int):
         # 键盘的基本设置，包括手指的数量，左右边界，以及左右手中间位置
         self.one_hand_finger_number = one_hand_finger_number
         self.leftest_position = leftest_position
         self.left_position = left_position
+        self.middle_left_position = left_position
+        self.middle_right_position = right_position
         self.right_position = right_position
         self.rightest_position = rightest_position
 
@@ -630,6 +632,8 @@ class KeyRipple:
         result['config']['one_hand_finger_number'] = self.one_hand_finger_number
         result['config']['leftest_position'] = self.leftest_position
         result['config']['left_position'] = self.left_position
+        result['config']['middle_left_position'] = self.middle_left_position
+        result['config']['middle_right_position'] = self.middle_right_position
         result['config']['right_position'] = self.right_position
         result['config']['rightest_position'] = self.rightest_position
 
@@ -846,10 +850,12 @@ if __name__ == '__main__':
     one_hand_finger_number = 5
     leftest_position = 24
     leftest_position = 52
+    middle_left_position = 32
+    middle_right_position = 42
     right_position = 76
     rightest_position = 105
     key_ripple = KeyRipple(one_hand_finger_number, leftest_position,
-                           leftest_position, right_position, rightest_position)
+                           leftest_position, middle_left_position, middle_right_position, right_position, rightest_position)
 
     key_ripple.check_objects_status()
 

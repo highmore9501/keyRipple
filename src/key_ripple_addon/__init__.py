@@ -35,6 +35,9 @@ def get_key_ripple_instance(props):
         props.one_hand_finger_number,
         props.leftest_position,
         props.left_position,
+        props.middle_left_position,
+        props.middle_position,
+        props.middle_right_position,
         props.right_position,
         props.rightest_position
     )
@@ -48,6 +51,8 @@ def get_key_ripple_instance(props):
         props.one_hand_finger_number,
         props.leftest_position,
         props.left_position,
+        props.middle_left_position,
+        props.middle_right_position,
         props.right_position,
         props.rightest_position
     )
