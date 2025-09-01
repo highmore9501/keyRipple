@@ -85,65 +85,6 @@ def get_key_location(note: int, is_black: bool, piano: Piano, lowest_key_positio
     return key_position
 
 
-def calculate_2d_coefficients(points: list[np.ndarray], values: np.ndarray) -> np.ndarray:
-    """
-    根据三个不共线的点和对应的属性值，计算二维平面方程的系数
-
-    参数:
-    points: 3个点的坐标，格式为 [(x1,y1), (x2,y2), (x3,y3)]
-    values: 3个点对应的属性值，格式为 [s1, s2, s3]，每个s可以是多维数组
-
-    返回:
-    coefficients: 系数矩阵，形状为 (n, 3)，其中n是属性值的维度
-    """
-
-    # 检查点的数量
-    if len(points) != 3:
-        raise ValueError("需要恰好3个点来确定一个二维平面")
-
-    # 构建矩阵 M
-    M = []
-    for x, y in points:
-        M.append([x, y, 1])
-    M = np.array(M)
-
-    # 将values转换为numpy数组并检查维度
-    values_array = np.array(values)
-
-    # 如果values是一维数组（原始情况），则扩展为二维
-    if values_array.ndim == 1:
-        values_array = values_array.reshape(-1, 1)
-
-    # 获取属性值的维度
-    n_dims = values_array.shape[1]
-
-    # 存储每个维度的系数
-    coefficients_list = []
-
-    # 对每个维度分别求解
-    for i in range(n_dims):
-        S = values_array[:, i]
-
-        # 求解线性方程组 M * X = S
-        try:
-            # 使用最小二乘法求解，更稳定
-            coef = np.linalg.lstsq(M, S, rcond=None)[0]
-            coefficients_list.append(coef)
-        except np.linalg.LinAlgError:
-            print(points)
-            print(values)
-            raise ValueError("三个点共线，无法确定唯一的二维平面函数")
-
-    # 将系数组合成矩阵，形状为 (n_dims, 3)
-    coefficients = np.array(coefficients_list)
-
-    # 检测系数的形状
-    if coefficients.shape[0] != n_dims:
-        raise ValueError("系数矩阵的维度与属性值的维度不一致")
-
-    return coefficients
-
-
 def calculate_quaternion_2d_coefficients(points: list[np.ndarray], quaternions: list[Any]) -> Any:
     """
     根据三个不共线的点和对应的四元数，计算用于四元数插值的参考数据
@@ -178,48 +119,6 @@ def calculate_quaternion_2d_coefficients(points: list[np.ndarray], quaternions: 
     return reference_data
 
 
-def interpolate_quaternion_from_coefficients(reference_data: Any, target_point: np.ndarray) -> np.ndarray:
-    """
-    使用参考数据为二维平面上的任意点插值四元数
-
-    参数:
-    reference_data: 由calculate_quaternion_2d_coefficients生成的参考数据
-    target_point: 目标点坐标，格式为 [x, y]
-
-    返回:
-    插值后的四元数，格式为 [w, x, y, z]
-    """
-    # 提取参考点和四元数
-    p1, p2, p3 = reference_data[0][0], reference_data[1][0], reference_data[2][0]
-    q1, q2, q3 = reference_data[0][1], reference_data[1][1], reference_data[2][1]
-
-    # 计算重心坐标
-    u, v, w = calculate_barycentric_coordinates(p1, p2, p3, target_point)
-
-    # 分步插值过程
-    # 第一步：在q1和q2之间插值
-    if abs(u + v) > 1e-10:
-        # 计算q1到q2的插值参数
-        t1 = v / (u + v) if (u + v) > 1e-10 else 0
-        # 应用权重变换
-        t1 = tan_weight_transform(q1, q2, t1)
-        q12 = slerp(q1, q2, t1)
-    else:
-        q12 = q1
-
-    # 第二步：在q12和q3之间插值
-    if abs((u + v) + w) > 1e-10:
-        # 计算q12到q3的插值参数
-        t2 = w / ((u + v) + w) if ((u + v) + w) > 1e-10 else 0
-        # 应用权重变换
-        t2 = tan_weight_transform(q12, q3, t2)
-        result = slerp(q12, q3, t2)
-    else:
-        result = q12
-
-    return result
-
-
 def tan_weight_transform(q0: np.ndarray, q1: np.ndarray, t: float):
     """
     基于tangent值的权重变换函数示例
@@ -247,7 +146,7 @@ def tan_weight_transform(q0: np.ndarray, q1: np.ndarray, t: float):
     return angle_interpolated / angle
 
 
-def evaluate_2d_point(coefficients, point):
+def evaluate_2d_point(coefficients, point) -> np.ndarray:
     """
     使用计算出的系数为二维平面上的任意点求值
 
@@ -352,3 +251,32 @@ def get_actual_press_depth(lowest_key_position: np.ndarray, touch_position: np.n
     diff_y: float = abs(touch_position[1] - lowest_key_position[1])
 
     return diff_y * math.sin(math.radians(15))
+
+
+def lerp(a: np.ndarray, b: np.ndarray, t: float) -> np.ndarray:
+    if t <= 0:
+        return a
+    if t >= 1:
+        return b
+
+    if len(a) != len(b):
+        raise ValueError("Arrays must have the same length")
+
+    if len(a) != 4:
+        return a + t * (b - a)
+    else:
+        t = tan_weight_transform(a, b, t)
+        return slerp(a, b, t)
+
+
+def lerp_with_key_type_and_position(white_key_value: int, position: int, high_position: int, middle_position: int, low_position: int, high_white: np.ndarray, high_black: np.ndarray, middle_white: np.ndarray, middle_black: np.ndarray, low_white: np.ndarray, low_black: np.ndarray) -> np.ndarray:
+    middle_value = middle_white if white_key_value == 1 else middle_black
+    high_value = high_white if white_key_value == 1 else high_black
+    low_value = low_white if white_key_value == 1 else low_black
+
+    if position < middle_position:
+        t = (position - low_position) / (middle_position - low_position)
+        return lerp(low_value, middle_value, t)
+    else:
+        t = (position-middle_position) / (high_position - middle_position)
+        return lerp(middle_value, high_value, t)
