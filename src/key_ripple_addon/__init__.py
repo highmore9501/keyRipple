@@ -36,7 +36,6 @@ def get_key_ripple_instance(props):
         props.leftest_position,
         props.left_position,
         props.middle_left_position,
-        props.middle_position,
         props.middle_right_position,
         props.right_position,
         props.rightest_position
@@ -77,28 +76,42 @@ class KeyRippleProperties(PropertyGroup):
         "leftest_position": IntProperty(
             name="Leftest Position",
             description="Leftmost position",
-            default=24,
+            default=28,
             min=0
         ),
 
         "left_position": IntProperty(
             name="Left Position",
             description="Left position",
+            default=40,
+            min=0
+        ),
+
+        "middle_left_position": IntProperty(
+            name="Middle Left Position",
+            description="Middle left position",
             default=52,
+            min=0
+        ),
+
+        "middle_right_position": IntProperty(
+            name="Middle Right Position",
+            description="Middle right position",
+            default=76,
             min=0
         ),
 
         "right_position": IntProperty(
             name="Right Position",
             description="Right position",
-            default=76,
+            default=88,
             min=0
         ),
 
         "rightest_position": IntProperty(
             name="Rightest Position",
             description="Rightmost position",
-            default=105,
+            default=100,
             min=0
         ),
 
@@ -258,6 +271,8 @@ class KEYRIPPLE_OT_load_state(Operator):
             key_ripple.transfer_finger_state(
                 HandType.RIGHT, finger_number + props.one_hand_finger_number, right_key_type, right_position_type, "load")
 
+        self.report(
+            {"INFO"}, f"State left position: {left_position_type.value},{left_key_type.value};right position: {right_position_type.value},{right_key_type.value} loaded.")
         return {'FINISHED'}
 
 
@@ -280,6 +295,9 @@ class KEYRIPPLE_OT_export_info(Operator):
             file_path = os.path.splitext(file_path)[0] + '.avatar'
 
         key_ripple.export_recorder_info(file_path)
+        self.report(
+            {'INFO'}, f"Recorder info exported successfully to {file_path}")
+
         return {'FINISHED'}
 
 
@@ -301,6 +319,8 @@ class KEYRIPPLE_PT_main_panel(Panel):
         col.prop(props, "one_hand_finger_number")
         col.prop(props, "leftest_position")
         col.prop(props, "left_position")
+        col.prop(props, "middle_left_position")
+        col.prop(props, "middle_right_position")
         col.prop(props, "right_position")
         col.prop(props, "rightest_position")
 

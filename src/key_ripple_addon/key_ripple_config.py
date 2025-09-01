@@ -28,8 +28,8 @@ class KeyRipple:
         self.one_hand_finger_number = one_hand_finger_number
         self.leftest_position = leftest_position
         self.left_position = left_position
-        self.middle_left_position = left_position
-        self.middle_right_position = right_position
+        self.middle_left_position = middle_left_position
+        self.middle_right_position = middle_right_position
         self.right_position = right_position
         self.rightest_position = rightest_position
 

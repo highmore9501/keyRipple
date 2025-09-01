@@ -3,7 +3,7 @@ import math
 import bmesh  # type: ignore
 
 # 配置参数
-mesh_name = "hair_wave_curve"          # 您的网格物体名称
+mesh_name = "hair_wave_curve"    # 您的网格物体名称
 amplitude_start = 1.0            # 起始振幅
 amplitude_end = 0.1              # 末端振幅
 wave_speed = 2.0                 # 波速（控制波向前行进的速度）

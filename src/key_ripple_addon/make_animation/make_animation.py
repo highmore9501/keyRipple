@@ -63,7 +63,7 @@ def clear_all_keyframe(collection_name=None, exclude_names=None):
 
     for ob in bpy.context.selected_objects:
         # 额外检查：确保物体不在排除列表中
-        if ob.name in exclude_names:
+        if ob.name in exclude_names or ob.name.startswith("Tar"):
             print(f"Skipping excluded object: {ob.name}")
             continue
 
@@ -259,6 +259,29 @@ def generate_piano_key_animation(hand_recorder_path: str, FPS: int = 60):
 
         all_notes.append((notes))
 
+    def insert_keyframe(obj, shape_key, frame, shape_key_value, is_pressed_value=None):
+        """
+        为钢琴键物体插入关键帧的辅助函数
+
+        参数:
+        obj: 物体对象
+        shape_key: 形态键对象
+        frame: 帧数
+        shape_key_value: 形态键值 (0.0-1.0)
+        is_pressed_value: is_pressed属性值 (0.0-1.0)，如果为None则不设置
+        """
+        # 设置场景帧
+        bpy.context.scene.frame_set(frame)
+
+        # 设置并插入shape key关键帧
+        shape_key.value = shape_key_value
+        shape_key.keyframe_insert(data_path="value", frame=frame)
+
+        # 如果提供了is_pressed值且物体有该属性，则设置并插入关键帧
+        if is_pressed_value is not None and "is_pressed" in obj:
+            obj["is_pressed"] = is_pressed_value
+            obj.keyframe_insert(data_path='["is_pressed"]', frame=frame)
+
     for i in range(len(frames)):
         current_frame = frames[i]
         prev_frame = frames[i-1] if i > 0 else None
@@ -309,14 +332,10 @@ def generate_piano_key_animation(hand_recorder_path: str, FPS: int = 60):
             if prev_time_enough_for_ready or (prev_notes and note not in prev_notes) or not prev_notes:
                 zero_frame = max(0, current_frame - normal_press_duration)
                 # 只有当不是第一个按键或者距离上一个按键有足够时间时才添加归零动作
-                bpy.context.scene.frame_set(zero_frame)
-                shape_key.value = 0.0
-                shape_key.keyframe_insert(data_path="value", frame=zero_frame)
+                insert_keyframe(obj, shape_key, zero_frame, 0.0, 0.0)
 
             # 按下动作：在当前帧按下（必须有）
-            bpy.context.scene.frame_set(current_frame)
-            shape_key.value = 1.0
-            shape_key.keyframe_insert(data_path="value", frame=current_frame)
+            insert_keyframe(obj, shape_key, current_frame, 1.0, 1.0)
 
             # 如果有下一个按键，调整抬起时间以确保手有足够时间移动
             if next_frame and time_enough_for_hold:
@@ -325,27 +344,26 @@ def generate_piano_key_animation(hand_recorder_path: str, FPS: int = 60):
 
                 # 琴键可以保持到抬起前，中间留一个用于抬指的时间
                 hold_frame = release_frame - normal_up_duration
-                bpy.context.scene.frame_set(hold_frame)
-                shape_key.value = 1.0  # 抬起开始时还是按下状态
-                shape_key.keyframe_insert(
-                    data_path="value", frame=hold_frame)
+                insert_keyframe(obj, shape_key, hold_frame, 1.0, 1.0)
+
+                # 添加抬起动作
+                insert_keyframe(obj, shape_key, release_frame, 0.0, 0.0)
             elif next_frame and time_enough_for_up:
                 # 只够常规抬指的时间，就省略掉手掌移动的时间，同时也去掉了保持按键的可能性
                 release_frame = current_frame + normal_up_duration
+                insert_keyframe(obj, shape_key, release_frame, 0.0, 0.0)
             elif next_notes and note not in next_notes:
                 # 这里是两个手掌状态时间间隔非常短的情况，这种情况下，如果这个键被连续使用，那么就要修改按下和抬起的时间；如果没有被连续使用，那么就按常规按下和抬起来处理
                 release_frame = current_frame + normal_up_duration
+                insert_keyframe(obj, shape_key, release_frame, 0.0, 0.0)
             elif next_notes and next_frame:
                 # 这里是两个手掌状态时间间隔非常短，而且这个音符还被连续按下，这种情况下必须改变动画的时间，否则会与前后动画相冲突
                 release_frame = int((next_frame - current_frame)/2)
+                insert_keyframe(obj, shape_key, release_frame, 0.0, 0.0)
             else:
                 # 最后面这种情况应该是运行到最后一个音符了，为它添加一个抬起动作
                 release_frame = current_frame + normal_up_duration
-
-            bpy.context.scene.frame_set(release_frame)
-            shape_key.value = 0.0  # 抬起开始时还是按下状态
-            shape_key.keyframe_insert(
-                data_path="value", frame=release_frame)
+                insert_keyframe(obj, shape_key, release_frame, 0.0, 0.0)
 
 
 if __name__ == "__main__":
