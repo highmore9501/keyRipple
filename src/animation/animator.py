@@ -66,24 +66,25 @@ class Animator:
             # 这里是判断当前手型是否要使用黑键手型，只要当前是或者下一个手型是，那就使用黑键手型
             left_hand_item = item.get("left_hand")
             left_hand_white_key_value = self.determine_hand_white_key_value(
-                left_hand_item.get("fingers"))
+                left_hand_item.get("fingers"), is_left=True)
             next_left_hand_item = next_item.get(
                 "left_hand") if next_item else None
             if next_left_hand_item:
                 next_left_hand_white_key_value = self.determine_hand_white_key_value(
-                    next_left_hand_item.get("fingers"))
+                    next_left_hand_item.get("fingers"), is_left=True)
                 left_hand_white_key_value = left_hand_white_key_value * \
                     next_left_hand_white_key_value
 
             right_hand_item = item.get("right_hand")
             right_hand_white_key_value = self.determine_hand_white_key_value(
-                right_hand_item.get("fingers"))
+                right_hand_item.get("fingers"), is_left=False)
             next_right_hand_item = next_item.get(
                 "right_hand") if next_item else None
 
             if next_right_hand_item:
                 next_right_hand_white_key_value = self.determine_hand_white_key_value(
-                    next_right_hand_item.get("fingers"))
+                    next_right_hand_item.get("fingers"), is_left=False)
+
                 right_hand_white_key_value = right_hand_white_key_value * \
                     next_right_hand_white_key_value
 
@@ -416,19 +417,16 @@ class Animator:
             press_key_direction = press_key_direction / \
                 np.linalg.norm(press_key_direction)
 
-            # 双手大拇指按的距离要稍短一些
-            finger_press_multiplier = 0.5 if finger_index == 4 or finger_index == 5 else 1.0
-
             is_keep_pressed = all_fingers[finger_index]["is_keep_pressed"]
             actual_press_depth = get_actual_press_depth(
                 lowset_key_location, finger_position)
             finger_key = f"{finger_index}_L" if finger_index < self.finger_count / \
                 2 else f"{finger_index}_R"
             if (not ready and is_pressed) or is_keep_pressed:  # 如果不是ready说明是已经按键下去了，需要在z轴上添加一段按键距离
-                touch_point += actual_press_depth * finger_press_multiplier * press_key_direction
+                touch_point += actual_press_depth * press_key_direction
                 result[finger_key] = touch_point.tolist()
             else:
-                touch_point -= actual_press_depth * finger_press_multiplier * \
+                touch_point -= actual_press_depth * \
                     press_key_direction  # 没有按键的时候，手指抬起来
                 result[finger_key] = touch_point.tolist()
 

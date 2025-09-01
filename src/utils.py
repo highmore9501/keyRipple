@@ -58,6 +58,9 @@ def get_key_location(note: int, finger_index: int, is_pressed: bool, is_black: b
     获取按键的位置
     param key_note: 按键的keyNote信息
     param piano: 钢琴的Piano信息
+    param finger_index: 手指的索引，从0开始
+    param is_pressed: 按键是否被按下
+    param is_black: 当前手型使用的是否是按黑键的手型
     param lowest_key_position: 最低按键的位置，正常情况下这是个白键
     param highest_key_position: 最高按键的位置，正常情况下这也是个白键
     param: black_key_position: 这是任意一个黑键的位置，用它来确定其它黑键的yz轴坐标
@@ -77,7 +80,7 @@ def get_key_location(note: int, finger_index: int, is_pressed: bool, is_black: b
         key_position_x = lowest_key_position[0] + \
             white_key_distance * key_index
         if not is_pressed:
-            key_position_x += offset * white_key_distance
+            key_position_x += offset * white_key_distance  # 不参与演奏的手指，会偏移一点位置出来，以避免和演奏手指冲突
         # 如果是白键，返回的位置x坐标是经过计算的，y和z坐标直接都是读取的highest_key_position的值
         key_position = np.array(
             [key_position_x, highest_key_position[1], highest_key_position[2]])
