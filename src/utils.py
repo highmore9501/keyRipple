@@ -53,7 +53,7 @@ def get_touch_point(finger_position: np.ndarray, key_position: np.ndarray) -> np
     return np.array([key_position[0], min(finger_position[1], key_position[1]), key_position[2]])
 
 
-def get_key_location(note: int, is_black: bool, piano: Piano, lowest_key_position: np.ndarray, highest_key_position: np.ndarray, black_key_position: np.ndarray) -> np.ndarray:
+def get_key_location(note: int, finger_index: int, is_pressed: bool, is_black: bool, piano: Piano, lowest_key_position: np.ndarray, highest_key_position: np.ndarray, black_key_position: np.ndarray) -> np.ndarray:
     """
     获取按键的位置
     param key_note: 按键的keyNote信息
@@ -67,10 +67,17 @@ def get_key_location(note: int, is_black: bool, piano: Piano, lowest_key_positio
                           lowest_key_position[0]) / (piano.numberOfWhiteKeys-1)
     white_keys = piano.white_keys
 
+    offset = 0.25 if (finger_index < 5 and finger_index >
+                      1) or finger_index > 6 else -0.25
+    if finger_index == 2 or finger_index == 7:
+        offset = 0
+
     if not is_black:
         key_index = white_keys.index(note)
         key_position_x = lowest_key_position[0] + \
             white_key_distance * key_index
+        if not is_pressed:
+            key_position_x += offset * white_key_distance
         # 如果是白键，返回的位置x坐标是经过计算的，y和z坐标直接都是读取的highest_key_position的值
         key_position = np.array(
             [key_position_x, highest_key_position[1], highest_key_position[2]])
@@ -78,6 +85,8 @@ def get_key_location(note: int, is_black: bool, piano: Piano, lowest_key_positio
         pre_key_index = white_keys.index(note - 1)
         key_position_x = lowest_key_position[0] + \
             white_key_distance * (pre_key_index + 0.5)
+        if not is_pressed:
+            key_position_x += offset * white_key_distance
         # 如果是黑键，返回的位置x坐标是经过计算的，y和z坐标直接都是读取的black_key_position的值
         key_position = np.array(
             [key_position_x, black_key_position[1], black_key_position[2]])

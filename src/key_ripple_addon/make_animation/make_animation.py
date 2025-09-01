@@ -240,12 +240,14 @@ def generate_piano_key_animation(hand_recorder_path: str, FPS: int = 60):
 
     frames: list[int] = []
     all_notes: list[list[int]] = []
+    all_is_keep_pressed_list: list[list[bool]] = []
 
     # 收集所有数据
     for frame_data in hand_recorder:
         frame = int(frame_data.get("frame", 0))
         frames.append(frame)
         notes: list[int] = []
+        is_keep_pressed_list: list[bool] = []
 
         # 处理左手和右手
         for hand in [frame_data.get("left_hand", {}), frame_data.get("right_hand", {})]:
@@ -253,11 +255,14 @@ def generate_piano_key_animation(hand_recorder_path: str, FPS: int = 60):
 
             # 遍历所有手指
             for finger in fingers:
-                if finger.get("pressed", True):  # 只处理按下的手指
+                if finger.get("pressed", False):  # 只处理按下的手指
                     note = finger["key_note"]["note"]
                     notes.append(note)
+                    is_keep_pressed_list.append(
+                        finger.get("is_keep_pressed", False))
 
         all_notes.append((notes))
+        all_is_keep_pressed_list.append(is_keep_pressed_list)
 
     def insert_keyframe(obj, shape_key, frame, shape_key_value, is_pressed_value=None):
         """
@@ -297,11 +302,16 @@ def generate_piano_key_animation(hand_recorder_path: str, FPS: int = 60):
             current_frame >= normal_up_duration
 
         current_notes = all_notes[i]
+        current_is_keep_pressed_list = all_is_keep_pressed_list[i]
         next_notes = all_notes[i+1] if i < len(frames)-1 else None
         prev_notes = all_notes[i-1] if i > 0 else None
 
         # 为每个音符生成动画
-        for note in current_notes:
+        for j in range(len(current_notes)):
+            note = current_notes[j]
+            is_keep_pressed = current_is_keep_pressed_list[j]
+            note_is_repeated = next_notes is not None and note in next_notes
+
             key_name = f"key_{note}"
             shape_key_name = f"{key_name}_pressed"
 
@@ -328,11 +338,17 @@ def generate_piano_key_animation(hand_recorder_path: str, FPS: int = 60):
                 print(f"警告: 未找到shape key {shape_key_name}")
                 continue
 
+            # 如果是keep_pressed，就不需要有清零这个动作
+            zero_shape_key_value = 1.0 if is_keep_pressed else 0.0
+            # 如果下一次动作该音符也被演奏，就不需要抬起
+            up_shape_key_value = 1.0 if is_keep_pressed and note_is_repeated else 0.0
             # 归零动作：提前press_duration秒归零（如果时间允许,或者这是该键第一次被演奏）
             if prev_time_enough_for_ready or (prev_notes and note not in prev_notes) or not prev_notes:
                 zero_frame = max(0, current_frame - normal_press_duration)
                 # 只有当不是第一个按键或者距离上一个按键有足够时间时才添加归零动作
-                insert_keyframe(obj, shape_key, zero_frame, 0.0, 0.0)
+
+                insert_keyframe(obj, shape_key, zero_frame,
+                                zero_shape_key_value, zero_shape_key_value)
 
             # 按下动作：在当前帧按下（必须有）
             insert_keyframe(obj, shape_key, current_frame, 1.0, 1.0)
@@ -347,19 +363,23 @@ def generate_piano_key_animation(hand_recorder_path: str, FPS: int = 60):
                 insert_keyframe(obj, shape_key, hold_frame, 1.0, 1.0)
 
                 # 添加抬起动作
-                insert_keyframe(obj, shape_key, release_frame, 0.0, 0.0)
+                insert_keyframe(obj, shape_key, release_frame,
+                                up_shape_key_value, up_shape_key_value)
             elif next_frame and time_enough_for_up:
                 # 只够常规抬指的时间，就省略掉手掌移动的时间，同时也去掉了保持按键的可能性
                 release_frame = current_frame + normal_up_duration
-                insert_keyframe(obj, shape_key, release_frame, 0.0, 0.0)
+                insert_keyframe(obj, shape_key, release_frame,
+                                up_shape_key_value, up_shape_key_value)
             elif next_notes and note not in next_notes:
                 # 这里是两个手掌状态时间间隔非常短的情况，这种情况下，如果这个键被连续使用，那么就要修改按下和抬起的时间；如果没有被连续使用，那么就按常规按下和抬起来处理
                 release_frame = current_frame + normal_up_duration
-                insert_keyframe(obj, shape_key, release_frame, 0.0, 0.0)
+                insert_keyframe(obj, shape_key, release_frame,
+                                up_shape_key_value, up_shape_key_value)
             elif next_notes and next_frame:
                 # 这里是两个手掌状态时间间隔非常短，而且这个音符还被连续按下，这种情况下必须改变动画的时间，否则会与前后动画相冲突
                 release_frame = int((next_frame - current_frame)/2)
-                insert_keyframe(obj, shape_key, release_frame, 0.0, 0.0)
+                insert_keyframe(obj, shape_key, release_frame,
+                                0.0, 0.0)
             else:
                 # 最后面这种情况应该是运行到最后一个音符了，为它添加一个抬起动作
                 release_frame = current_frame + normal_up_duration
@@ -367,9 +387,9 @@ def generate_piano_key_animation(hand_recorder_path: str, FPS: int = 60):
 
 
 if __name__ == "__main__":
-    midi_name = "诀别书"
+    midi_name = "God knows"
     avatar_name = "Kinich"
-    track_numbers = [2]
+    track_numbers = [1]
     track_text = str(track_numbers[0]) if len(track_numbers) == 1 else "_".join(
         [str(track_number) for track_number in track_numbers])
     animation_file_path = f"H:/keyRipple/output/animation_recorders/{midi_name}_{track_text}_{avatar_name}.animation"
@@ -377,6 +397,7 @@ if __name__ == "__main__":
 
     hand_recorder_path = f"H:/keyRipple/output/hand_recorders/{midi_name}_{track_text}.hand"
 
-    clear_all_keyframe(exclude_names=['Tar_B'])
+    collection_name = 'keyboard'
+    clear_all_keyframe(collection_name)
     make_animation(animation_file_path)
     generate_piano_key_animation(hand_recorder_path, FPS)

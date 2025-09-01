@@ -104,7 +104,7 @@ class Recorder:
                 if note_diff > finger_range * finger_diff:
                     return None
 
-        # 生成新的左右手并且计算它们的熵
+        # 到这一步时，不适合的指法已经被淘汰，需要用当前指法生成新的左右手并且计算它们的熵
         left_fingers: list[Finger] = []
         for note, finger_index in left_hand_notes:
             key_note = self.piano.note_to_key(note)
@@ -115,8 +115,8 @@ class Recorder:
         if len(left_fingers) == 0:
             left_fingers = lasted_left_hand.fingers[:]
 
-        new_left_hand = Hand(left_fingers, self.piano, True,
-                             lasted_left_hand.max_distance, lasted_left_hand.finger_number)
+        new_left_hand = lasted_left_hand.generate_next_hand(
+            left_fingers, finger_range, finger_distribution)
         left_hand_diff = lasted_left_hand.calculate_hand_diff(new_left_hand)
 
         right_fingers: list[Finger] = []
@@ -130,8 +130,8 @@ class Recorder:
         if len(right_fingers) == 0:
             right_fingers = lasted_right_hand.fingers[:]
 
-        new_right_hand = Hand(right_fingers, self.piano, False,
-                              lasted_right_hand.max_distance, lasted_right_hand.finger_number)
+        new_right_hand = lasted_right_hand.generate_next_hand(
+            right_fingers, finger_range, finger_distribution)
         right_hand_diff = lasted_right_hand.calculate_hand_diff(
             new_right_hand)
 

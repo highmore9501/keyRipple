@@ -96,6 +96,8 @@ class Hand:
                 left_distance = finger_index - left_neighbor
                 estimated_pos = left_pos + \
                     self._calculate_expected_distance(left_pos, left_distance)
+            # 更新位置
+            existing_fingers[finger_index] = estimated_pos
             return estimated_pos
 
         # 如果只有右侧邻居
@@ -104,6 +106,8 @@ class Hand:
             right_distance = right_neighbor - finger_index
             estimated_pos = right_pos - \
                 self._calculate_expected_distance(right_pos, right_distance)
+            # 更新位置
+            existing_fingers[finger_index] = estimated_pos
             return estimated_pos
 
         # 如果没有邻居（理论上不应该发生），使用默认位置
@@ -133,27 +137,30 @@ class Hand:
 
         # 如果手跨过了它的舒适区，左手去弹右边的，或者相反，那么diff乘10
         # 这里的舒适区参数是写死了的，其实应该从avatar_info中获取
-        punishment_multiplicer = 1
         over_right = self.is_left and next_hand.hand_note > 52
         if over_right:
-            punishment_multiplicer += 0.1 * (next_hand.hand_note - 52)
+            over_value = next_hand.hand_note - 52
+            total_diff += 5 * over_value
 
         over_left = not self.is_left and next_hand.hand_note < 76
         if over_left:
-            punishment_multiplicer += 0.1 * (76 - next_hand.hand_note)
+            over_value = 76 - next_hand.hand_note
+            total_diff += 5 * over_value
 
         # 计算每个手指的diff
         for i in range(self.finger_number):
             current_finger = self.fingers[i]
             next_finger = next_hand.fingers[i]
-            diff = abs(current_finger.key_note.note -
-                       next_finger.key_note.note)
-            total_diff += diff
-            # 如果两个手指都是按下的，那么diff翻倍，因为不推荐同一个手指反复使用
+            diff = 0
+            if next_finger.pressed:
+                diff = abs(current_finger.key_note.note -
+                           next_finger.key_note.note)
+                total_diff += diff
+            # 如果两个手指都是按下的，那么diff翻倍，因为不推荐同一个手指反复使用,可能的话最好是相邻的两个手指轮流使用
             if current_finger.pressed and next_finger.pressed:
-                total_diff += (2 * diff + 4)
+                total_diff += (2 * diff + 2)
 
-        return total_diff * punishment_multiplicer
+        return total_diff
 
     def _calculate_hand_note(self):
         # 检测当前手指数量是否满足要求
@@ -162,16 +169,16 @@ class Hand:
         notes = [finger.key_note.note for finger in self.fingers]
         # 计算当前手指跨度
         self.hand_span = max(notes) - min(notes)
-        if self.hand_span > 12:
+
+        # 下面的代码是一个保护机制，如果前面运行的代码正常，这里不应该抛出异常
+        if self.hand_span > self.max_distance:
             for finger in self.fingers:
                 print(
                     f"finger_index: {finger.finger_index}, note: {finger.key_note.note},pressed: {finger.pressed}")
-            raise ValueError("当前手指跨度超过12")
-        # 检测一下hand_note和中指的finger_index差距有多大
-        middle_finger_index = 2 if self.is_left else 7
-        middle_finger = next(
-            finger for finger in self.fingers if finger.finger_index == middle_finger_index)
-        self.hand_note = middle_finger.key_note.note
+            raise ValueError(
+                f"当前手指跨度超过最大距离{self.max_distance}，为{self.hand_span}")
+        # 之所以这样确认手掌位置是因为，经常按不到键的是大拇指和小拇指，所以要由它们来决定手掌位置
+        self.hand_note = (max(notes) + min(notes))/2
 
     def export_hand_info(self) -> dict:
         return {
@@ -180,3 +187,60 @@ class Hand:
             'is_left': self.is_left,
             'hand_span': self.hand_span
         }
+
+    def generate_next_hand(self, next_fingers: list['Finger'], finger_range: float, finger_distribution: list[int]) -> 'Hand':
+        """
+        这个方法主要是用于判断哪些当前手指可以保留，然后把可以保留的手指添加到next_fingers里传递到下一个Hand对象中。至于其它的手指，则是由下一个Hand对象自己来生成。
+        """
+        next_notes = [finger.key_note.note for finger in next_fingers]
+        next_finger_indices = [finger.finger_index for finger in next_fingers]
+        min_next_finger = next_fingers[0]
+        max_next_finger = next_fingers[-1]
+        # 先遍历当前手指，找出可以保留的手指
+        for old_finger in self.fingers:
+            # 当前没有按键的手指可以不用管
+            if not old_finger.pressed:
+                continue
+
+            old_finger_index = old_finger.finger_index
+            # 如果当前手指在next_fingers中，则跳过，因为可以直接使用下一个手指的状态
+            if old_finger_index in next_finger_indices:
+                continue
+
+            old_finger_note = old_finger.key_note.note
+            # 如果当前手指占了下一个手指的按键，则跳过
+            if old_finger_note in next_notes:
+                continue
+
+            # 检查是否会与下一个状态的手指存在错序
+            has_conflict = False
+            for next_finger in next_fingers:
+                next_finger_index = next_finger.finger_index
+                next_note = next_finger.key_note.note
+                # 如果当前手指和下一个状态的手指存在错序，标记为有冲突
+                if (old_finger_index > next_finger_index and old_finger_note < next_note) or \
+                        (old_finger_index < next_finger_index and old_finger_note > next_note):
+                    has_conflict = True
+                    break
+
+            # 如果存在错序冲突，则跳过当前手指
+            if has_conflict:
+                continue
+
+            # 如果当前手指和下一个状态的手指之间的距离超过最大距离，则跳过
+            if old_finger._is_next_finger_too_far(min_next_finger, finger_range, finger_distribution):
+                continue
+
+            if old_finger._is_next_finger_too_far(max_next_finger, finger_range, finger_distribution):
+                continue
+
+            # 最终符合要求的手指可以得到保留
+            keep_finger = Finger(old_finger_index, old_finger.key_note, self.is_left,
+                                 True, True)
+            next_fingers.append(keep_finger)
+
+        # 用新的手指组合生成下一个Hand对象
+        next_hand = Hand(next_fingers, self.piano, self.is_left,
+                         self.max_distance, self.finger_number)
+
+        return next_hand

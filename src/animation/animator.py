@@ -23,6 +23,30 @@ class Animator:
         except Exception as e:
             print(e)
 
+    def determine_hand_white_key_value(self, hand_fingers: list, is_left: bool = True) -> int:
+        """
+        确定手部的white_key_value，用于动画计算
+
+        Args:
+            hand_fingers: 手部手指列表
+            is_left: 是否为左手，默认为True
+
+        Returns:
+            int: white_key_value (0或1)
+        """
+        thumb_finger_index = 4 if is_left else 5
+        white_key_value = 1
+
+        for finger in hand_fingers:
+            if finger.get("pressed"):
+                # 检查是否为拇指且按的是黑键
+                if (finger["key_note"]["is_black"] and
+                        finger.get("finger_index") == thumb_finger_index):
+                    white_key_value = 0
+                    break
+
+        return white_key_value
+
     def generate_animation_info(self):
         animation_data = []
         recorder_number = len(self.hand_recorder)
@@ -39,15 +63,36 @@ class Animator:
             current_frame = item.get("frame")
             next_frame = next_item.get("frame") if next_item else None
 
+            # 这里是判断当前手型是否要使用黑键手型，只要当前是或者下一个手型是，那就使用黑键手型
             left_hand_item = item.get("left_hand")
+            left_hand_white_key_value = self.determine_hand_white_key_value(
+                left_hand_item.get("fingers"))
+            next_left_hand_item = next_item.get(
+                "left_hand") if next_item else None
+            if next_left_hand_item:
+                next_left_hand_white_key_value = self.determine_hand_white_key_value(
+                    next_left_hand_item.get("fingers"))
+                left_hand_white_key_value = left_hand_white_key_value * \
+                    next_left_hand_white_key_value
+
             right_hand_item = item.get("right_hand")
+            right_hand_white_key_value = self.determine_hand_white_key_value(
+                right_hand_item.get("fingers"))
+            next_right_hand_item = next_item.get(
+                "right_hand") if next_item else None
+
+            if next_right_hand_item:
+                next_right_hand_white_key_value = self.determine_hand_white_key_value(
+                    next_right_hand_item.get("fingers"))
+                right_hand_white_key_value = right_hand_white_key_value * \
+                    next_right_hand_white_key_value
 
             # 预备动作 - 提前press_duration秒到达预备位置（如果时间允许）
             prepare_frame = current_frame - press_duration
             # 只有当不是第一个音符或者距离上一个音符有足够时间时才添加预备动作
             if i == 0 or (current_frame - self.hand_recorder[i-1].get("frame")) >= press_duration:
                 prepare_info = self.cacluate_hand_info(
-                    left_hand_item, right_hand_item, True)
+                    left_hand_item, right_hand_item, True, left_hand_white_key_value, right_hand_white_key_value)
                 animation_data.append({
                     "frame": prepare_frame,
                     "hand_infos": prepare_info
@@ -55,7 +100,7 @@ class Animator:
 
             # 按下动作 - 在当前帧按下（必须有）
             press_info = self.cacluate_hand_info(
-                left_hand_item, right_hand_item, False)
+                left_hand_item, right_hand_item, False, left_hand_white_key_value, right_hand_white_key_value)
             animation_data.append({
                 "frame": current_frame,
                 "hand_infos": press_info
@@ -78,7 +123,7 @@ class Animator:
                 # 抬起动作 - 使用up_duration时间抬起（必须有）
                 # 抬起过程中使用预备状态（手抬起）
                 release_info = self.cacluate_hand_info(
-                    left_hand_item, right_hand_item, True)
+                    left_hand_item, right_hand_item, True, left_hand_white_key_value, right_hand_white_key_value)
 
                 # 抬起开始帧
                 animation_data.append({
@@ -104,7 +149,7 @@ class Animator:
                 # 抬起动作
                 release_start_frame = hold_frame + press_duration
                 release_info = self.cacluate_hand_info(
-                    left_hand_item, right_hand_item, True)
+                    left_hand_item, right_hand_item, True, left_hand_white_key_value, right_hand_white_key_value)
                 animation_data.append({
                     "frame": release_start_frame,
                     "hand_infos": release_info
@@ -139,7 +184,7 @@ class Animator:
 
         print(f"动画数据已保存到{file_path}")
 
-    def cacluate_hand_info(self, left_hand_item, right_hand_item, ready: bool = False) -> dict:
+    def cacluate_hand_info(self, left_hand_item, right_hand_item, ready: bool = False, left_hand_white_key_value: int = 1, right_hand_white_key_value: int = 1) -> dict:
         # 先初始化数据
         result = {}
         left_hand_note = left_hand_item.get("hand_note")
@@ -153,8 +198,6 @@ class Animator:
 
         left_finger_pressed_count = 0
         right_finger_pressed_count = 0
-        left_hand_white_key_value = 1
-        right_hand_white_key_value = 1
         all_fingers = {}
 
         lowset_key_location = np.array(self.avatar_info["key_board_positions"][
@@ -178,24 +221,18 @@ class Animator:
                 "position": left_finger["key_note"]["position"],
                 "note": left_finger["key_note"]["note"],
                 "is_black": left_finger["key_note"]["is_black"],
-                "is_pressed": left_finger.get("pressed")
+                "is_pressed": left_finger.get("pressed"),
+                "is_keep_pressed": left_finger.get("is_keep_pressed")
             }
-            if left_finger.get("pressed"):
-                left_finger_pressed_count += 1
-                if left_finger["key_note"]["is_black"] and left_finger["finger_index"] == 4:
-                    left_hand_white_key_value = 0
 
         for right_finger in right_hand_item.get("fingers"):
             all_fingers[right_finger["finger_index"]] = {
                 "position": right_finger["key_note"]["position"],
                 "note": right_finger["key_note"]["note"],
                 "is_black": right_finger["key_note"]["is_black"],
-                "is_pressed": right_finger.get("pressed")
+                "is_pressed": right_finger.get("pressed"),
+                "is_keep_pressed": right_finger.get("is_keep_pressed")
             }
-            if right_finger.get("pressed"):
-                right_finger_pressed_count += 1
-                if not right_finger["key_note"]["is_black"] and right_finger["finger_index"] == 5:
-                    right_hand_white_key_value = 0
 
         # 左手位置
         left_hand_recorder = self.avatar_info['hand_recorders']['left_hand_recorders']
@@ -366,7 +403,7 @@ class Animator:
             is_pressed = all_fingers[finger_index]["is_pressed"]
 
             key_location = get_key_location(
-                note, is_black, self.piano, lowset_key_location, highest_key_location, black_key_location)
+                note, finger_index, is_pressed, is_black, self.piano, lowset_key_location, highest_key_location, black_key_location)
             touch_point = get_touch_point(
                 finger_position, key_location)
 
@@ -382,15 +419,17 @@ class Animator:
             # 双手大拇指按的距离要稍短一些
             finger_press_multiplier = 0.5 if finger_index == 4 or finger_index == 5 else 1.0
 
-            if not ready and is_pressed:  # 如果不是ready说明是已经按键下去了，需要在z轴上添加一段按键距离
-                touch_point -= get_actual_press_depth(
-                    lowset_key_location, finger_position) * finger_press_multiplier * press_key_direction
-            else:
-                touch_point[2] = black_key_location[2]  # 没有按键的时候，手指不能低于黑键
-
+            is_keep_pressed = all_fingers[finger_index]["is_keep_pressed"]
+            actual_press_depth = get_actual_press_depth(
+                lowset_key_location, finger_position)
             finger_key = f"{finger_index}_L" if finger_index < self.finger_count / \
                 2 else f"{finger_index}_R"
-
-            result[finger_key] = touch_point.tolist()
+            if (not ready and is_pressed) or is_keep_pressed:  # 如果不是ready说明是已经按键下去了，需要在z轴上添加一段按键距离
+                touch_point += actual_press_depth * finger_press_multiplier * press_key_direction
+                result[finger_key] = touch_point.tolist()
+            else:
+                touch_point -= actual_press_depth * finger_press_multiplier * \
+                    press_key_direction  # 没有按键的时候，手指抬起来
+                result[finger_key] = touch_point.tolist()
 
         return result
