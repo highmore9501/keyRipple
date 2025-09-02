@@ -133,6 +133,9 @@ def make_animation(animation_file_path: str):
         frame = int(frame_data.get("frame", 0))
         hand_infos = frame_data.get("hand_infos", {})
 
+        if frame < 0:
+            continue
+
         # 设置当前帧
         bpy.context.scene.frame_set(frame)
 
@@ -245,6 +248,8 @@ def generate_piano_key_animation(hand_recorder_path: str, FPS: int = 60):
     # 收集所有数据
     for frame_data in hand_recorder:
         frame = int(frame_data.get("frame", 0))
+        if frame < 0:
+            continue
         frames.append(frame)
         notes: list[int] = []
         is_keep_pressed_list: list[bool] = []
