@@ -190,7 +190,7 @@ class Recorder:
 
     def detect_and_resolve_hand_conflicts(self, left_hand_data, right_hand_data):
         """
-        检测并解决左右手之间的按键冲突
+        检测并解决左右手之间的按键冲突，这种冲突是由于某个手正在保持按键，而另一只手移动过来按当前手的区间的音符所导致的冲突。
 
         Args:
             left_hand_data: 左手数据
@@ -199,93 +199,6 @@ class Recorder:
         Returns:
             返回处理后的左右手数据
         """
-
-        # 定义默认手部状态
-        default_left_hand = {
-            "hand_note": self.piano.middle_left,
-            "fingers": [
-                {
-                    "finger_index": 0,
-                    "key_note": {"note": 48, "position": 27, "is_black": False},
-                    "is_left": True,
-                    "pressed": False,
-                    "is_keep_pressed": False
-                },
-                {
-                    "finger_index": 1,
-                    "key_note": {"note": 50, "position": 29, "is_black": False},
-                    "is_left": True,
-                    "pressed": False,
-                    "is_keep_pressed": False
-                },
-                {
-                    "finger_index": 2,
-                    "key_note": {"note": 52, "position": 31, "is_black": False},
-                    "is_left": True,
-                    "pressed": False,
-                    "is_keep_pressed": False
-                },
-                {
-                    "finger_index": 3,
-                    "key_note": {"note": 53, "position": 32, "is_black": False},
-                    "is_left": True,
-                    "pressed": False,
-                    "is_keep_pressed": False
-                },
-                {
-                    "finger_index": 4,
-                    "key_note": {"note": 55, "position": 34, "is_black": False},
-                    "is_left": True,
-                    "pressed": False,
-                    "is_keep_pressed": False
-                }
-            ],
-            "is_left": True,
-            "hand_span": 8
-        }
-
-        default_right_hand = {
-            "hand_note": self.piano.middle_right,
-            "fingers": [
-                {
-                    "finger_index": 5,
-                    "key_note": {"note": 72, "position": 51, "is_black": False},
-                    "is_left": False,
-                    "pressed": False,
-                    "is_keep_pressed": False
-                },
-                {
-                    "finger_index": 6,
-                    "key_note": {"note": 74, "position": 53, "is_black": False},
-                    "is_left": False,
-                    "pressed": False,
-                    "is_keep_pressed": False
-                },
-                {
-                    "finger_index": 7,
-                    "key_note": {"note": 76, "position": 55, "is_black": False},
-                    "is_left": False,
-                    "pressed": False,
-                    "is_keep_pressed": False
-                },
-                {
-                    "finger_index": 8,
-                    "key_note": {"note": 77, "position": 56, "is_black": False},
-                    "is_left": False,
-                    "pressed": False,
-                    "is_keep_pressed": False
-                },
-                {
-                    "finger_index": 9,
-                    "key_note": {"note": 79, "position": 58, "is_black": False},
-                    "is_left": False,
-                    "pressed": False,
-                    "is_keep_pressed": False
-                }
-            ],
-            "is_left": False,
-            "hand_span": 8
-        }
 
         # 处理报告
         report = {
@@ -296,37 +209,51 @@ class Recorder:
         }
 
         # 遍历左手数据，检测冲突
+        new_left_state_for_conflicts = []
         for i in range(len(left_hand_data) - 1):
             left_current = left_hand_data[i]
             left_next = left_hand_data[i + 1]
 
-            # 获取当前左手小指的note值
-            left_pinky_note = left_current["left_hand"]["fingers"][4]["key_note"]["note"]
+            # 获取当前左手拇指的note值
+            left_thumb_note = left_current["left_hand"]["fingers"][4]["key_note"]["note"]
 
             # 确定时间区间
             frame_start = left_current["frame"]
             frame_end = left_next["frame"]
 
+            new_left_thumb_note = 108
+            has_conflict = False
+            conflict_frames = []
+
             # 在该时间区间内检查右手数据
             for right_item in right_hand_data:
                 if frame_start <= right_item["frame"] <= frame_end:
                     # 检查右手拇指的note值
-                    right_thumb_note = right_item.get("right_hand", {}).get(
-                        "fingers", [{}]*5)[0]["key_note"]["note"]
+                    right_thumb_note = right_item.get("right_hand").get(
+                        "fingers")[0]["key_note"]["note"]
 
-                    # 检查是否有冲突（右手拇指note小于左手小指note）
-                    if right_thumb_note < left_pinky_note:
-                        report["conflicts_found"] += 1
+                    # 检查是否有冲突（右手拇指note小于左手拇指note）
+                    if right_thumb_note < left_thumb_note:
+                        if new_left_thumb_note > right_thumb_note:
+                            new_left_thumb_note = right_thumb_note-1
+                            has_conflict = True
+                            conflict_frames.append(right_item["frame"])
 
-                        # 添加默认左手状态到处理后的数据中
-                        default_state = {
-                            "left_hand": default_left_hand,
-                            "frame": right_item["frame"]
-                        }
-                        left_hand_data.append(default_state)
-                        report["conflicts_resolved"] += 1
+            if has_conflict:
+                report["conflicts_found"] += 1
+                new_left_thumb = Finger(4, self.piano.note_to_key(
+                    new_left_thumb_note), True, False, False)
+                new_hand = Hand([new_left_thumb], self.piano, True)
+                for conflict_frame in conflict_frames:
+                    new_left_state = {
+                        "left_hand": new_hand.export_hand_info(),
+                        "frame": conflict_frame
+                    }
+                    new_left_state_for_conflicts.append(new_left_state)
+                report["conflicts_resolved"] += 1
 
         # 遍历右手数据，检测冲突
+        new_right_state_for_conflicts = []
         for i in range(len(right_hand_data) - 1):
             right_current = right_hand_data[i]
             right_next = right_hand_data[i + 1]
@@ -339,26 +266,42 @@ class Recorder:
             frame_start = right_current["frame"]
             frame_end = right_next["frame"]
 
+            new_right_thumb_note = 21
+            has_conflict = False
+            conflict_frames = []
+
             # 在该时间区间内检查左手数据
             for left_item in left_hand_data:
                 if frame_start <= left_item["frame"] <= frame_end:
-                    # 检查左手小指的note值
-                    left_pinky_note = left_item["left_hand"]["fingers"][4]["key_note"]["note"]
+                    # 检查左手拇指的note值
+                    left_thumb_note = left_item.get(
+                        "left_hand").get(
+                        "fingers")[4]["key_note"]["note"]
 
-                    # 检查是否有冲突（右手拇指note小于左手小指note）
-                    if right_thumb_note < left_pinky_note:
-                        report["conflicts_found"] += 1
+                    # 检查是否有冲突（右手拇指note小于左手拇指note）
+                    if right_thumb_note < left_thumb_note:
+                        if new_right_thumb_note < left_thumb_note:
+                            new_right_thumb_note = left_thumb_note+1
+                            has_conflict = True
+                            conflict_frames.append(left_item["frame"])
 
-                        # 添加默认右手状态到处理后的数据中
-                        default_state = {
-                            "right_hand": default_right_hand,
-                            "frame": left_item["frame"]
-                        }
-                        right_hand_data.append(default_state)
-                        report["conflicts_resolved"] += 1
+            if has_conflict:
+                report["conflicts_found"] += 1
+                new_right_thumb = Finger(5, self.piano.note_to_key(
+                    new_right_thumb_note), False, False, False)
+                new_hand = Hand([new_right_thumb], self.piano, False)
+                for conflict_frame in conflict_frames:
+                    new_right_state = {
+                        "right_hand": new_hand.export_hand_info(),
+                        "frame": conflict_frame
+                    }
+                    new_right_state_for_conflicts.append(new_right_state)
+                report["conflicts_resolved"] += 1
 
-        left_hand_data = sorted(left_hand_data, key=lambda x: x["frame"])
-        right_hand_data = sorted(right_hand_data, key=lambda x: x["frame"])
+        left_hand_data = sorted(
+            left_hand_data + new_left_state_for_conflicts, key=lambda x: x["frame"])
+        right_hand_data = sorted(
+            right_hand_data+new_right_state_for_conflicts, key=lambda x: x["frame"])
         print(report)
 
         return left_hand_data, right_hand_data
