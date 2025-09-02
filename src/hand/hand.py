@@ -136,15 +136,14 @@ class Hand:
         total_diff = 0
 
         # 如果手跨过了它的舒适区，左手去弹右边的，或者相反，那么diff乘10
-        # 这里的舒适区参数是写死了的，其实应该从avatar_info中获取
-        over_right = self.is_left and next_hand.hand_note > 52
+        over_right = self.is_left and next_hand.hand_note > self.piano.middle_left
         if over_right:
-            over_value = next_hand.hand_note - 52
+            over_value = next_hand.hand_note - self.piano.middle_left
             total_diff += 5 * over_value
 
-        over_left = not self.is_left and next_hand.hand_note < 76
+        over_left = not self.is_left and next_hand.hand_note < self.piano.middle_right
         if over_left:
-            over_value = 76 - next_hand.hand_note
+            over_value = self.piano.middle_right - next_hand.hand_note
             total_diff += 5 * over_value
 
         # 计算每个手指的diff
@@ -158,7 +157,7 @@ class Hand:
                 total_diff += diff
             # 如果两个手指都是按下的，那么diff翻倍，因为不推荐同一个手指反复使用,可能的话最好是相邻的两个手指轮流使用
             if current_finger.pressed and next_finger.pressed:
-                total_diff += (2 * diff + 2)
+                total_diff += (2 * diff + 100)
 
         return total_diff
 

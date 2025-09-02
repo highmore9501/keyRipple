@@ -101,6 +101,13 @@ class KeyRipple:
             "press_key_direction": "press_key_direction",
         }
 
+        # 辅助目标点
+        self.target_points = {
+            "body_target": "Tar_Body",
+            "chest_target": "Tar_Chest",
+            "butt_taget": "Tar_Butt"
+        }
+
     def add_controllers(self):
         # 确保在对象模式下操作
         if bpy.context.mode != 'OBJECT':
@@ -154,12 +161,15 @@ class KeyRipple:
                 self.create_or_update_object(
                     controller_name, "cube", collection)
 
-        # 创建特殊的 Tar_B 控制器
-        tar_b_controller = self.create_or_update_object(
-            "Tar_B", "cube", controllers_collection)
+        # 创建特殊的目标控制器
 
-        # 为 Tar_B 控制器的 X 轴添加驱动，使其 X 值为 H_L 和 H_R 的 X 值的中间值
-        self.add_tar_b_driver(tar_b_controller)
+        taget_obj_collection = self.get_or_create_collection(
+            "Target_Controllers", controllers_collection)
+
+        for target, taget_obj_name in self.target_points.items():
+            taget_obj = self.create_or_update_object(
+                taget_obj_name, "cube", taget_obj_collection)
+            self.add_target_driver(taget_obj)
 
     def add_recorders(self):
         # 确保在对象模式下操作
@@ -227,23 +237,23 @@ class KeyRipple:
             self.create_or_update_object(
                 obj_name, "single_arrow", guidelines_collection)
 
-    def add_tar_b_driver(self, tar_b_obj):
+    def add_target_driver(self, target_obj):
         """
-        为 Tar_B 控制器的 X 轴添加驱动，使其 X 值为 H_L 和 H_R 的 X 值的中间值
+        为 Target 控制器的 X 轴添加驱动，使其 X 值为 H_L 和 H_R 的 X 值的中间值
 
-        :param tar_b_obj: Tar_B 控制器对象
+        :param target_obj: 控制器对象
         """
         # 确保对象存在
-        if not tar_b_obj:
+        if not target_obj:
             print("错误: Tar_B 对象不存在")
             return
 
         # 检查是否已经存在X轴驱动
-        if tar_b_obj.animation_data and tar_b_obj.animation_data.drivers:
-            for driver in tar_b_obj.animation_data.drivers:
+        if target_obj.animation_data and target_obj.animation_data.drivers:
+            for driver in target_obj.animation_data.drivers:
                 # 检查是否是X轴位置驱动
                 if driver.data_path == "location" and driver.array_index == 0:
-                    print(f"提示: {tar_b_obj.name} 的 X 轴驱动已存在，跳过添加")
+                    print(f"提示: {target_obj.name} 的 X 轴驱动已存在，跳过添加")
                     return
 
         # 获取 H_L 和 H_R 控制器对象名称
@@ -251,7 +261,7 @@ class KeyRipple:
         h_r_name = self.hand_controllers["right_hand_controller"]  # H_R
 
         # 为 Tar_B 的 X 轴位置添加驱动
-        driver = tar_b_obj.driver_add("location", 0).driver  # 0 表示 X 轴
+        driver = target_obj.driver_add("location", 0).driver  # 0 表示 X 轴
         driver.type = 'SCRIPTED'
 
         # 添加 H_L 的变量
@@ -277,7 +287,7 @@ class KeyRipple:
         # 设置驱动表达式为两个值的平均值
         driver.expression = "(h_l_x + h_r_x) / 2"
 
-        print(f"已为 {tar_b_obj.name} 控制器添加 X 轴驱动，表达式: (h_l_x + h_r_x) / 2")
+        print(f"已为 {target_obj.name} 控制器添加 X 轴驱动，表达式: (h_l_x + h_r_x) / 2")
 
     def get_or_create_collection(self, name, parent_collection=None):
         """

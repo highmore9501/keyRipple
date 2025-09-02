@@ -6,9 +6,11 @@ class Piano():
     钢琴类，初始参数包含钢琴最小键值和最大键值
     """
 
-    def __init__(self, min_key: int = 21, max_key: int = 108):
+    def __init__(self, min_key: int = 21, max_key: int = 108, middle_left: int = 52, middle_right: int = 76):
         self.min_key = min_key
         self.max_key = max_key
+        self.middle_left = middle_left
+        self.middle_right = middle_right
         self.black_keys = {1, 3, 6, 8, 10}
         self.white_keys = []
         self.numberOfWhiteKeys = self.caculate_number_of_white_keys()
