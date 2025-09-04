@@ -139,26 +139,17 @@ class Animator:
             if next_frame-current_frame <= press_duration+up_duration:
                 continue
 
-            next_rest_frame = next_frame - \
+            rest_frame = next_frame - \
                 press_duration - up_duration
 
-            if next_rest_frame is not None:
+            if rest_frame is not None:
                 animation_data.append({
-                    "frame": next_rest_frame,
+                    "frame": rest_frame,
                     "hand_infos": next_rest_info
                 })
 
-            if next_rest_frame - current_frame <= press_duration+up_duration+hand_move_duration:
-                continue
-            # 到这里是时间够插入原手型的抬起帧
-            up_frame = next_frame - press_duration - up_duration - hand_move_duration
-            animation_data.append({
-                "frame": up_frame,
-                "hand_infos": rest_info
-            })
-
             # 如果时间不够再多插入保持按下状态的帧，那么到这里也结束
-            if next_frame-current_frame <= hand_move_duration+press_duration+2*up_duration:
+            if next_frame-current_frame <= hand_move_duration + press_duration + up_duration:
                 continue
 
             # 时间仍然充足，添加一个hold状态的帧
@@ -170,7 +161,7 @@ class Animator:
             })
 
             # 时间再够的话，再添加一个hold开始的帧
-            if next_frame-current_frame <= hand_move_duration+press_duration+3*up_duration:
+            if next_frame-current_frame <= hand_move_duration + press_duration + 2 * up_duration:
                 continue
 
             hold_start_frame = current_frame + up_duration
