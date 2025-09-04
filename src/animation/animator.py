@@ -4,6 +4,14 @@ from src.piano.piano import Piano
 import numpy as np
 from mathutils import Vector, Quaternion
 from typing import Any
+from enum import Enum
+
+
+class ActionPhase(Enum):
+    REST = "rest"
+    READY = "ready"
+    ATTACK = "attack"
+    HOLD = "hold"
 
 
 class Animator:
@@ -65,7 +73,8 @@ class Animator:
                 hand_item.get("fingers"), current_is_left)
 
             final_hand_white_key_value = hand_white_key_value
-            next_prepare_info = None
+            next_rest_info = None
+            next_ready_info = None
             next_frame = None
 
             if next_recorder is not None:
@@ -76,71 +85,97 @@ class Animator:
                     next_hand_item.get("fingers"), current_is_left)
                 final_hand_white_key_value = hand_white_key_value * \
                     next_hand_white_key_value
-                next_prepare_info = self.cacluate_hand_info(
-                    next_hand_item, current_is_left, True, False, next_hand_white_key_value)
+                next_hand_info = self.cacluate_hand_info(
+                    next_hand_item, current_is_left, next_hand_white_key_value)
+                next_rest_info = next_hand_info[ActionPhase.REST]
+                next_ready_info = next_hand_info[ActionPhase.READY]
 
             # 预备或抬起动作
-            prepare_info = self.cacluate_hand_info(
-                hand_item, current_is_left, True, False, final_hand_white_key_value)
+            current_hand_info = self.cacluate_hand_info(
+                hand_item, current_is_left, final_hand_white_key_value)
+            ready_info = current_hand_info[ActionPhase.READY]
 
             # 按下动作
-            press_info = self.cacluate_hand_info(
-                hand_item, current_is_left, False, False, final_hand_white_key_value)
+            attack_info = current_hand_info[ActionPhase.ATTACK]
 
             # 保持按下动作
-            hold_info = self.cacluate_hand_info(
-                hand_item, current_is_left, False, True, final_hand_white_key_value)
+            hold_info = current_hand_info[ActionPhase.HOLD]
+
+            # 休息动作
+            rest_info = current_hand_info[ActionPhase.REST]
 
             #  如果是第一个手型，需要添加一个预备动作
             if i == 0:
                 # 预备动作 - 提前press_duration秒到达预备位置（如果时间允许）
-                prepare_frame = current_frame - press_duration
+                rest_frame = current_frame - press_duration
                 animation_data.append({
-                    "frame": prepare_frame,
-                    "hand_infos": prepare_info
+                    "frame": rest_frame,
+                    "hand_infos": ready_info
                 })
 
             # 按下动作 - 在当前帧按下（必须有）
             animation_data.append({
                 "frame": current_frame,
-                "hand_infos": press_info
+                "hand_infos": attack_info
             })
 
             if next_frame is None:  # 如果没有下一个手型，就跳过
                 continue
 
-            # 如果两个手型之间的时间小于等于移动+按下，也就是hand_move_duration+press_duration，那就干脆不要有中间动作
-            if next_frame-current_frame <= hand_move_duration+press_duration:
+            # 如果两个手型之间的时间小于等于移动+按下，也就是press_duration，那就干脆不要有中间动作
+            if next_frame-current_frame <= press_duration:
                 continue
 
             # 能运行到这里就是有足够的时间移动+按下，那么就在下一个指法之前插入一个预备帧，时间为next_frame - press_duration
-            next_prepare_frame = next_frame - press_duration
+            next_ready_frame = next_frame - press_duration
             # 如果没有 enough time to insert prepare frame, skip it
-            if next_prepare_frame is None and next_prepare_info is not None:
+            if next_ready_frame is not None and next_ready_info is not None:
                 animation_data.append({
-                    "frame": next_prepare_frame,
-                    "hand_infos": next_prepare_info
+                    "frame": next_ready_frame,
+                    "hand_infos": next_ready_info
                 })
 
-            # 如果时间不够插入原手型的抬起帧，那么到这里就结束
-            if next_frame-current_frame <= hand_move_duration+press_duration+up_duration:
+            # 如果时间不够插入下一个手型的休息帧，那么到这里就结束
+            if next_frame-current_frame <= press_duration+up_duration:
                 continue
 
+            next_rest_frame = next_frame - \
+                press_duration - up_duration
+
+            if next_rest_frame is not None:
+                animation_data.append({
+                    "frame": next_rest_frame,
+                    "hand_infos": next_rest_info
+                })
+
+            if next_rest_frame - current_frame <= press_duration+up_duration+hand_move_duration:
+                continue
             # 到这里是时间够插入原手型的抬起帧
-            up_frame = next_frame - press_duration - hand_move_duration
+            up_frame = next_frame - press_duration - up_duration - hand_move_duration
             animation_data.append({
                 "frame": up_frame,
-                "hand_infos": prepare_info
+                "hand_infos": rest_info
             })
 
             # 如果时间不够再多插入保持按下状态的帧，那么到这里也结束
             if next_frame-current_frame <= hand_move_duration+press_duration+2*up_duration:
                 continue
 
-            # 时间仍然充足，添加一个保持按下状态的帧
-            hold_frame = next_frame - press_duration - hand_move_duration - up_duration
+            # 时间仍然充足，添加一个hold状态的帧
+
+            hold_end_frame = next_frame - press_duration - hand_move_duration - up_duration
             animation_data.append({
-                "frame": hold_frame,
+                "frame": hold_end_frame,
+                "hand_infos": hold_info
+            })
+
+            # 时间再够的话，再添加一个hold开始的帧
+            if next_frame-current_frame <= hand_move_duration+press_duration+3*up_duration:
+                continue
+
+            hold_start_frame = current_frame + up_duration
+            animation_data.append({
+                "frame": hold_start_frame,
                 "hand_infos": hold_info
             })
 
@@ -148,9 +183,9 @@ class Animator:
 
     def generate_animation_info(self):
         # 定义时间参数（以帧为单位）
-        press_duration = self.fps / 15           # 0.1秒按下耗时
-        up_duration = press_duration * 1.5       # 0.15秒抬起耗时
-        hand_move_duration = press_duration * 2  # 0.2秒手掌移动时间
+        press_duration = self.fps / 20          # 按下耗时
+        up_duration = press_duration * 1.2       # 抬起耗时
+        hand_move_duration = press_duration * 4  # 手掌移动时间
 
         left_hand_recorders = []
         right_hand_recorders = []
@@ -182,9 +217,14 @@ class Animator:
 
         print(f"动画数据已保存到{file_path}")
 
-    def cacluate_hand_info(self, hand_item: Any, is_left: bool = True, ready: bool = False, hold: bool = False, hand_white_key_value: int = 1) -> dict:
+    def cacluate_hand_info(self, hand_item: Any, is_left: bool = True, hand_white_key_value: int = 1) -> dict:
         # 先初始化数据
         result = {}
+        result[ActionPhase.REST] = {}
+        result[ActionPhase.READY] = {}
+        result[ActionPhase.ATTACK] = {}
+        result[ActionPhase.HOLD] = {}
+
         hand_note = hand_item.get("hand_note")
         hand_span = max(8, hand_item.get("hand_span"))
 
@@ -198,7 +238,7 @@ class Animator:
             "highest_white_key_position"].get('location'))
         black_key_location = np.array(self.avatar_info["key_board_positions"][
             "black_key_position"].get('location'))
-        press_distance = (highest_key_location - black_key_location)[2]
+        press_distance = (black_key_location-highest_key_location)[2]
 
         leftest_position: int = self.avatar_info['config']['leftest_position']
         left_position: int = self.avatar_info['config']['left_position']
@@ -244,12 +284,16 @@ class Animator:
         # 根据当前左手跨度，判断是否要调整位置
         hand_span_weight = (hand_span - 8) / (12 - 8)
         hand_position += hand_span_weight * span_offset
-        # 根据当前左手是否按下，判断是否要调整位置
-        if ready:
-            hand_position[2] -= 0.25 * press_distance
-        elif not hold:
-            hand_position[2] += 0.25 * press_distance
-        result[f"H_{suffix}"] = hand_position.tolist()
+        attack_hand_position = hand_position.copy()
+        attack_hand_position[2] += 0.5 * press_distance
+        hold_hand_position = hand_position.copy()
+        hold_hand_position[2] += 0.25 * press_distance
+        # 生成四个阶段不同的手掌位置
+        result[ActionPhase.REST][f"H_{suffix}"] = hand_position.tolist()
+        result[ActionPhase.READY][f"H_{suffix}"] = hand_position.tolist()
+        result[ActionPhase.ATTACK][f"H_{suffix}"] = attack_hand_position.tolist(
+        )
+        result[ActionPhase.HOLD][f"H_{suffix}"] = hold_hand_position.tolist()
 
         # 左手pivot位置
         HP_high_white = np.array(
@@ -277,7 +321,10 @@ class Animator:
             HP_low_white,
             HP_low_black
         )
-        result[f"HP_{suffix}"] = HP.tolist()
+        result[ActionPhase.REST][f"HP_{suffix}"] = HP.tolist()
+        result[ActionPhase.READY][f"HP_{suffix}"] = HP.tolist()
+        result[ActionPhase.ATTACK][f"HP_{suffix}"] = HP.tolist()
+        result[ActionPhase.HOLD][f"HP_{suffix}"] = HP.tolist()
 
         # 左手旋转值
         H_rotation_high_white = np.array(
@@ -306,7 +353,11 @@ class Animator:
             H_rotation_low_black
         )
 
-        result[f"H_rotation_{suffix}"] = H_rotation.tolist()
+        result[ActionPhase.REST][f"H_rotation_{suffix}"] = H_rotation.tolist()
+        result[ActionPhase.READY][f"H_rotation_{suffix}"] = H_rotation.tolist()
+        result[ActionPhase.ATTACK][f"H_rotation_{suffix}"] = H_rotation.tolist(
+        )
+        result[ActionPhase.HOLD][f"H_rotation_{suffix}"] = H_rotation.tolist()
 
         finger_recorders = self.avatar_info['finger_recorders'][
             'left_finger_recorders'] if is_left else self.avatar_info['finger_recorders']['right_finger_recorders']
@@ -359,12 +410,25 @@ class Animator:
             actual_press_depth = get_actual_press_depth(
                 lowset_key_location, finger_position)
             finger_key = f"{finger_index}_{suffix}"
-            if (not ready and is_pressed) or is_keep_pressed:  # 如果不是ready说明是已经按键下去了，需要在z轴上添加一段按键距离
-                touch_point += actual_press_depth * press_key_direction
-                result[finger_key] = touch_point.tolist()
-            else:
-                touch_point -= actual_press_depth * \
-                    1.5 * press_key_direction  # 没有按键的时候，手指抬起来
-                result[finger_key] = touch_point.tolist()
+
+            ready_touch_point = touch_point - 0.75 * \
+                actual_press_depth * press_key_direction
+            attack_touch_point = touch_point + actual_press_depth * press_key_direction
+
+            if not is_keep_pressed and is_pressed:  # 普通按键
+                result[ActionPhase.REST][finger_key] = touch_point.tolist()
+                result[ActionPhase.READY][finger_key] = ready_touch_point.tolist()
+                result[ActionPhase.ATTACK][finger_key] = attack_touch_point.tolist()
+                result[ActionPhase.HOLD][finger_key] = attack_touch_point.tolist()
+            elif is_keep_pressed:  # 保留指按键
+                result[ActionPhase.REST][finger_key] = attack_touch_point.tolist()
+                result[ActionPhase.READY][finger_key] = attack_touch_point.tolist()
+                result[ActionPhase.ATTACK][finger_key] = attack_touch_point.tolist()
+                result[ActionPhase.HOLD][finger_key] = attack_touch_point.tolist()
+            else:  # 不按键
+                result[ActionPhase.REST][finger_key] = touch_point.tolist()
+                result[ActionPhase.READY][finger_key] = touch_point.tolist()
+                result[ActionPhase.ATTACK][finger_key] = touch_point.tolist()
+                result[ActionPhase.HOLD][finger_key] = touch_point.tolist()
 
         return result
