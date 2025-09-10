@@ -13,10 +13,15 @@ wheels/
 .history
 
 # output
-output/
+output
 
 # temp
 temp/
 
-# assets/midi
-assets/midi/
+# midi
+midi/
+
+
+
+# blender addon
+src/key_ripple_addon.zip
