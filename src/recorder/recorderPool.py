@@ -92,8 +92,11 @@ class RecorderPool():
                             key=lambda r: r.current_entropy)
 
         # 创建新的Recorder实例，复制所有属性但更新frame和frames
-        new_frames = best_recorder.frames[:]
         new_frame = current_frame
+        new_left_frames = best_recorder.left_frames[:]
+        new_left_frames.append(new_frame)
+        new_right_frames = best_recorder.right_frames[:]
+        new_right_frames.append(new_frame)
 
         new_left_hands = best_recorder.left_hands[:]
         latest_left_hand = best_recorder.left_hands[-1]
@@ -125,7 +128,8 @@ class RecorderPool():
             right_hands=new_right_hands,
             current_entropy=best_recorder.current_entropy,
             frame=new_frame,
-            frames=new_frames
+            left_frames=new_left_frames,
+            right_frames=new_right_frames
         )
 
         # 清空现有记录器列表和堆
