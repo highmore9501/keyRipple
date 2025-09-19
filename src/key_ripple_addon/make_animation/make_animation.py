@@ -289,7 +289,7 @@ def generate_piano_key_animation(piano_key_animation_path: str):
         is_pressed_value: is_pressed属性值 (0.0-1.0)，如果为None则不设置
         """
         # 设置场景帧
-        bpy.context.scene.frame_set(frame)
+        bpy.context.scene.frame_set(int(frame))
 
         # 设置并插入shape key关键帧
         shape_key.value = shape_key_value
