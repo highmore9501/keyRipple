@@ -17,6 +17,10 @@ class ActionPhase(Enum):
 class Animator:
     def __init__(self, hand_recorder_path: str, avatar_info_path: str, piano: Piano, FPS: int = 60):
         self.fps = FPS
+        # 定义时间参数（以帧为单位）
+        self.press_duration = self.fps / 24          # 按下耗时
+        self.up_duration = self.press_duration * 1.5       # 抬起耗时
+        self.hand_move_duration = self.press_duration * 4  # 手掌移动时间
         self.finger_count = 10
         self.piano = piano
         self.avatar_name = avatar_info_path.split('/')[-1].split('.')[0]
@@ -56,7 +60,7 @@ class Animator:
 
         return white_key_value
 
-    def prossess_hand_data(self, recorders: list[Any], press_duration: float = 0.1, up_duration: float = 0.1, hand_move_duration: float = 0.1):
+    def prossess_hand_data(self, recorders: list[Any]):
         animation_data = []
 
         for i in range(len(recorders)):
@@ -87,7 +91,6 @@ class Animator:
                     next_hand_white_key_value
                 next_hand_info = self.cacluate_hand_info(
                     next_hand_item, current_is_left, next_hand_white_key_value)
-                next_rest_info = next_hand_info[ActionPhase.REST]
                 next_ready_info = next_hand_info[ActionPhase.READY]
 
             # 预备或抬起动作
@@ -107,7 +110,7 @@ class Animator:
             #  如果是第一个手型，需要添加一个预备动作
             if i == 0:
                 # 预备动作 - 提前press_duration秒到达预备位置（如果时间允许）
-                rest_frame = current_frame - press_duration
+                rest_frame = current_frame - self.press_duration
                 animation_data.append({
                     "frame": rest_frame,
                     "hand_infos": ready_info
@@ -123,11 +126,11 @@ class Animator:
                 continue
 
             # 如果两个手型之间的时间小于等于移动+按下，也就是press_duration，那就干脆不要有中间动作
-            if next_frame-current_frame <= press_duration:
+            if next_frame-current_frame <= self.press_duration:
                 continue
 
             # 能运行到这里就是有足够的时间移动+按下，那么就在下一个指法之前插入一个预备帧，时间为next_frame - press_duration
-            next_ready_frame = next_frame - press_duration
+            next_ready_frame = next_frame - self.press_duration
             # 如果没有 enough time to insert prepare frame, skip it
             if next_ready_frame is not None and next_ready_info is not None:
                 animation_data.append({
@@ -135,36 +138,38 @@ class Animator:
                     "hand_infos": next_ready_info
                 })
 
-            # 如果时间不够插入下一个手型的休息帧，那么到这里就结束
-            if next_frame-current_frame <= press_duration+up_duration:
+            # 如果时间不够插入当前手型的休息帧，那么到这里就结束
+            if next_frame-current_frame <= self.press_duration+self.hand_move_duration:
                 continue
 
+            # 时间足够的话添加一个当前状态的休息帧，等于此时手指已经抬起来准备移动了
             rest_frame = next_frame - \
-                press_duration - up_duration
+                self.press_duration - self.hand_move_duration
 
             if rest_frame is not None:
                 animation_data.append({
                     "frame": rest_frame,
-                    "hand_infos": next_rest_info
+                    "hand_infos": rest_info
                 })
 
             # 如果时间不够再多插入保持按下状态的帧，那么到这里也结束
-            if next_frame-current_frame <= hand_move_duration + press_duration + up_duration:
+            if next_frame-current_frame <= self.hand_move_duration + self.press_duration + self.up_duration:
                 continue
 
             # 时间仍然充足，添加一个hold状态的帧
 
-            hold_end_frame = next_frame - press_duration - hand_move_duration - up_duration
+            hold_end_frame = next_frame - self.press_duration - \
+                self.hand_move_duration - self.up_duration
             animation_data.append({
                 "frame": hold_end_frame,
                 "hand_infos": hold_info
             })
 
             # 时间再够的话，再添加一个hold开始的帧
-            if next_frame-current_frame <= hand_move_duration + press_duration + 2 * up_duration:
+            if next_frame-current_frame <= self.hand_move_duration + self.press_duration + 2 * self.up_duration:
                 continue
 
-            hold_start_frame = current_frame + up_duration
+            hold_start_frame = current_frame + self.up_duration
             animation_data.append({
                 "frame": hold_start_frame,
                 "hand_infos": hold_info
@@ -173,10 +178,6 @@ class Animator:
         return animation_data
 
     def generate_animation_info(self):
-        # 定义时间参数（以帧为单位）
-        press_duration = self.fps / 20          # 按下耗时
-        up_duration = press_duration * 1.2       # 抬起耗时
-        hand_move_duration = press_duration * 4  # 手掌移动时间
 
         left_hand_recorders = []
         right_hand_recorders = []
@@ -193,10 +194,10 @@ class Animator:
                 print("Error: hand_item is None")
 
         left_hand_animation_data = self.prossess_hand_data(
-            left_hand_recorders, press_duration, up_duration, hand_move_duration)
+            left_hand_recorders)
 
         right_hand_animation_data = self.prossess_hand_data(
-            right_hand_recorders, press_duration, up_duration, hand_move_duration)
+            right_hand_recorders)
 
         animation_data = left_hand_animation_data + right_hand_animation_data
         # 按帧号排序
@@ -278,13 +279,15 @@ class Animator:
         # 根据当前左手跨度，判断是否要调整位置
         hand_span_weight = (hand_span - 8) / (12 - 8)
         hand_position += hand_span_weight * span_offset
+        ready_hand_position = hand_position.copy()
+        ready_hand_position[2] -= 0.25 * press_distance
         attack_hand_position = hand_position.copy()
         attack_hand_position[2] += 0.5 * press_distance
         hold_hand_position = hand_position.copy()
         hold_hand_position[2] += 0.25 * press_distance
         # 生成四个阶段不同的手掌位置
         result[ActionPhase.REST][f"H_{suffix}"] = hand_position.tolist()
-        result[ActionPhase.READY][f"H_{suffix}"] = hand_position.tolist()
+        result[ActionPhase.READY][f"H_{suffix}"] = ready_hand_position.tolist()
         result[ActionPhase.ATTACK][f"H_{suffix}"] = attack_hand_position.tolist(
         )
         result[ActionPhase.HOLD][f"H_{suffix}"] = hold_hand_position.tolist()
@@ -408,6 +411,9 @@ class Animator:
             ready_touch_point = touch_point - 0.75 * \
                 actual_press_depth * press_key_direction
             attack_touch_point = touch_point + actual_press_depth * press_key_direction
+            # 休息时手指高度要高于黑键
+            rest_touch_point = np.array(
+                (touch_point[0], touch_point[1], black_key_location[2]))
 
             if not is_keep_pressed and is_pressed:  # 普通按键
                 result[ActionPhase.REST][finger_key] = touch_point.tolist()
@@ -420,10 +426,10 @@ class Animator:
                 result[ActionPhase.ATTACK][finger_key] = attack_touch_point.tolist()
                 result[ActionPhase.HOLD][finger_key] = attack_touch_point.tolist()
             else:  # 不按键
-                result[ActionPhase.REST][finger_key] = touch_point.tolist()
-                result[ActionPhase.READY][finger_key] = touch_point.tolist()
-                result[ActionPhase.ATTACK][finger_key] = touch_point.tolist()
-                result[ActionPhase.HOLD][finger_key] = touch_point.tolist()
+                result[ActionPhase.REST][finger_key] = rest_touch_point.tolist()
+                result[ActionPhase.READY][finger_key] = rest_touch_point.tolist()
+                result[ActionPhase.ATTACK][finger_key] = rest_touch_point.tolist()
+                result[ActionPhase.HOLD][finger_key] = rest_touch_point.tolist()
 
         return result
 
@@ -434,10 +440,6 @@ class Animator:
         Returns:
             list: 钢琴键动画数据列表
         """
-        # 定义时间参数（以帧为单位）
-        normal_press_duration = int(self.fps / 10)          # 0.1秒按下耗时
-        normal_up_duration = int(normal_press_duration * 1.5)       # 0.15秒抬起耗时
-        hand_move_duration = int(normal_press_duration * 2)  # 0.2秒手掌移动时间
 
         frames: list[int] = []
         all_notes: list[list[int]] = []
@@ -475,13 +477,13 @@ class Animator:
             next_frame = frames[i+1] if i < len(frames)-1 else None
 
             prev_time_enough_for_ready = prev_frame and current_frame - \
-                prev_frame >= normal_up_duration + hand_move_duration
+                prev_frame >= self.up_duration + self.hand_move_duration
 
             time_enough_for_hold = next_frame and next_frame - \
-                current_frame >= normal_up_duration + hand_move_duration
+                current_frame >= self.up_duration + self.hand_move_duration
 
             time_enough_for_up = next_frame and next_frame - \
-                current_frame >= normal_up_duration
+                current_frame >= self.up_duration
 
             current_notes = all_notes[i]
             current_is_keep_pressed_list = all_is_keep_pressed_list[i]
@@ -510,7 +512,7 @@ class Animator:
 
                 # 归零动作：提前press_duration秒归零（如果时间允许,或者这是该键第一次被演奏）
                 if prev_time_enough_for_ready or (prev_notes and note not in prev_notes) or not prev_notes:
-                    zero_frame = max(0, current_frame - normal_press_duration)
+                    zero_frame = max(0, current_frame - self.press_duration)
                     # 只有当不是第一个按键或者距离上一个按键有足够时间时才添加归零动作
 
                     keyframe_data["keyframes"].append({
@@ -529,10 +531,10 @@ class Animator:
                 # 如果有下一个按键，调整抬起时间以确保手有足够时间移动
                 if next_frame and time_enough_for_hold:
                     # 在手掌移动前就要让键先抬起来
-                    release_frame = next_frame - hand_move_duration
+                    release_frame = next_frame - self.hand_move_duration
 
                     # 琴键可以保持到抬起前，中间留一个用于抬指的时间
-                    hold_frame = release_frame - normal_up_duration
+                    hold_frame = release_frame - self.up_duration
                     keyframe_data["keyframes"].append({
                         "frame": hold_frame,
                         "shape_key_value": 1.0,
@@ -547,7 +549,7 @@ class Animator:
                     })
                 elif next_frame and time_enough_for_up:
                     # 只够常规抬指的时间，就省略掉手掌移动的时间，同时也去掉了保持按键的可能性
-                    release_frame = current_frame + normal_up_duration
+                    release_frame = current_frame + self.up_duration
                     keyframe_data["keyframes"].append({
                         "frame": release_frame,
                         "shape_key_value": up_shape_key_value,
@@ -555,7 +557,7 @@ class Animator:
                     })
                 elif next_notes and note not in next_notes:
                     # 这里是两个手掌状态时间间隔非常短的情况，这种情况下，如果这个键被连续使用，那么就要修改按下和抬起的时间；如果没有被连续使用，那么就按常规按下和抬起来处理
-                    release_frame = current_frame + normal_up_duration
+                    release_frame = current_frame + self.up_duration
                     keyframe_data["keyframes"].append({
                         "frame": release_frame,
                         "shape_key_value": up_shape_key_value,
@@ -571,7 +573,7 @@ class Animator:
                     })
                 else:
                     # 最后面这种情况应该是运行到最后一个音符了，为它添加一个抬起动作
-                    release_frame = current_frame + normal_up_duration
+                    release_frame = current_frame + self.up_duration
                     keyframe_data["keyframes"].append({
                         "frame": release_frame,
                         "shape_key_value": 0.0,
