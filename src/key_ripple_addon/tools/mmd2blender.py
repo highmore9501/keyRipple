@@ -166,6 +166,11 @@ def create_finger_MCH_bones(armature):
 
     for bone in current_bones:
         # 复制骨骼
+        bone_copy_name = "MCH_" + bone.name
+        bone_copy = bpy.context.object.data.edit_bones.get(bone_copy_name)
+        if bone_copy:
+            print(f"已存在 {bone_copy_name} 骨骼，无需创建")
+            continue
         bone_copy = bpy.context.object.data.edit_bones.new("MCH_" + bone.name)
         bone_copy.head = bone.head
         bone_copy.tail = bone.tail
@@ -468,12 +473,29 @@ def set_iks(armature):
     for suffix in ["L", "R"]:
         add_ik_constraint_for_bone(
             armature, f"MCH_ひじ.{suffix}", f"H_{suffix}", f"HP_{suffix}", 2)
-        add_ik_constraint_for_bone(
-            armature, "MCH_親指２."+suffix, "T_"+suffix, "TP_"+suffix)
-        add_ik_constraint_for_bone(armature, "MCH_人指３."+suffix, "I_"+suffix)
-        add_ik_constraint_for_bone(armature, "MCH_中指３."+suffix, "M_"+suffix)
-        add_ik_constraint_for_bone(armature, "MCH_薬指３."+suffix, "R_"+suffix)
-        add_ik_constraint_for_bone(armature, "MCH_小指３."+suffix, "P_"+suffix)
+
+        if suffix == "L":
+            add_ik_constraint_for_bone(
+                armature, "MCH_親指２."+suffix, "0_"+suffix)
+            add_ik_constraint_for_bone(
+                armature, "MCH_人指３."+suffix, "1_"+suffix)
+            add_ik_constraint_for_bone(
+                armature, "MCH_中指３."+suffix, "2_"+suffix)
+            add_ik_constraint_for_bone(
+                armature, "MCH_薬指３."+suffix, "3_"+suffix)
+            add_ik_constraint_for_bone(
+                armature, "MCH_小指３."+suffix, "4_"+suffix)
+        elif suffix == "R":
+            add_ik_constraint_for_bone(
+                armature, "MCH_親指２."+suffix, "5_"+suffix)
+            add_ik_constraint_for_bone(
+                armature, "MCH_人指３."+suffix, "6_"+suffix)
+            add_ik_constraint_for_bone(
+                armature, "MCH_中指３."+suffix, "7_"+suffix)
+            add_ik_constraint_for_bone(
+                armature, "MCH_薬指３."+suffix, "8_"+suffix)
+            add_ik_constraint_for_bone(
+                armature, "MCH_小指３."+suffix, "9_"+suffix)
 
 
 def set_locked_tracks(armature):
