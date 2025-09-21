@@ -1,4 +1,6 @@
 from .key_ripple_config import KeyRipple, HandType, KeyType, PositionType
+from .tools.mmd2blender import mmd2blender
+
 from bpy.types import (  # type: ignore
     Panel,
     Operator,
@@ -159,13 +161,14 @@ class KeyRippleProperties(PropertyGroup):
             default='HIGH'
         ),
 
-        # 导出文件路径
-        "export_file_path": StringProperty(
-            name="Export File Path",
-            description="Path to export recorder info",
+        # 导入导出文件路径
+        "io_file_path": StringProperty(
+            name="File Path",
+            description="Path for import/export recorder info",
             default="",
             subtype='FILE_PATH'
-        )}
+        )
+    }
 
 
 class KEYRIPPLE_OT_check_status(Operator):
@@ -191,6 +194,17 @@ class KEYRIPPLE_OT_setup_objects(Operator):
         key_ripple = get_key_ripple_instance(props)
 
         key_ripple.setup_all_objects()
+        return {'FINISHED'}
+
+
+class KEYRIPPLE_OT_mmd_to_blender(Operator):
+    bl_idname = "keyripple.mmd_to_blender"
+    bl_label = "MMD to Blender"
+    bl_description = "Convert MMD model to Blender format"
+
+    def execute(self, context):
+        props = context.scene.keyripple_props
+        mmd2blender()
         return {'FINISHED'}
 
 
@@ -276,6 +290,7 @@ class KEYRIPPLE_OT_load_state(Operator):
         return {'FINISHED'}
 
 
+# 最后修改 KEYRIPPLE_OT_export_info 和 KEYRIPPLE_OT_import_info 类，使用新的属性名
 class KEYRIPPLE_OT_export_info(Operator):
     bl_idname = "keyripple.export_info"
     bl_label = "Export Recorder Info"
@@ -285,12 +300,12 @@ class KEYRIPPLE_OT_export_info(Operator):
         props = context.scene.keyripple_props
         key_ripple = get_key_ripple_instance(props)
 
-        if not props.export_file_path:
-            self.report({'ERROR'}, "Please select export file path")
+        if not props.io_file_path:
+            self.report({'ERROR'}, "Please select file path")
             return {'CANCELLED'}
 
         # 确保文件扩展名为 .avatar
-        file_path = props.export_file_path
+        file_path = props.io_file_path
         if not file_path.endswith('.avatar'):
             file_path = os.path.splitext(file_path)[0] + '.avatar'
 
@@ -299,6 +314,36 @@ class KEYRIPPLE_OT_export_info(Operator):
             {'INFO'}, f"Recorder info exported successfully to {file_path}")
 
         return {'FINISHED'}
+
+
+class KEYRIPPLE_OT_import_info(Operator):
+    bl_idname = "keyripple.import_info"
+    bl_label = "Import Recorder Info"
+    bl_description = "Import all recorder information from JSON file"
+
+    def execute(self, context):
+        props = context.scene.keyripple_props
+        key_ripple = get_key_ripple_instance(props)
+
+        if not props.io_file_path:
+            self.report({'ERROR'}, "Please select file path")
+            return {'CANCELLED'}
+
+        # 确保文件扩展名为 .avatar
+        file_path = props.io_file_path
+        if not file_path.endswith('.avatar'):
+            file_path = os.path.splitext(file_path)[0] + '.avatar'
+
+        # 调用导入方法
+        success = key_ripple.import_recorder_info(file_path)
+        if success:
+            self.report(
+                {'INFO'}, f"Recorder info imported successfully from {file_path}")
+            return {'FINISHED'}
+        else:
+            self.report(
+                {'ERROR'}, f"Failed to import recorder info from {file_path}")
+            return {'CANCELLED'}
 
 
 class KEYRIPPLE_PT_main_panel(Panel):
@@ -328,6 +373,9 @@ class KEYRIPPLE_PT_main_panel(Panel):
         row.operator("keyripple.check_status")
         row.operator("keyripple.setup_objects")
 
+        row = box.row(align=True)
+        row.operator("keyripple.mmd_to_blender")
+
         # 左手状态选择区
         box = layout.box()
         box.label(text="Left Hand State", icon='TRIA_LEFT')
@@ -347,21 +395,24 @@ class KEYRIPPLE_PT_main_panel(Panel):
         row.operator("keyripple.save_state", text="Save", icon='IMPORT')
         row.operator("keyripple.load_state", text="Load", icon='EXPORT')
 
-        # 全部信息导出区
+        # 全部信息导入导出区
         box = layout.box()
-        box.label(text="Export Recorder Info", icon='EXPORT')
-        box.prop(props, "export_file_path", text="")
+        box.label(text="Recorder Info I/O", icon='FILE')
+        box.prop(props, "io_file_path", text="")
         row = box.row(align=True)
         row.operator("keyripple.export_info", text="Export", icon='EXPORT')
+        row.operator("keyripple.import_info", text="Import", icon='IMPORT')
 
 
 def register():
     bpy.utils.register_class(KeyRippleProperties)
     bpy.utils.register_class(KEYRIPPLE_OT_check_status)
     bpy.utils.register_class(KEYRIPPLE_OT_setup_objects)
+    bpy.utils.register_class(KEYRIPPLE_OT_mmd_to_blender)
     bpy.utils.register_class(KEYRIPPLE_OT_save_state)
     bpy.utils.register_class(KEYRIPPLE_OT_load_state)
     bpy.utils.register_class(KEYRIPPLE_OT_export_info)
+    bpy.utils.register_class(KEYRIPPLE_OT_import_info)
     bpy.utils.register_class(KEYRIPPLE_PT_main_panel)
 
     bpy.types.Scene.keyripple_props = PointerProperty(type=KeyRippleProperties)
@@ -371,9 +422,11 @@ def unregister():
     bpy.utils.unregister_class(KeyRippleProperties)
     bpy.utils.unregister_class(KEYRIPPLE_OT_check_status)
     bpy.utils.unregister_class(KEYRIPPLE_OT_setup_objects)
+    bpy.utils.unregister_class(KEYRIPPLE_OT_mmd_to_blender)
     bpy.utils.unregister_class(KEYRIPPLE_OT_save_state)
     bpy.utils.unregister_class(KEYRIPPLE_OT_load_state)
     bpy.utils.unregister_class(KEYRIPPLE_OT_export_info)
+    bpy.utils.unregister_class(KEYRIPPLE_OT_import_info)
     bpy.utils.unregister_class(KEYRIPPLE_PT_main_panel)
 
     del bpy.types.Scene.keyripple_props

@@ -338,7 +338,7 @@ class KeyRipple:
                 size=0.2, enter_editmode=False, align='WORLD', location=(0, 0, 0), scale=(0.1, 0.1, 0.1))
         elif obj_type == "cone":
             bpy.ops.mesh.primitive_cone_add(
-                enter_editmode=False, align='WORLD', location=(0, 0, 0), scale=(0.1, 0.1, 0.1))
+                enter_editmode=False, align='WORLD', location=(0, 0, 0), scale=(0.01, 0.01, 0.01))
         elif obj_type == "sphere":
             bpy.ops.object.empty_add(type='SPHERE', radius=0.01)
         elif obj_type == "cone_empty":
@@ -855,26 +855,122 @@ class KeyRipple:
               f"({success_count}/{total_count} 控制器处理成功)")
         return success_count > 0
 
+    def import_recorder_info(self, file_name: str) -> bool:
+        """
+        从JSON文件中读取记录器信息并应用到相应的对象上
 
-if __name__ == '__main__':
-    one_hand_finger_number = 5
-    leftest_position = 24
-    leftest_position = 52
-    middle_left_position = 32
-    middle_right_position = 42
-    right_position = 76
-    rightest_position = 105
-    key_ripple = KeyRipple(one_hand_finger_number, leftest_position,
-                           leftest_position, middle_left_position, middle_right_position, right_position, rightest_position)
+        :param file_name: 输入文件名
+        :return: 导入是否成功
+        """
+        import json
 
-    key_ripple.check_objects_status()
+        try:
+            # 读取JSON文件
+            with open(file_name, 'r') as f:
+                data = json.load(f)
+            print(f"成功读取记录器信息文件: {file_name}")
 
-    key_ripple.setup_all_objects()
+            # 检查必要的键是否存在
+            if 'finger_recorders' not in data or 'hand_recorders' not in data:
+                print("错误: JSON文件格式不正确，缺少必要的记录器信息")
+                return False
 
-    hand_type = HandType.LEFT
-    key_ripple.transfer_hand_state(
-        hand_type, KeyType.BLACK, PositionType.MIDDLE, "set")
+            # 导入手指记录器信息
+            print("导入手指记录器信息...")
+            finger_recorders_data = data.get('finger_recorders', {})
+            for recorder_list_name, recorders in finger_recorders_data.items():
+                for recorder_name, recorder_info in recorders.items():
+                    if recorder_name in bpy.data.objects:
+                        obj = bpy.data.objects[recorder_name]
 
-    avatar_name = "kinich"
-    file_path = f"H:/keyRipple/asset/avatars/{avatar_name}.avatar"
-    # key_ripple.export_recorder_info(file_path)
+                        # 设置位置信息
+                        if 'location' in recorder_info:
+                            obj.location = recorder_info['location']
+                            print(
+                                f"  ✓ 设置 {recorder_name} 位置: {recorder_info['location']}")
+
+                        # 设置旋转信息
+                        if 'rotation_mode' in recorder_info:
+                            obj.rotation_mode = recorder_info['rotation_mode']
+                            if recorder_info['rotation_mode'] == 'QUATERNION' and 'rotation_quaternion' in recorder_info:
+                                obj.rotation_quaternion = recorder_info['rotation_quaternion']
+                                print(f"  ✓ 设置 {recorder_name} 四元数旋转")
+                            elif 'rotation_euler' in recorder_info:
+                                obj.rotation_euler = recorder_info['rotation_euler']
+                                print(f"  ✓ 设置 {recorder_name} 欧拉旋转")
+                    else:
+                        print(f"  ✗ 跳过 {recorder_name} (对象不存在)")
+
+            # 导入手掌记录器信息
+            print("导入手掌记录器信息...")
+            hand_recorders_data = data.get('hand_recorders', {})
+            for recorder_list_name, recorders in hand_recorders_data.items():
+                for recorder_name, recorder_info in recorders.items():
+                    if recorder_name in bpy.data.objects:
+                        obj = bpy.data.objects[recorder_name]
+
+                        # 设置位置信息
+                        if 'location' in recorder_info:
+                            obj.location = recorder_info['location']
+                            print(
+                                f"  ✓ 设置 {recorder_name} 位置: {recorder_info['location']}")
+
+                        # 设置旋转信息
+                        if 'rotation_mode' in recorder_info:
+                            obj.rotation_mode = recorder_info['rotation_mode']
+                            if recorder_info['rotation_mode'] == 'QUATERNION' and 'rotation_quaternion' in recorder_info:
+                                obj.rotation_quaternion = recorder_info['rotation_quaternion']
+                                print(f"  ✓ 设置 {recorder_name} 四元数旋转")
+                            elif 'rotation_euler' in recorder_info:
+                                obj.rotation_euler = recorder_info['rotation_euler']
+                                print(f"  ✓ 设置 {recorder_name} 欧拉旋转")
+                    else:
+                        print(f"  ✗ 跳过 {recorder_name} (对象不存在)")
+
+            # 导入键盘基准点信息
+            print("导入键盘基准点信息...")
+            key_board_positions_data = data.get('key_board_positions', {})
+            for position_key, position_info in key_board_positions_data.items():
+                obj_name = position_info.get('name')
+                if obj_name and obj_name in bpy.data.objects:
+                    obj = bpy.data.objects[obj_name]
+                    obj.location = position_info['location']
+                    print(f"  ✓ 设置 {obj_name} 位置: {position_info['location']}")
+                else:
+                    print(f"  ✗ 跳过 {obj_name} (对象不存在)")
+
+            # 导入辅助线信息
+            print("导入辅助线信息...")
+            guidelines_data = data.get('guidelines', {})
+            for guideline_key, guideline_info in guidelines_data.items():
+                obj_name = guideline_info.get('name')
+                if obj_name and obj_name in bpy.data.objects:
+                    obj = bpy.data.objects[obj_name]
+                    obj.location = guideline_info['location']
+                    print(
+                        f"  ✓ 设置 {obj_name} 位置: {guideline_info['location']}")
+
+                    # 如果有旋转信息也设置旋转
+                    if 'rotation_mode' in guideline_info:
+                        obj.rotation_mode = guideline_info['rotation_mode']
+                        if guideline_info['rotation_mode'] == 'QUATERNION' and 'rotation_quaternion' in guideline_info:
+                            obj.rotation_quaternion = guideline_info['rotation_quaternion']
+                            print(f"  ✓ 设置 {obj_name} 四元数旋转")
+                        elif 'rotation_euler' in guideline_info:
+                            obj.rotation_euler = guideline_info['rotation_euler']
+                            print(f"  ✓ 设置 {obj_name} 欧拉旋转")
+                else:
+                    print(f"  ✗ 跳过 {obj_name} (对象不存在)")
+
+            print(f"记录器信息已从 {file_name} 成功导入")
+            return True
+
+        except FileNotFoundError:
+            print(f"错误: 找不到文件 {file_name}")
+            return False
+        except json.JSONDecodeError:
+            print(f"错误: {file_name} 不是有效的JSON文件")
+            return False
+        except Exception as e:
+            print(f"导入过程中发生错误: {str(e)}")
+            return False
