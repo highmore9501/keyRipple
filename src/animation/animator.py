@@ -414,6 +414,9 @@ class Animator:
             # 休息时手指高度要高于黑键
             rest_touch_point = np.array(
                 (touch_point[0], touch_point[1], black_key_location[2]))
+            # 虽然有些手指不参与演奏，但整个手掌的准备阶段难免也会有移动
+            ready_rest_point = rest_touch_point - 0.75 * \
+                actual_press_depth * press_key_direction
 
             if not is_keep_pressed and is_pressed:  # 普通按键
                 result[ActionPhase.REST][finger_key] = touch_point.tolist()
@@ -427,7 +430,7 @@ class Animator:
                 result[ActionPhase.HOLD][finger_key] = attack_touch_point.tolist()
             else:  # 不按键
                 result[ActionPhase.REST][finger_key] = rest_touch_point.tolist()
-                result[ActionPhase.READY][finger_key] = rest_touch_point.tolist()
+                result[ActionPhase.READY][finger_key] = ready_rest_point.tolist()
                 result[ActionPhase.ATTACK][finger_key] = rest_touch_point.tolist()
                 result[ActionPhase.HOLD][finger_key] = rest_touch_point.tolist()
 
