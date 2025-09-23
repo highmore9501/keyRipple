@@ -76,7 +76,13 @@ def get_key_location(note: int, finger_index: int, is_pressed: bool, is_black: b
         offset = 0
 
     if not is_black:
-        key_index = white_keys.index(note)
+        if note < piano.min_key:
+            key_index = note - piano.min_key
+        elif note > piano.max_key:
+            key_index = note - piano.max_key + len(white_keys) - 1
+        else:
+            key_index = white_keys.index(
+                note)
         key_position_x = lowest_key_position[0] + \
             white_key_distance * key_index
         if not is_pressed:

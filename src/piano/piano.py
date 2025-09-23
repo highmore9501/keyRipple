@@ -22,9 +22,13 @@ class Piano():
         :return: 钢琴键盘上的键位置 (相对于钢琴最小键的位置)
         """
         # 检查音符是否在钢琴范围内
-        if note < self.min_key or note > self.max_key:
-            raise ValueError(
-                f"音高 {note} 超出了钢琴音域 ({self.min_key}-{self.max_key})")
+        if note < self.min_key:
+            print(f"音高 {note} 小于钢琴最小键值 {self.min_key}")
+            note = self.min_key
+
+        if note > self.max_key:
+            print(f"音高 {note} 大于钢琴最大键值 {self.max_key}")
+            note = self.max_key
 
         # 计算位置
         position = note - self.min_key
