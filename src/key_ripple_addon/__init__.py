@@ -392,7 +392,7 @@ class KEYRIPPLE_PT_main_panel(Panel):
         box = layout.box()
         box.label(text="Hand State Transfer", icon='FILE_REFRESH')
         row = box.row(align=True)
-        row.operator("keyripple.save_state", text="Save", icon='IMPORT')
+        row.operator("keyripple.save_state", text="Set", icon='IMPORT')
         row.operator("keyripple.load_state", text="Load", icon='EXPORT')
 
         # 全部信息导入导出区
