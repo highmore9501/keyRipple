@@ -261,6 +261,30 @@ def make_animation(animation_file_path: str):
                             f"警告: 未找到 {obj_name} 对应的旋转数据 {rotation_obj_name}")
 
 
+def insert_keyframe(obj, shape_key, frame, shape_key_value, is_pressed_value=None):
+    """
+        为钢琴键物体插入关键帧的辅助函数
+
+        参数:
+        obj: 物体对象
+        shape_key: 形态键对象
+        frame: 帧数
+        shape_key_value: 形态键值 (0.0-1.0)
+        is_pressed_value: is_pressed属性值 (0.0-1.0)，如果为None则不设置
+        """
+    # 设置场景帧
+    bpy.context.scene.frame_set(int(frame))
+
+    # 设置并插入shape key关键帧
+    shape_key.value = shape_key_value
+    shape_key.keyframe_insert(data_path="value", frame=frame)
+
+    # 如果提供了is_pressed值且物体有该属性，则设置并插入关键帧
+    if is_pressed_value is not None and "is_pressed" in obj:
+        obj["is_pressed"] = is_pressed_value
+        obj.keyframe_insert(data_path='["is_pressed"]', frame=frame)
+
+
 def generate_piano_key_animation(piano_key_animation_path: str):
     """
     根据预先计算好的钢琴键动画数据在Blender中执行插帧操作
@@ -277,44 +301,21 @@ def generate_piano_key_animation(piano_key_animation_path: str):
         print(f"无法读取钢琴键动画数据文件: {e}")
         return
 
-    def insert_keyframe(obj, shape_key, frame, shape_key_value, is_pressed_value=None):
-        """
-        为钢琴键物体插入关键帧的辅助函数
-
-        参数:
-        obj: 物体对象
-        shape_key: 形态键对象
-        frame: 帧数
-        shape_key_value: 形态键值 (0.0-1.0)
-        is_pressed_value: is_pressed属性值 (0.0-1.0)，如果为None则不设置
-        """
-        # 设置场景帧
-        bpy.context.scene.frame_set(int(frame))
-
-        # 设置并插入shape key关键帧
-        shape_key.value = shape_key_value
-        shape_key.keyframe_insert(data_path="value", frame=frame)
-
-        # 如果提供了is_pressed值且物体有该属性，则设置并插入关键帧
-        if is_pressed_value is not None and "is_pressed" in obj:
-            obj["is_pressed"] = is_pressed_value
-            obj.keyframe_insert(data_path='["is_pressed"]', frame=frame)
+    obj_name = 'keyboard'
 
     # 处理每个键的动画数据
     for key_data in piano_key_animation_data:
         key_name = key_data["key_name"]
+        use_key = key_name in bpy.data.objects
+        if use_key:
+            obj = bpy.data.objects[key_name]
+        else:
+            obj = bpy.data.objects[obj_name]
         shape_key_name = key_data["shape_key_name"]
-
-        # 检查物体是否存在
-        if key_name not in bpy.data.objects:
-            print(f"警告: 钢琴键物体 {key_name} 不存在")
-            continue
-
-        obj = bpy.data.objects[key_name]
 
         # 检查shape key是否存在
         if not hasattr(obj.data, "shape_keys") or not obj.data.shape_keys:
-            print(f"警告: 物体 {key_name} 没有shape keys")
+            print(f"警告: 物体 {obj_name} 没有shape keys")
             continue
 
         # 查找对应的shape key
@@ -338,18 +339,18 @@ def generate_piano_key_animation(piano_key_animation_path: str):
                             shape_key_value, is_pressed_value)
 
 
-if __name__ == "__main__":
-    avatar_name = "Kinich"
-    midi_name = "妖怪之山 - 东方project"
-    track_numbers = [1, 2]
-    track_text = str(track_numbers[0]) if len(track_numbers) == 1 else "_".join(
-        [str(track_number) for track_number in track_numbers])
-    animation_file_path = f"H:/keyRipple/output/animation_recorders/{midi_name}_{track_text}_{avatar_name}.animation"
-    piano_key_animation_path = f"H:/keyRipple/output/piano_key_animations/{midi_name}_{track_text}_{avatar_name}.piano_key_animation"
+avatar_name = 'Kinich'
+midi_name = "妖怪之山"
+track_numbers = [4, 13]
 
-    hand_recorder_path = f"H:/keyRipple/output/hand_recorders/{midi_name}_{track_text}.hand"
+track_text = str(track_numbers[0]) if len(track_numbers) == 1 else "_".join(
+    [str(track_number) for track_number in track_numbers])
+animation_file_path = f"H:/keyRipple/output/animation_recorders/{midi_name}_{track_text}_{avatar_name}.animation"
+piano_key_animation_path = f"H:/keyRipple/output/piano_key_animations/{midi_name}_{track_text}_{avatar_name}.piano_key_animation"
 
-    collection_name = 'keyboard'
-    clear_all_keyframe(collection_name)
-    make_animation(animation_file_path)
-    generate_piano_key_animation(piano_key_animation_path)
+hand_recorder_path = f"H:/keyRipple/output/hand_recorders/{midi_name}_{track_text}.hand"
+
+collection_name = 'keyboard'
+clear_all_keyframe(collection_name)
+make_animation(animation_file_path)
+generate_piano_key_animation(piano_key_animation_path)
