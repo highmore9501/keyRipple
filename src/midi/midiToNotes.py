@@ -122,14 +122,14 @@ class MidiProcessor:
         pitch_wheel_map: list[PitchWheelItem] = []
         messages: list[MessageItem] = []
 
-        # 使用字典来跟踪每个时间点的活动音符
-        active_notes_by_time: dict[float, list[int]] = {}
-
         for midTrack in midTracks:
+            note = []  # 存储当前时间点的音符
             real_tick: float = 0
+            current_tick: float = 0  # 当前正在处理的音符时间点
 
             for message in midTrack:
-                real_tick += message.time
+                ticks = message.time
+                real_tick += ticks
 
                 if not hasattr(message, 'channel'):
                     continue
@@ -139,26 +139,44 @@ class MidiProcessor:
                         {'message': str(message), 'real_tick': real_tick})
 
                     if message.type == 'note_on' and message.velocity > 0:
+                        # 如果当前时间与之前记录的时间不同，说明是新的一组音符
+                        if current_tick != real_tick and len(note) > 0:
+                            # 保存之前收集的音符
+                            notes = sorted(note)
+                            unique_notes = sorted(set(notes))  # 去重并排序
+                            simplified_notes = self.simplifyNotes(unique_notes)
+                            notes_maps.append(
+                                {"notes": simplified_notes, "real_tick": current_tick, "frame": 0})
+                            note = []  # 重置音符列表
+
+                        # 更新当前时间点
+                        current_tick = real_tick
+
+                        # 添加新音符
                         message_note: int = message.note if not higher_octave else message.note + 12
-                        if real_tick not in active_notes_by_time:
-                            active_notes_by_time[real_tick] = []
-                        active_notes_by_time[real_tick].append(message_note)
+                        note.append(message_note)
 
                     elif message.type == 'note_off' or (message.type == 'note_on' and message.velocity == 0):
-                        # note_off事件不需要特殊处理，因为我们关注的是note_on事件的时间点
-                        pass
+                        # 处理note_off事件，如果当前有音符则保存
+                        if len(note) > 0:
+                            notes = sorted(note)
+                            unique_notes = sorted(set(notes))  # 去重并排序
+                            simplified_notes = self.simplifyNotes(unique_notes)
+                            notes_maps.append(
+                                {"notes": simplified_notes, "real_tick": current_tick, "frame": 0})
+                            note = []
 
                     if message.type == 'pitchwheel':
                         pitch_wheel_map.append(
                             {"pitch_wheel": message.pitch, "real_tick": real_tick})
 
-        # 将收集到的音符按时间点组织成notes_maps
-        for tick, notes in sorted(active_notes_by_time.items()):
-            if notes:  # 只有当有音符时才添加
+            # 处理轨道末尾可能剩余的音符
+            if len(note) > 0:
+                notes = sorted(note)
                 unique_notes = sorted(set(notes))  # 去重并排序
                 simplified_notes = self.simplifyNotes(unique_notes)
                 notes_maps.append(
-                    {"notes": simplified_notes, "real_tick": tick, "frame": 0})
+                    {"notes": simplified_notes, "real_tick": current_tick, "frame": 0})
 
         # 按real_tick排序
         notes_maps = sorted(notes_maps, key=lambda x: x['real_tick'])

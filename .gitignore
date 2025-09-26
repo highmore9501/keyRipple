@@ -19,7 +19,7 @@ output
 temp/
 
 # midi
-midi/
+asset/midi/
 
 
 
